@@ -1,0 +1,13 @@
+:root {
+  background-color: #f4f6f8; /* page background like ATS page */
+  color: #333; /* text color */
+}
+
+button {
+  background-color: #1a73e8; /* ATS button color */
+  color: white;
+  border: none;
+}
+button:hover {
+  background-color: #155bb5;
+}
