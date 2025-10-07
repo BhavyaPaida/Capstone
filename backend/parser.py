@@ -21,7 +21,7 @@ def extract_text_from_pdf(file_path):
         "skills": r"^(skills|technical\s*skills|coursework\s*/\s*skills)$",
         "projects": r"^(projects|academic\s*projects|personal\s*projects)$",
         "experience": r"^(experience|work\s*experience|professional\s*experience|internship|employment)$",
-        "certifications": r"^(certifications|certificates|achievements)$",
+        "certifications": r"^(certifications|certificates|achievements|awards|awards\s*certifications)$",
         "extracurricular": r"^(extracurricular|activities|leadership|extracurricular\s*activities)$",
     }
 
