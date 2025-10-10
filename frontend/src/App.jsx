@@ -1,11 +1,15 @@
-import React, { useState, useRef } from "react";
+import { useState, useRef } from "react";
 import "./App.css";
 
 export default function App() {
-  const [resumeFile, setResumeFile] = useState("");
-  const [jobFile, setJobFile] = useState("");
+  const [resumeFile, setResumeFile] = useState(null);
+  const [jobFile, setJobFile] = useState(null);
   const [jobText, setJobText] = useState("");
   const [dragging, setDragging] = useState({ resume: false, job: false });
+  const [loading, setLoading] = useState(false);
+  const [questions, setQuestions] = useState([]);
+  const [error, setError] = useState("");
+  
   const resumeInputRef = useRef();
   const jobInputRef = useRef();
 
@@ -17,17 +21,63 @@ export default function App() {
       alert("File size exceeds 10MB limit.");
       return;
     }
-    if (type === "resume") setResumeFile(f.name);
-    if (type === "job") setJobFile(f.name);
+    if (type === "resume") setResumeFile(f);
+    if (type === "job") setJobFile(f);
   }
 
   // Analyze button click handler
-  function analyze() {
-    alert(
-      `Analyzing:\nResume: ${resumeFile || "(none)"}\nJob Description File: ${
-        jobFile || "(none)"
-      }\nText Length: ${jobText.length} characters`
-    );
+  async function analyze() {
+    setError("");
+    setQuestions([]);
+
+    // Validation
+    if (!resumeFile) {
+      setError("Please upload a resume file");
+      return;
+    }
+
+    if (!jobFile && !jobText.trim()) {
+      setError("Please upload a job description file or paste the text");
+      return;
+    }
+
+    setLoading(true);
+
+    try {
+      const formData = new FormData();
+      formData.append("resume", resumeFile);
+      
+      if (jobFile) {
+        formData.append("jobDescription", jobFile);
+      }
+      
+      if (jobText.trim()) {
+        formData.append("jobText", jobText);
+      }
+
+      const response = await fetch("http://localhost:5000/api/analyze-resume", {
+        method: "POST",
+        body: formData,
+      });
+
+      if (!response.ok) {
+        const errorData = await response.json();
+        throw new Error(errorData.error || "Failed to generate questions");
+      }
+
+      const data = await response.json();
+      
+      if (data.success && data.questions) {
+        setQuestions(data.questions);
+      } else if (data.error) {
+        throw new Error(data.error);
+      }
+    } catch (err) {
+      setError(err.message || "Something went wrong. Please try again.");
+      console.error("Error:", err);
+    } finally {
+      setLoading(false);
+    }
   }
 
   // Drag events for upload boxes
@@ -107,7 +157,7 @@ export default function App() {
                 </svg>
               </div>
               <div className="drop-text">
-                <strong>{resumeFile || "Drop your resume here"}</strong>
+                <strong>{resumeFile ? resumeFile.name : "Drop your resume here"}</strong>
                 <div className="drop-sub">or click to browse</div>
                 <div className="small-muted">PDF, DOC, DOCX up to 10MB</div>
               </div>
@@ -148,7 +198,7 @@ export default function App() {
                 </svg>
               </div>
               <div className="drop-text">
-                <strong>{jobFile || "Drop job description file here"}</strong>
+                <strong>{jobFile ? jobFile.name : "Drop job description file here"}</strong>
                 <div className="drop-sub">or click to browse</div>
                 <div className="small-muted">
                   Plain Text, PDF, DOCX up to 10MB
@@ -169,11 +219,85 @@ export default function App() {
           </div>
         </section>
 
+        {/* Error Message */}
+        {error && (
+          <div style={{
+            margin: "20px 28px",
+            padding: "14px",
+            background: "#fee",
+            border: "1px solid #fcc",
+            borderRadius: "6px",
+            color: "#c33"
+          }}>
+            <strong>Error:</strong> {error}
+          </div>
+        )}
+
         <div className="analyze-wrap">
-          <button className="analyze-button" onClick={analyze}>
-            Analyze Resume
+          <button 
+            className="analyze-button" 
+            onClick={analyze}
+            disabled={loading}
+            style={{ opacity: loading ? 0.6 : 1 }}
+          >
+            {loading ? "Generating Questions..." : "Analyze Resume"}
           </button>
         </div>
+
+        {/* Questions Display */}
+        {questions.length > 0 && (
+          <div style={{
+            marginTop: "32px",
+            padding: "28px",
+            background: "#f9fafb",
+            borderRadius: "12px"
+          }}>
+            <h3 style={{
+              fontSize: "22px",
+              marginBottom: "20px",
+              color: "#111827"
+            }}>
+              Generated Interview Questions ({questions.length})
+            </h3>
+            <div style={{ display: "flex", flexDirection: "column", gap: "14px" }}>
+              {questions.map((question, index) => (
+                <div key={index} style={{
+                  padding: "16px",
+                  background: "white",
+                  borderRadius: "8px",
+                  borderLeft: "4px solid #4b5563",
+                  boxShadow: "0 1px 3px rgba(0,0,0,0.1)"
+                }}>
+                  <div style={{ display: "flex", gap: "12px" }}>
+                    <span style={{
+                      flexShrink: 0,
+                      width: "28px",
+                      height: "28px",
+                      background: "#4b5563",
+                      color: "white",
+                      borderRadius: "50%",
+                      display: "flex",
+                      alignItems: "center",
+                      justifyContent: "center",
+                      fontWeight: "600",
+                      fontSize: "14px"
+                    }}>
+                      {index + 1}
+                    </span>
+                    <p style={{
+                      margin: 0,
+                      lineHeight: "1.6",
+                      color: "#374151",
+                      fontSize: "15px"
+                    }}>
+                      {question}
+                    </p>
+                  </div>
+                </div>
+              ))}
+            </div>
+          </div>
+        )}
       </main>
     </div>
   );
