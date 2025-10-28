@@ -5,6 +5,8 @@ import Dashboard from "./pages/Dashboard";
 import InterviewType from "./pages/InterviewType";
 import ForgotPassword from "./pages/ForgotPassword";
 import SignUp from "./pages/SignUp";
+import Profile from "./pages/UserProfile";
+import History from "./pages/History";
 
 function App() {
   return (
@@ -12,10 +14,12 @@ function App() {
       <Routes>
         <Route path="/" element={<Welcome />} />
         <Route path="/login" element={<Login />} />
-        <Route path="/dashboard" element={<Dashboard />} />
-        <Route path="/interview-type" element={<InterviewType />} />
-        <Route path="/forgot-password" element={<ForgotPassword />} />
         <Route path="/sign-up" element={<SignUp />} />
+        <Route path="/forgot-password" element={<ForgotPassword />} />
+        <Route path="/dashboard" element={<Dashboard />} />
+        <Route path="/profile" element={<Profile />} />
+        <Route path="/history" element={<History />} />
+        <Route path="/interview-type" element={<InterviewType />} />
       </Routes>
     </BrowserRouter>
   );
