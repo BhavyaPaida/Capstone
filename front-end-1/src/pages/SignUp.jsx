@@ -9,95 +9,136 @@ export default function SignUp() {
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
   const [loading, setLoading] = useState(false);
+  const [success, setSuccess] = useState(false);
   const navigate = useNavigate();
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     setError("");
+    setSuccess(false);
     setLoading(true);
 
     try {
       const response = await api.register(name, email, password);
-      
-      console.log('Registration response:', response); // Debug log
-      
+
       if (response.success) {
-        // Store user info
-        localStorage.setItem('user', JSON.stringify({
-          user_id: response.user_id,
-          full_name: name,
-          email: email
-        }));
-        
-        console.log('Stored user data, navigating to dashboard...'); // Debug log
-        
-        // Navigate immediately (or after short delay)
+        localStorage.setItem(
+          "user",
+          JSON.stringify({
+            user_id: response.user_id,
+            full_name: name,
+            email,
+          })
+        );
+
+        setSuccess(true);
         setTimeout(() => {
-          navigate('/dashboard');
-        }, 500);
+          navigate("/dashboard");
+        }, 800);
       } else {
-        setError(response.error || 'Registration failed');
+        setError(response.error || "Registration failed");
         setLoading(false);
       }
     } catch (err) {
-      setError('Network error. Please try again.');
-      console.error('Registration error:', err);
+      setError("Network error. Please try again.");
+      console.error("Registration error:", err);
       setLoading(false);
     }
   };
 
   return (
-    <div className="form-bg">
-      <form className="form-box" onSubmit={handleSubmit}>
-        <h2 className="form-title">Sign Up</h2>
-        
-        {error && (
-          <div style={{
-            background: '#ff444422',
-            border: '1px solid #ff4444',
-            color: '#ff6666',
-            padding: '0.8em',
-            borderRadius: '8px',
-            marginBottom: '1em',
-            width: '100%'
-          }}>
-            {error}
+    <div className="auth-page soft-scrollbar">
+      <section className="auth-hero animate-float">
+        <div className="auth-hero-content">
+          <span className="tag-pill">Create your space</span>
+          <h1>Unlock tailored interview coaching</h1>
+          <p>
+            Assemble curated question banks, coach with realistic AI avatars, and
+            stay accountable with progress snapshots at every milestone.
+          </p>
+          <ul className="auth-highlights">
+            <li>🎯 Personalised learning pathways</li>
+            <li>🤖 AI practice partners 24/7</li>
+            <li>📬 Weekly growth insights in your inbox</li>
+          </ul>
+        </div>
+      </section>
+
+      <form className="auth-card animate-float" onSubmit={handleSubmit}>
+        <div>
+          <h2>Create your account</h2>
+          <p className="auth-subtitle">
+            It only takes a minute to tailor Interview Bot to your goals.
+          </p>
+        </div>
+
+        {error && <div className="auth-alert">{error}</div>}
+        {success && (
+          <div className="auth-success animate-float">
+            Account created for
+            <span>
+              {name} ({email})
+            </span>
+            Redirecting you to your dashboard...
           </div>
         )}
-        
-        <input
-          type="text"
-          placeholder="Your Name"
-          value={name}
-          onChange={e => setName(e.target.value)}
-          className="form-input"
-          required
-          disabled={loading}
-        />
-        <input
-          type="email"
-          placeholder="Email"
-          value={email}
-          onChange={e => setEmail(e.target.value)}
-          className="form-input"
-          required
-          disabled={loading}
-        />
-        <input
-          type="password"
-          placeholder="Password"
-          value={password}
-          onChange={e => setPassword(e.target.value)}
-          className="form-input"
-          required
-          disabled={loading}
-          minLength="6"
-        />
-        <button type="submit" className="form-btn" disabled={loading}>
-          {loading ? 'Creating Account...' : 'Create Account'}
-        </button>
-        <div className="form-links">
-          Already have an account? <Link to="/login">Login</Link>
+
+        {!success && (
+          <div className="auth-input-group">
+            <label className="auth-label" htmlFor="signup-name">
+              Full name
+              <span>Let’s keep things personal</span>
+            </label>
+            <input
+              id="signup-name"
+              type="text"
+              placeholder="Alex Morgan"
+              value={name}
+              onChange={(e) => setName(e.target.value)}
+              className="auth-input"
+              required
+              disabled={loading}
+            />
+
+            <label className="auth-label" htmlFor="signup-email">
+              Email
+              <span>We’ll send confirmations here</span>
+            </label>
+            <input
+              id="signup-email"
+              type="email"
+              placeholder="alex@email.com"
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
+              className="auth-input"
+              required
+              disabled={loading}
+            />
+
+            <label className="auth-label" htmlFor="signup-password">
+              Password
+              <span>Use at least 8 characters</span>
+            </label>
+            <input
+              id="signup-password"
+              type="password"
+              placeholder="Create a strong password"
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
+              className="auth-input"
+              required
+              minLength={8}
+              disabled={loading}
+            />
+
+            <button type="submit" className="auth-submit" disabled={loading}>
+              {loading ? "Creating your space..." : "Create my profile"}
+            </button>
+          </div>
+        )}
+
+        <div className="auth-footer">
+          Already practicing with us? <Link to="/login">Sign in</Link>
         </div>
       </form>
     </div>

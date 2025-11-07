@@ -17,9 +17,9 @@ CORS(app)  # Enable CORS for all routes
 # Database configuration
 db_config = {
     'host': os.getenv('DB_HOST', 'localhost'),
-    'database': os.getenv('DB_NAME', 'capstone'),
+    'database': os.getenv('DB_NAME', 'capstone_db'),
     'user': os.getenv('DB_USER', 'postgres'),
-    'password': os.getenv('DB_PASSWORD', 'Linxu'),
+    'password': os.getenv('DB_PASSWORD', 'secret'),
     'port': int(os.getenv('DB_PORT', 5432))
 }
 

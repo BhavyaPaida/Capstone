@@ -142,6 +142,146 @@ app.post("/api/generate-questions", (req, res) => {
   });
 });
 
+// ✅ AI Assistant proxy (uses OpenRouter or Hugging Face Inference)
+app.post("/api/chat-assistant", async (req, res) => {
+  try {
+    const { question } = req.body || {};
+    if (!question || typeof question !== "string" || !question.trim()) {
+      return res.status(400).json({ success: false, error: "Missing 'question'" });
+    }
+
+    const openrouterKey = process.env.OPENROUTER_API_KEY;
+    const grokKey = process.env.GROK_API_KEY; // xAI Grok
+    const hfKey = process.env.HF_API_KEY; // optional fallback
+
+    if (!openrouterKey && !grokKey && !hfKey) {
+      return res.status(503).json({
+        success: false,
+        error: "Assistant backend not configured. Set GROK_API_KEY or HF_API_KEY (or OPENROUTER_API_KEY) in .env",
+      });
+    }
+
+    // Helper: sanitize question length
+    const prompt = question.slice(0, 4000);
+
+    // System prompt to guide assistant tone
+    const systemPrompt = `You are an experienced interview preparation coach.
+Respond with clear, concise, actionable guidance. Prefer bullet points.
+Topics may include interview strategies (behavioral, coding, system design),
+resume/JD tailoring, mock interview best practices, STAR answers, and how to use the app.`;
+
+    // Try Grok (xAI) first if available
+    if (grokKey) {
+      try {
+        const r = await fetch("https://api.x.ai/v1/chat/completions", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${grokKey}`,
+          },
+          body: JSON.stringify({
+            model: "grok-2-latest",
+            messages: [
+              { role: "system", content: systemPrompt },
+              { role: "user", content: prompt },
+            ],
+            temperature: 0.4,
+            max_tokens: 500,
+          }),
+        });
+
+        if (!r.ok) {
+          const err = await r.json().catch(() => ({}));
+          throw new Error(err.error || `Grok error: ${r.status}`);
+        }
+        const data = await r.json();
+        const answer = data?.choices?.[0]?.message?.content?.trim();
+        if (answer) return res.json({ success: true, answer });
+      } catch (e) {
+        console.error("Grok call failed:", e.message || e);
+        // fall through
+      }
+    }
+
+    // Then try OpenRouter (OpenAI-compatible API)
+    if (openrouterKey) {
+      try {
+        const r = await fetch("https://openrouter.ai/api/v1/chat/completions", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${openrouterKey}`,
+          },
+          body: JSON.stringify({
+            model: "openai/gpt-3.5-turbo",
+            messages: [
+              { role: "system", content: systemPrompt },
+              { role: "user", content: prompt },
+            ],
+            temperature: 0.4,
+            max_tokens: 500,
+          }),
+        });
+
+        if (!r.ok) {
+          const err = await r.json().catch(() => ({}));
+          throw new Error(err.error || `OpenRouter error: ${r.status}`);
+        }
+        const data = await r.json();
+        const answer = data?.choices?.[0]?.message?.content?.trim();
+        if (answer) return res.json({ success: true, answer });
+      } catch (e) {
+        console.error("OpenRouter call failed:", e.message || e);
+        // fall through to HF
+      }
+    }
+
+    // Fallback: Hugging Face Inference API (text-generation)
+    if (hfKey) {
+      try {
+        const r = await fetch(
+          "https://api-inference.huggingface.co/models/mistralai/Mixtral-8x7B-Instruct-v0.1",
+          {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json",
+              Authorization: `Bearer ${hfKey}`,
+            },
+            body: JSON.stringify({
+              inputs: `${systemPrompt}\n\nUser: ${prompt}\nAssistant:`,
+              parameters: { max_new_tokens: 300, temperature: 0.4 },
+            }),
+          }
+        );
+        if (!r.ok) {
+          const err = await r.json().catch(() => ({}));
+          throw new Error(err.error || `HF error: ${r.status}`);
+        }
+        const data = await r.json();
+        // HF returns array or object depending on model
+        const text = Array.isArray(data)
+          ? data[0]?.generated_text
+          : data?.generated_text || data?.choices?.[0]?.text;
+        if (text) {
+          // Try to strip the leading prompt echo if present
+          const split = String(text).split("Assistant:");
+          const answer = (split[1] || split[0] || "").trim();
+          return res.json({ success: true, answer });
+        }
+        return res.status(502).json({ success: false, error: "Empty response from HF" });
+      } catch (e) {
+        console.error("HF call failed:", e.message || e);
+        return res.status(502).json({ success: false, error: "Assistant provider failed" });
+      }
+    }
+
+    return res.status(502).json({ success: false, error: "No assistant providers available" });
+  } catch (err) {
+    console.error("chat-assistant error:", err);
+    res.status(500).json({ success: false, error: "Internal server error" });
+  }
+});
+
 // ✅ Start the server
 const PORT = process.env.PORT || 5000;
 app.listen(PORT, () => console.log(`Server running on port ${PORT}`));

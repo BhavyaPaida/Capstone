@@ -1,45 +1,155 @@
+:root {
+  color-scheme: dark;
+  --bg-base: radial-gradient(circle at 20% 20%, #192032, #0d0f17 55%, #05060b 110%);
+  --bg-accent: linear-gradient(135deg, #2d61ff, #7b4dff 60%, #31d6ff);
+  --surface: rgba(22, 28, 43, 0.78);
+  --surface-hover: rgba(37, 52, 84, 0.9);
+  --border-subtle: rgba(108, 156, 255, 0.18);
+  --text-primary: #f5f7ff;
+  --text-secondary: #b8c2e1;
+  --primary: #4d7bff;
+  --primary-strong: #2d61ff;
+  --success: #40f3c3;
+  --warning: #ffd56b;
+  font-family: "Inter", "Segoe UI", -apple-system, BlinkMacSystemFont, sans-serif;
+}
+
+* {
+  box-sizing: border-box;
+}
+
 body {
-  background: #111;
-  color: #fff;
-  font-family: 'Segoe UI', sans-serif;
   margin: 0;
-  padding: 0;
+  min-height: 100vh;
+  color: var(--text-primary);
+  background: #05060b;
+  font-family: inherit;
+  -webkit-font-smoothing: antialiased;
+  position: relative;
+  overflow-x: hidden;
 }
-.center {
-  text-align: center;
-  margin-top: 15vh;
+
+body::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  background: var(--bg-base);
+  z-index: -2;
 }
-.btn {
-  background: #2187fb;
-  color: #fff;
-  border: none;
-  padding: 0.75em 2em;
-  margin-top: 2em;
-  font-size: 1em;
-  border-radius: 6px;
-  cursor: pointer;
+
+body::after {
+  content: "";
+  position: fixed;
+  inset: auto -20vw -20vh;
+  height: 70vh;
+  background: radial-gradient(circle at 50% 0%, rgba(77, 123, 255, 0.25), transparent 55%);
+  transform: translateY(0);
+  filter: blur(0);
+  z-index: -1;
+}
+
+a {
+  color: inherit;
   text-decoration: none;
 }
-.dashboard-layout {
-  display: flex;
-  min-height: 100vh;
+
+button,
+input,
+textarea,
+select {
+  font: inherit;
+  color: inherit;
 }
-.sidebar {
-  background: #191919;
-  color: #fff;
-  min-width: 200px;
-  padding: 2em 1em;
+
+.tag-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  padding: 0.4rem 0.9rem;
+  border-radius: 999px;
+  background: rgba(77, 123, 255, 0.14);
+  color: #b7cbff;
+  font-size: 0.82rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  border: 1px solid rgba(125, 168, 255, 0.18);
 }
-.grid {
-  display: grid;
-  grid-template-columns: repeat(2, 1fr);
-  gap: 2em;
-  margin: 2em 0;
+
+.accent-button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  padding: 0.9rem 1.6rem;
+  border-radius: 12px;
+  border: none;
+  font-weight: 600;
+  font-size: 1rem;
+  color: #0b1020;
+  background: linear-gradient(135deg, #4d7bff, #31d6ff);
+  box-shadow: 0 20px 40px rgba(40, 80, 255, 0.25);
+  cursor: pointer;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
 }
-.card {
-  background: #222;
-  padding: 2em;
-  border-radius: 15px;
-  box-shadow: 0 2px 12px #0002;
-  margin-bottom: 2em;
+
+.accent-button:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 12px 30px rgba(49, 195, 255, 0.35);
+}
+
+.ghost-button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  padding: 0.85rem 1.5rem;
+  border-radius: 12px;
+  border: 1px solid rgba(129, 162, 255, 0.24);
+  background: transparent;
+  color: var(--text-primary);
+  font-weight: 500;
+  cursor: pointer;
+  transition: border-color 0.2s ease, background 0.2s ease;
+}
+
+.ghost-button:hover {
+  border-color: rgba(126, 198, 255, 0.55);
+  background: rgba(46, 89, 255, 0.12);
+}
+
+.glass-panel {
+  background: var(--surface);
+  border: 1px solid var(--border-subtle);
+  border-radius: 20px;
+  box-shadow: 0 24px 60px rgba(5, 10, 24, 0.55);
+  backdrop-filter: blur(26px);
+}
+
+.soft-scrollbar {
+  scrollbar-width: thin;
+  scrollbar-color: rgba(85, 117, 198, 0.4) transparent;
+}
+
+.soft-scrollbar::-webkit-scrollbar {
+  width: 6px;
+}
+
+.soft-scrollbar::-webkit-scrollbar-thumb {
+  background: rgba(85, 117, 198, 0.5);
+  border-radius: 999px;
+}
+
+@keyframes float-up {
+  from {
+    opacity: 0;
+    transform: translateY(12px) scale(0.98);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+.animate-float {
+  animation: float-up 0.65s ease forwards;
 }

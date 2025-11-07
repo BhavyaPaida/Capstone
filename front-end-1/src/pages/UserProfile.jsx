@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import "./Dashboard.css";
+import { api } from "../services/api";
 
 export default function Profile() {
   const [user, setUser] = useState(null);
@@ -17,332 +18,214 @@ export default function Profile() {
   const navigate = useNavigate();
 
   useEffect(() => {
-    const userData = localStorage.getItem('user');
+    const userData = localStorage.getItem("user");
     if (!userData) {
-      navigate('/login');
+      navigate("/login");
       return;
     }
-    
+
     const parsedUser = JSON.parse(userData);
     setUser(parsedUser);
     setFullName(parsedUser.full_name);
     setEmail(parsedUser.email);
-    
-    // Fetch user statistics (you can implement these API calls)
     fetchUserStats(parsedUser.user_id);
   }, [navigate]);
 
-  const fetchUserStats = async (userId) => {
-    // TODO: Implement API calls to get counts
-    // For now, using dummy data
+  const fetchUserStats = async () => {
     setResumeCount(1);
     setJdCount(1);
     setInterviewCount(0);
   };
 
   const handleLogout = () => {
-    localStorage.removeItem('user');
-    navigate('/login');
+    localStorage.removeItem("user");
+    navigate("/login");
   };
 
   const handleUpdateProfile = async (e) => {
     e.preventDefault();
-    
-    // TODO: Implement API call to update profile
-    setMessage('Profile update feature coming soon!');
-    setTimeout(() => setMessage(''), 3000);
+    setMessage("Profile update feature coming soon!");
+    setTimeout(() => setMessage(""), 3200);
     setEditing(false);
   };
 
   const handleChangePassword = async (e) => {
     e.preventDefault();
-    
+
     if (newPassword !== confirmPassword) {
-      setMessage('Passwords do not match!');
-      setTimeout(() => setMessage(''), 3000);
+      setMessage("Passwords do not match!");
+      setTimeout(() => setMessage(""), 3200);
       return;
     }
-    
+
     if (newPassword.length < 6) {
-      setMessage('Password must be at least 6 characters!');
-      setTimeout(() => setMessage(''), 3000);
+      setMessage("Password must be at least 6 characters!");
+      setTimeout(() => setMessage(""), 3200);
       return;
     }
-    
-    // TODO: Implement API call to change password
-    setMessage('Password change feature coming soon!');
-    setTimeout(() => setMessage(''), 3000);
-    
-    // Clear password fields
-    setCurrentPassword("");
-    setNewPassword("");
-    setConfirmPassword("");
+
+    try {
+      const res = await api.changePassword(user.user_id, currentPassword, newPassword);
+      if (res.success) {
+        setMessage("Password changed successfully!");
+        setCurrentPassword("");
+        setNewPassword("");
+        setConfirmPassword("");
+      } else {
+        setMessage(res.error || "Password change failed");
+      }
+    } catch (err) {
+      setMessage("Network error. Please try again.");
+    } finally {
+      setTimeout(() => setMessage(""), 3200);
+    }
   };
 
   if (!user) return null;
 
+  const messageVariant = message.toLowerCase().includes("soon") ? "info" : message.toLowerCase().includes("error") ? "error" : "success";
+
   return (
-    <div className="dashboard-layout">
-      <aside className="sidebar">
-        <ul>
-          <li onClick={() => navigate('/dashboard')}>Dashboard/Home</li>
-          <li style={{fontWeight: 'bold', color: '#2187fb', cursor: 'default'}}>Profile</li>
-          <li onClick={() => navigate('/history')}>History</li>
-          <li onClick={handleLogout} style={{marginTop: '2em', color: '#ff6666'}}>
-            Logout
-          </li>
-        </ul>
-      </aside>
-      
-      <main>
-        <h2>Profile Settings</h2>
-        
-        {message && (
-          <div style={{
-            background: message.includes('success') || message.includes('soon') ? '#2187fb22' : '#ff444422',
-            border: `1px solid ${message.includes('success') || message.includes('soon') ? '#2187fb' : '#ff4444'}`,
-            color: message.includes('success') || message.includes('soon') ? '#4ec6fa' : '#ff6666',
-            padding: '1em',
-            borderRadius: '8px',
-            marginBottom: '1.5em'
-          }}>
-            {message}
-          </div>
-        )}
-        
-        {/* User Statistics */}
-        <div style={{
-          background: '#222',
-          padding: '2em',
-          borderRadius: '1em',
-          marginBottom: '2em'
-        }}>
-          <h3 style={{marginTop: 0, color: '#2187fb'}}>Account Statistics</h3>
-          <div style={{
-            display: 'grid',
-            gridTemplateColumns: 'repeat(3, 1fr)',
-            gap: '1.5em',
-            marginTop: '1.5em'
-          }}>
-            <div style={{textAlign: 'center'}}>
-              <div style={{fontSize: '2em', fontWeight: 'bold', color: '#2187fb'}}>
-                {resumeCount}
-              </div>
-              <div style={{color: '#aaa', marginTop: '0.5em'}}>Resumes</div>
-            </div>
-            <div style={{textAlign: 'center'}}>
-              <div style={{fontSize: '2em', fontWeight: 'bold', color: '#2187fb'}}>
-                {jdCount}
-              </div>
-              <div style={{color: '#aaa', marginTop: '0.5em'}}>Job Descriptions</div>
-            </div>
-            <div style={{textAlign: 'center'}}>
-              <div style={{fontSize: '2em', fontWeight: 'bold', color: '#2187fb'}}>
-                {interviewCount}
-              </div>
-              <div style={{color: '#aaa', marginTop: '0.5em'}}>Interviews</div>
-            </div>
-          </div>
+    <div className="app-shell">
+      <aside className="app-shell__sidebar soft-scrollbar">
+        <div className="sidebar__brand">
+          <span>Interview Bot</span>
         </div>
-        
-        {/* Profile Information */}
-        <div style={{
-          background: '#222',
-          padding: '2em',
-          borderRadius: '1em',
-          marginBottom: '2em'
-        }}>
-          <div style={{
-            display: 'flex',
-            justifyContent: 'space-between',
-            alignItems: 'center',
-            marginBottom: '1.5em'
-          }}>
-            <h3 style={{margin: 0, color: '#2187fb'}}>Profile Information</h3>
-            <button
-              onClick={() => setEditing(!editing)}
-              style={{
-                background: editing ? '#666' : '#2187fb',
-                color: '#fff',
-                border: 'none',
-                padding: '0.6em 1.5em',
-                borderRadius: '6px',
-                cursor: 'pointer',
-                fontSize: '0.95em'
-              }}
-            >
-              {editing ? 'Cancel' : 'Edit Profile'}
-            </button>
+        <nav className="sidebar__nav">
+          <button type="button" className="sidebar__link" onClick={() => navigate("/dashboard")}>Dashboard overview</button>
+          <button type="button" className="sidebar__link sidebar__link--active">Profile & preferences</button>
+          <button type="button" className="sidebar__link" onClick={() => navigate("/history")}>Session history</button>
+          <button type="button" className="sidebar__link" onClick={() => navigate("/interview-type")}>Interview studio</button>
+        </nav>
+        {/* coach promo removed */}
+        <button type="button" className="sidebar__logout" onClick={handleLogout}>
+          Log out
+        </button>
+      </aside>
+
+      <main className="app-shell__main soft-scrollbar">
+        <header className="dashboard-header animate-float">
+          <div>
+            <p className="dashboard-header__subtitle">Account controls</p>
+            <h1>Profile settings</h1>
+            <p className="dashboard-header__meta">
+              Keep your personal details and security preferences up to date so Interview Bot can tailor every session.
+            </p>
           </div>
-          
+          <div className="dashboard-header__actions">
+            <button type="button" className="ghost-button" onClick={() => setEditing(!editing)}>
+              {editing ? "Cancel edit" : "Edit profile"}
+            </button>
+            <button type="button" className="accent-button" onClick={() => navigate("/interview-type")}>Launch interview</button>
+          </div>
+        </header>
+
+        {message && <div className={`profile-toast animate-float profile-toast--${messageVariant}`}>{message}</div>}
+
+        <section className="glass-panel profile-stats animate-float">
+          <h2>Account statistics</h2>
+          <div className="profile-stat-grid">
+            <div className="profile-stat">
+              <strong>{resumeCount}</strong>
+              <span>Resumes uploaded</span>
+            </div>
+            <div className="profile-stat">
+              <strong>{jdCount}</strong>
+              <span>Job descriptions</span>
+            </div>
+            <div className="profile-stat">
+              <strong>{interviewCount}</strong>
+              <span>Interviews completed</span>
+            </div>
+          </div>
+        </section>
+
+        <section className="glass-panel profile-section animate-float">
+          <div className="profile-section__header">
+            <h2>Profile information</h2>
+            <span>Your details power personalised prep.</span>
+          </div>
           {!editing ? (
-            <div style={{display: 'flex', flexDirection: 'column', gap: '1em'}}>
-              <div>
-                <label style={{color: '#aaa', fontSize: '0.9em'}}>Full Name</label>
-                <div style={{fontSize: '1.1em', marginTop: '0.3em'}}>{user.full_name}</div>
-              </div>
-              <div>
-                <label style={{color: '#aaa', fontSize: '0.9em'}}>Email</label>
-                <div style={{fontSize: '1.1em', marginTop: '0.3em'}}>{user.email}</div>
-              </div>
-              <div>
-                <label style={{color: '#aaa', fontSize: '0.9em'}}>User ID</label>
-                <div style={{fontSize: '1.1em', marginTop: '0.3em'}}>{user.user_id}</div>
-              </div>
+            <div className="profile-details">
+              <article>
+                <label>Full name</label>
+                <p>{user.full_name}</p>
+              </article>
+              <article>
+                <label>Email</label>
+                <p>{user.email}</p>
+              </article>
+              <article>
+                <label>User ID</label>
+                <p>{user.user_id}</p>
+              </article>
             </div>
           ) : (
-            <form onSubmit={handleUpdateProfile}>
-              <div style={{display: 'flex', flexDirection: 'column', gap: '1em'}}>
-                <div>
-                  <label style={{color: '#aaa', fontSize: '0.9em', display: 'block', marginBottom: '0.5em'}}>
-                    Full Name
-                  </label>
-                  <input
-                    type="text"
-                    value={fullName}
-                    onChange={(e) => setFullName(e.target.value)}
-                    style={{
-                      width: '100%',
-                      padding: '0.8em',
-                      borderRadius: '6px',
-                      background: '#181b23',
-                      border: '1px solid #2187fb44',
-                      color: '#fff',
-                      fontSize: '1em'
-                    }}
-                  />
-                </div>
-                <div>
-                  <label style={{color: '#aaa', fontSize: '0.9em', display: 'block', marginBottom: '0.5em'}}>
-                    Email
-                  </label>
-                  <input
-                    type="email"
-                    value={email}
-                    onChange={(e) => setEmail(e.target.value)}
-                    style={{
-                      width: '100%',
-                      padding: '0.8em',
-                      borderRadius: '6px',
-                      background: '#181b23',
-                      border: '1px solid #2187fb44',
-                      color: '#fff',
-                      fontSize: '1em'
-                    }}
-                  />
-                </div>
-                <button
-                  type="submit"
-                  style={{
-                    background: '#2187fb',
-                    color: '#fff',
-                    border: 'none',
-                    padding: '0.8em',
-                    borderRadius: '6px',
-                    cursor: 'pointer',
-                    fontSize: '1em',
-                    marginTop: '0.5em'
-                  }}
-                >
-                  Save Changes
-                </button>
-              </div>
+            <form className="profile-form" onSubmit={handleUpdateProfile}>
+              <label htmlFor="full-name">Full name</label>
+              <input
+                id="full-name"
+                type="text"
+                value={fullName}
+                onChange={(e) => setFullName(e.target.value)}
+                required
+                className="profile-input"
+              />
+              <label htmlFor="email">Email</label>
+              <input
+                id="email"
+                type="email"
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
+                required
+                className="profile-input"
+              />
+              <button type="submit" className="accent-button">Save changes</button>
             </form>
           )}
-        </div>
-        
-        {/* Change Password */}
-        <div style={{
-          background: '#222',
-          padding: '2em',
-          borderRadius: '1em'
-        }}>
-          <h3 style={{marginTop: 0, color: '#2187fb'}}>Change Password</h3>
-          <form onSubmit={handleChangePassword}>
-            <div style={{display: 'flex', flexDirection: 'column', gap: '1em'}}>
-              <div>
-                <label style={{color: '#aaa', fontSize: '0.9em', display: 'block', marginBottom: '0.5em'}}>
-                  Current Password
-                </label>
-                <input
-                  type="password"
-                  value={currentPassword}
-                  onChange={(e) => setCurrentPassword(e.target.value)}
-                  placeholder="Enter current password"
-                  style={{
-                    width: '100%',
-                    padding: '0.8em',
-                    borderRadius: '6px',
-                    background: '#181b23',
-                    border: '1px solid #2187fb44',
-                    color: '#fff',
-                    fontSize: '1em'
-                  }}
-                  required
-                />
-              </div>
-              <div>
-                <label style={{color: '#aaa', fontSize: '0.9em', display: 'block', marginBottom: '0.5em'}}>
-                  New Password
-                </label>
-                <input
-                  type="password"
-                  value={newPassword}
-                  onChange={(e) => setNewPassword(e.target.value)}
-                  placeholder="Enter new password"
-                  minLength="6"
-                  style={{
-                    width: '100%',
-                    padding: '0.8em',
-                    borderRadius: '6px',
-                    background: '#181b23',
-                    border: '1px solid #2187fb44',
-                    color: '#fff',
-                    fontSize: '1em'
-                  }}
-                  required
-                />
-              </div>
-              <div>
-                <label style={{color: '#aaa', fontSize: '0.9em', display: 'block', marginBottom: '0.5em'}}>
-                  Confirm New Password
-                </label>
-                <input
-                  type="password"
-                  value={confirmPassword}
-                  onChange={(e) => setConfirmPassword(e.target.value)}
-                  placeholder="Confirm new password"
-                  minLength="6"
-                  style={{
-                    width: '100%',
-                    padding: '0.8em',
-                    borderRadius: '6px',
-                    background: '#181b23',
-                    border: '1px solid #2187fb44',
-                    color: '#fff',
-                    fontSize: '1em'
-                  }}
-                  required
-                />
-              </div>
-              <button
-                type="submit"
-                style={{
-                  background: '#2187fb',
-                  color: '#fff',
-                  border: 'none',
-                  padding: '0.8em',
-                  borderRadius: '6px',
-                  cursor: 'pointer',
-                  fontSize: '1em',
-                  marginTop: '0.5em'
-                }}
-              >
-                Change Password
-              </button>
-            </div>
+        </section>
+
+        <section className="glass-panel profile-section animate-float">
+          <div className="profile-section__header">
+            <h2>Change password</h2>
+            <span>Keep your account secure with a strong password.</span>
+          </div>
+          <form className="profile-form" onSubmit={handleChangePassword}>
+            <label htmlFor="current-password">Current password</label>
+            <input
+              id="current-password"
+              type="password"
+              value={currentPassword}
+              onChange={(e) => setCurrentPassword(e.target.value)}
+              required
+              className="profile-input"
+              placeholder="Enter current password"
+            />
+            <label htmlFor="new-password">New password</label>
+            <input
+              id="new-password"
+              type="password"
+              value={newPassword}
+              onChange={(e) => setNewPassword(e.target.value)}
+              required
+              minLength={6}
+              className="profile-input"
+              placeholder="Enter new password"
+            />
+            <label htmlFor="confirm-password">Confirm new password</label>
+            <input
+              id="confirm-password"
+              type="password"
+              value={confirmPassword}
+              onChange={(e) => setConfirmPassword(e.target.value)}
+              required
+              minLength={6}
+              className="profile-input"
+              placeholder="Confirm new password"
+            />
+            <button type="submit" className="accent-button">Change password</button>
           </form>
-        </div>
+        </section>
       </main>
     </div>
   );
