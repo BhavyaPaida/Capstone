@@ -280,5 +280,42 @@ export const api = {
       return { status: 'unhealthy', error: 'Cannot reach server' };
     }
   }
+
   
+
+  ,
+  changePassword: async (userId, currentPassword, newPassword) => {
+    try {
+      const response = await fetch(`${API_BASE_URL}/change-password`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ user_id: userId, current_password: currentPassword, new_password: newPassword })
+      });
+      if (!response.ok) {
+        const error = await response.json();
+        return { success: false, error: error.error || 'Password change failed' };
+      }
+      return await response.json();
+    } catch (error) {
+      console.error('Change password API error:', error);
+      return { success: false, error: 'Network error' };
+    }
+  },
+  chatAssistant: async (question) => {
+    try {
+      const response = await fetch(`${API_BASE_URL}/chat-assistant`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ question })
+      });
+      if (!response.ok) {
+        const error = await response.json();
+        return { success: false, error: error.error || 'Assistant unavailable' };
+      }
+      return await response.json();
+    } catch (error) {
+      console.error('Assistant API error:', error);
+      return { success: false, error: 'Network error' };
+    }
+  }
 };

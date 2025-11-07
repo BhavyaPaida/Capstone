@@ -3,9 +3,64 @@ import { useNavigate } from "react-router-dom";
 import "./InterviewType.css";
 import { api } from "../services/api";
 
+const interviewModes = [
+  {
+    id: "technical",
+    title: "Technical interview",
+    description:
+      "Sharpen systems thinking, algorithmic reasoning, and coding fluency with adaptive question sequencing.",
+    bullets: [
+      "Whiteboard-friendly walkthroughs",
+      "Complexity and trade-off prompts",
+      "Follow-up challenges based on your answers",
+    ],
+    duration: "45 mins",
+    focus: "Live coding + system design",
+  },
+  {
+    id: "behavioral",
+    title: "Behavioural & leadership",
+    description:
+      "Tell stronger stories about influence, conflict navigation, and ownership — guided by STAR follow-ups.",
+    bullets: [
+      "SMART story scaffolding",
+      "Leadership signal detection",
+      "Empathy and communication checkpoints",
+    ],
+    duration: "30 mins",
+    focus: "Narrative clarity + impact",
+  },
+  {
+    id: "aiml",
+    title: "AI / ML deep dive",
+    description:
+      "Drill into architectures, evaluation, and deployment trade-offs with production-grade scenarios.",
+    bullets: [
+      "Model diagnostics lab",
+      "Bias + fairness probes",
+      "MLOps workflow walkthroughs",
+    ],
+    duration: "50 mins",
+    focus: "Research + production readiness",
+  },
+  {
+    id: "company",
+    title: "Company-specific",
+    description:
+      "Upload a JD to mirror tone, priorities, and product context from the teams you’re targeting.",
+    bullets: [
+      "Custom follow-up library",
+      "Culture-aligned prompts",
+      "Hiring manager style feedback",
+    ],
+    duration: "40 mins",
+    focus: "Role-aligned preparation",
+  },
+];
+
 export default function InterviewType() {
   const [user, setUser] = useState(null);
-  const [selectedType, setSelectedType] = useState("");
+  const [selectedMode, setSelectedMode] = useState(interviewModes[0].id);
   const [resumeId, setResumeId] = useState(null);
   const [jdId, setJdId] = useState(null);
   const [loading, setLoading] = useState(false);
@@ -13,16 +68,14 @@ export default function InterviewType() {
   const navigate = useNavigate();
 
   useEffect(() => {
-    const userData = localStorage.getItem('user');
+    const userData = localStorage.getItem("user");
     if (!userData) {
-      navigate('/login');
+      navigate("/login");
       return;
     }
-    
+
     const parsedUser = JSON.parse(userData);
     setUser(parsedUser);
-    
-    // Fetch user's resume and JD
     fetchUserData(parsedUser.user_id);
   }, [navigate]);
 
@@ -32,21 +85,22 @@ export default function InterviewType() {
       if (resumeRes.success) {
         setResumeId(resumeRes.resume.resume_id);
       }
-      
+
       const jdRes = await api.getUserJD(userId);
       if (jdRes.success) {
         setJdId(jdRes.jd.jd_id);
       }
-      
-      if (!resumeRes.success || !jdRes.success) {
-        setMessage('Please upload resume and JD first');
-        setTimeout(() => navigate('/dashboard'), 2000);
+
+      if (!resumeRes.success) {
+        setMessage("Please upload a resume first");
+        setTimeout(() => navigate("/dashboard"), 2000);
       }
     } catch (err) {
-      console.error('Error fetching user data:', err);
-      setMessage('Error loading data');
+      console.error("Error fetching user data:", err);
+      setMessage("Error loading data");
     }
   };
+
 
   const interviewTypes = [
     {
@@ -67,30 +121,33 @@ export default function InterviewType() {
     }
   ];
 
+
   const handleStartInterview = async () => {
-    if (!selectedType) {
-      setMessage('Please select an interview type');
-      setTimeout(() => setMessage(''), 3000);
+    const activeMode = interviewModes.find((mode) => mode.id === selectedMode);
+
+    if (!activeMode) {
+      setMessage("Please select an interview type");
       return;
     }
 
-    if (!resumeId || !jdId) {
-      setMessage('Missing resume or job description');
+    if (!resumeId) {
+      setMessage("Missing resume");
       return;
     }
 
     setLoading(true);
-    setMessage('Creating interview session...');
+    setMessage("Creating interview session...");
 
     try {
       const response = await api.createInterview(
         user.user_id,
         resumeId,
         jdId,
-        selectedType
+        activeMode.title
       );
 
       if (response.success) {
+
         // Store interview ID for the interview page
         localStorage.setItem('current_interview', JSON.stringify({
           interview_id: response.interview_id,
@@ -99,40 +156,89 @@ export default function InterviewType() {
         
         // Navigate to interview session page
         navigate('/interview-session');
+      } 
+    } 
+
+        setMessage("Interview created! Starting session...");
+        localStorage.setItem(
+          "current_interview",
+          JSON.stringify({
+            interview_id: response.interview_id,
+            interview_type: activeMode.title,
+          })
+        );
+
+        setTimeout(() => {
+          setMessage("Interview session ready! (Interview room coming soon)");
+        }, 1000);
       } else {
-        setMessage(response.error || 'Failed to create interview');
-        setLoading(false);
+        setMessage(response.error || "Failed to create interview");
       }
     } catch (err) {
-      setMessage('Network error. Please try again.');
-      console.error('Create interview error:', err);
-      setLoading(false);
+      setMessage("Network error. Please try again.");
+      console.error("Create interview error:", err);
+    } finally {
+
     }
   };
 
   const handleLogout = () => {
-    localStorage.removeItem('user');
-    navigate('/login');
+    localStorage.removeItem("user");
+    navigate("/login");
   };
 
   if (!user) return null;
 
+  const activeMode = interviewModes.find((mode) => mode.id === selectedMode);
+
   return (
-    <div className="dashboard-layout">
-      <aside className="sidebar">
-        <ul>
-          <li onClick={() => navigate('/dashboard')}>Dashboard/Home</li>
-          <li onClick={() => navigate('/profile')}>Profile</li>
-          <li onClick={() => navigate('/history')}>History</li>
-          <li onClick={handleLogout} style={{marginTop: '2em', color: '#ff6666'}}>
-            Logout
-          </li>
-        </ul>
+    <div className="interview-page">
+      <aside className="interview-sidebar soft-scrollbar">
+        <div className="interview-sidebar__header">
+          <span>Select your experience</span>
+          <p>Design the session flow that suits today’s practice goal.</p>
+        </div>
+        <div className="interview-sidebar__summary glass-panel">
+          <h3>Session summary</h3>
+          <p>
+            Mode: <strong>{activeMode?.title}</strong>
+          </p>
+          <p>
+            Duration: <strong>{activeMode?.duration}</strong>
+          </p>
+          <p>
+            Focus area: <strong>{activeMode?.focus}</strong>
+          </p>
+          <button type="button" className="ghost-button" onClick={() => navigate("/dashboard")}>
+            Back to dashboard
+          </button>
+        </div>
+        <div className="interview-sidebar__footer">
+          <p>Tip: Stack two formats back-to-back for a mock onsite.</p>
+        </div>
+        <button type="button" className="sidebar__logout" onClick={handleLogout}>
+          Log out
+        </button>
       </aside>
-      <main>
-        <h2>Choose Your Interview Type</h2>
-        
+
+      <main className="interview-content soft-scrollbar">
+        <header className="interview-header animate-float">
+          <div>
+            <p className="tag-pill">Tailored mock interviews</p>
+            <h1>Choose your next practice room</h1>
+            <p>
+              Each format adapts in realtime based on your responses. Switch modes any
+              time or combine multiple rounds to simulate a full interview loop.
+            </p>
+          </div>
+          <div className="interview-header__cta">
+            <span>Estimated completion</span>
+            <strong>{activeMode?.duration}</strong>
+          </div>
+        </header>
+
         {message && (
+
           <div style={{
             background: message.includes('Creating') ? '#2187fb22' : '#ff444422',
             border: `1px solid ${message.includes('Creating') ? '#2187fb' : '#ff4444'}`,
@@ -141,42 +247,52 @@ export default function InterviewType() {
             borderRadius: '8px',
             marginBottom: '1em'
           }}>
+
+          <div
+            className={`interview-toast animate-float ${
+              message.toLowerCase().includes("ready") || message.toLowerCase().includes("created")
+                ? "interview-toast--success"
+                : message.toLowerCase().includes("error") || message.toLowerCase().includes("failed")
+                ? "interview-toast--error"
+                : "interview-toast--info"
+            }`}
+          >
+
             {message}
           </div>
         )}
-        
-        <div className="grid">
-          {interviewTypes.map((interview, index) => (
-            <div 
-              key={index}
-              className="card"
-              onClick={() => !loading && setSelectedType(interview.type)}
-              style={{
-                cursor: loading ? 'not-allowed' : 'pointer',
-                border: selectedType === interview.type ? '2px solid #2187fb' : '1px solid #2226',
-                background: selectedType === interview.type ? '#2187fb22' : '#23272f'
-              }}
+
+        <section className="interview-grid animate-float">
+          {interviewModes.map((mode) => (
+            <article
+              key={mode.id}
+              className={`mode-card glass-panel ${selectedMode === mode.id ? "mode-card--selected" : ""}`}
+              onClick={() => !loading && setSelectedMode(mode.id)}
             >
-              <h3>{interview.type}</h3>
-              <p>{interview.description}</p>
-              {selectedType === interview.type && (
-                <div style={{color: '#44ff44', marginTop: '0.5em'}}>✓ Selected</div>
-              )}
-            </div>
+              <header>
+                <h3>{mode.title}</h3>
+                <span>{mode.duration}</span>
+              </header>
+              <p>{mode.description}</p>
+              <ul>
+                {mode.bullets.map((bullet) => (
+                  <li key={bullet}>{bullet}</li>
+                ))}
+              </ul>
+              <footer>
+                <span>{mode.focus}</span>
+                {selectedMode === mode.id && <div className="mode-card__selected">✓ Selected</div>}
+              </footer>
+            </article>
           ))}
+        </section>
+
+        <div className="interview-actions animate-float">
+          <button type="button" className="ghost-button" onClick={() => navigate("/history")}>Preview questions</button>
+          <button type="button" className="accent-button" onClick={handleStartInterview} disabled={loading}>
+            {loading ? "Preparing session..." : `Launch ${activeMode?.title.toLowerCase()}`}
+          </button>
         </div>
-        
-        <button 
-          className="btn" 
-          onClick={handleStartInterview}
-          disabled={loading || !selectedType}
-          style={{
-            opacity: (loading || !selectedType) ? 0.5 : 1,
-            cursor: (loading || !selectedType) ? 'not-allowed' : 'pointer'
-          }}
-        >
-          {loading ? 'Creating Interview...' : 'Start Interview'}
-        </button>
       </main>
     </div>
   );

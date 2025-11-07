@@ -3,22 +3,26 @@ import { useNavigate } from "react-router-dom";
 import "./Dashboard.css";
 import { api } from "../services/api";
 
+const tabs = [
+  { id: "interviews", label: "Interviews" },
+  { id: "resumes", label: "Resumes" },
+  { id: "jds", label: "Job descriptions" },
+];
+
 export default function History() {
   const [user, setUser] = useState(null);
   const [interviews, setInterviews] = useState([]);
   const [loading, setLoading] = useState(true);
-  const [selectedTab, setSelectedTab] = useState('interviews'); // 'interviews', 'resumes', 'jds'
-  const [resumes, setResumes] = useState([]);
-  const [jds, setJds] = useState([]);
+  const [selectedTab, setSelectedTab] = useState("interviews");
   const navigate = useNavigate();
 
   useEffect(() => {
-    const userData = localStorage.getItem('user');
+    const userData = localStorage.getItem("user");
     if (!userData) {
-      navigate('/login');
+      navigate("/login");
       return;
     }
-    
+
     const parsedUser = JSON.parse(userData);
     setUser(parsedUser);
     fetchHistory(parsedUser.user_id);
@@ -27,285 +31,162 @@ export default function History() {
   const fetchHistory = async (userId) => {
     setLoading(true);
     try {
-      // Fetch interviews
       const interviewRes = await api.getUserInterviews(userId);
       if (interviewRes.success) {
         setInterviews(interviewRes.interviews || []);
       }
-      
-      // You can also fetch resumes and JDs history
-      // const resumeRes = await api.getUserResumes(userId);
-      // const jdRes = await api.getUserJDs(userId);
-      
     } catch (err) {
-      console.error('Error fetching history:', err);
+      console.error("Error fetching history:", err);
     } finally {
       setLoading(false);
     }
   };
 
   const handleLogout = () => {
-    localStorage.removeItem('user');
-    navigate('/login');
+    localStorage.removeItem("user");
+    navigate("/login");
   };
 
   const formatDate = (dateString) => {
     const date = new Date(dateString);
-    return date.toLocaleDateString('en-US', {
-      year: 'numeric',
-      month: 'short',
-      day: 'numeric',
-      hour: '2-digit',
-      minute: '2-digit'
+    return date.toLocaleDateString("en-US", {
+      year: "numeric",
+      month: "short",
+      day: "numeric",
+      hour: "2-digit",
+      minute: "2-digit",
     });
   };
 
   const getInterviewTypeColor = (type) => {
     const colors = {
-      'Technical Interview': '#4CAF50',
-      'HR & Behavioral': '#2196F3',
-      'AI/ML Specific': '#FF9800',
-      'Company-Specific': '#9C27B0'
+      "Technical Interview": "#4CAF50",
+      "HR & Behavioral": "#2196F3",
+      "AI/ML Specific": "#FF9800",
+      "Company-Specific": "#9C27B0",
     };
-    return colors[type] || '#2187fb';
+    return colors[type] || "#4d7bff";
   };
 
   if (!user) return null;
 
   return (
-    <div className="dashboard-layout">
-      <aside className="sidebar">
-        <ul>
-          <li onClick={() => navigate('/dashboard')}>Dashboard/Home</li>
-          <li onClick={() => navigate('/profile')}>Profile</li>
-          <li style={{fontWeight: 'bold', color: '#2187fb', cursor: 'default'}}>History</li>
-          <li onClick={handleLogout} style={{marginTop: '2em', color: '#ff6666'}}>
-            Logout
-          </li>
-        </ul>
-      </aside>
-      
-      <main>
-        <h2>History</h2>
-        
-        {/* Tabs */}
-        <div style={{
-          display: 'flex',
-          gap: '1em',
-          marginBottom: '2em',
-          borderBottom: '2px solid #333'
-        }}>
-          <button
-            onClick={() => setSelectedTab('interviews')}
-            style={{
-              background: 'transparent',
-              border: 'none',
-              color: selectedTab === 'interviews' ? '#2187fb' : '#aaa',
-              padding: '1em 1.5em',
-              fontSize: '1em',
-              cursor: 'pointer',
-              borderBottom: selectedTab === 'interviews' ? '3px solid #2187fb' : 'none',
-              marginBottom: '-2px'
-            }}
-          >
-            Interviews ({interviews.length})
-          </button>
-          <button
-            onClick={() => setSelectedTab('resumes')}
-            style={{
-              background: 'transparent',
-              border: 'none',
-              color: selectedTab === 'resumes' ? '#2187fb' : '#aaa',
-              padding: '1em 1.5em',
-              fontSize: '1em',
-              cursor: 'pointer',
-              borderBottom: selectedTab === 'resumes' ? '3px solid #2187fb' : 'none',
-              marginBottom: '-2px'
-            }}
-          >
-            Resumes
-          </button>
-          <button
-            onClick={() => setSelectedTab('jds')}
-            style={{
-              background: 'transparent',
-              border: 'none',
-              color: selectedTab === 'jds' ? '#2187fb' : '#aaa',
-              padding: '1em 1.5em',
-              fontSize: '1em',
-              cursor: 'pointer',
-              borderBottom: selectedTab === 'jds' ? '3px solid #2187fb' : 'none',
-              marginBottom: '-2px'
-            }}
-          >
-            Job Descriptions
-          </button>
+    <div className="app-shell">
+      <aside className="app-shell__sidebar soft-scrollbar">
+        <div className="sidebar__brand">
+          <span>Interview Bot</span>
         </div>
-        
-        {loading ? (
-          <div style={{
-            textAlign: 'center',
-            padding: '3em',
-            color: '#aaa'
-          }}>
-            Loading history...
+        <nav className="sidebar__nav">
+          <button type="button" className="sidebar__link" onClick={() => navigate("/dashboard")}>Dashboard overview</button>
+          <button type="button" className="sidebar__link" onClick={() => navigate("/profile")}>Profile & preferences</button>
+          <button type="button" className="sidebar__link sidebar__link--active">Session history</button>
+          <button type="button" className="sidebar__link" onClick={() => navigate("/interview-type")}>Interview studio</button>
+        </nav>
+        {/* coach promo removed */}
+        <button type="button" className="sidebar__logout" onClick={handleLogout}>
+          Log out
+        </button>
+      </aside>
+
+      <main className="app-shell__main soft-scrollbar">
+        <header className="dashboard-header animate-float">
+          <div>
+            <p className="dashboard-header__subtitle">Your interview trail</p>
+            <h1>History & insights</h1>
+            <p className="dashboard-header__meta">
+              Revisit past sessions, exports, and uploads. Use this space to spot patterns in your preparation journey.
+            </p>
           </div>
-        ) : (
-          <>
-            {/* Interviews Tab */}
-            {selectedTab === 'interviews' && (
-              <div>
-                {interviews.length === 0 ? (
-                  <div style={{
-                    background: '#222',
-                    padding: '3em',
-                    borderRadius: '1em',
-                    textAlign: 'center',
-                    color: '#aaa'
-                  }}>
-                    <div style={{fontSize: '3em', marginBottom: '0.5em'}}>📋</div>
-                    <h3 style={{color: '#fff'}}>No Interviews Yet</h3>
-                    <p>Start your first interview from the dashboard!</p>
-                    <button
-                      onClick={() => navigate('/dashboard')}
-                      style={{
-                        background: '#2187fb',
-                        color: '#fff',
-                        border: 'none',
-                        padding: '0.8em 2em',
-                        borderRadius: '6px',
-                        cursor: 'pointer',
-                        fontSize: '1em',
-                        marginTop: '1em'
-                      }}
-                    >
-                      Go to Dashboard
-                    </button>
-                  </div>
-                ) : (
-                  <div style={{display: 'flex', flexDirection: 'column', gap: '1em'}}>
-                    {interviews.map((interview, index) => (
-                      <div
-                        key={index}
-                        style={{
-                          background: '#222',
-                          padding: '1.5em',
-                          borderRadius: '1em',
-                          display: 'flex',
-                          justifyContent: 'space-between',
-                          alignItems: 'center',
-                          cursor: 'pointer',
-                          transition: 'background 0.2s, transform 0.2s'
-                        }}
-                        onMouseEnter={(e) => {
-                          e.currentTarget.style.background = '#2187fb22';
-                          e.currentTarget.style.transform = 'translateX(8px)';
-                        }}
-                        onMouseLeave={(e) => {
-                          e.currentTarget.style.background = '#222';
-                          e.currentTarget.style.transform = 'translateX(0)';
-                        }}
-                      >
-                        <div>
-                          <div style={{
-                            display: 'inline-block',
-                            padding: '0.3em 0.8em',
-                            borderRadius: '4px',
-                            fontSize: '0.85em',
-                            fontWeight: 'bold',
-                            background: getInterviewTypeColor(interview.interview_type) + '22',
-                            color: getInterviewTypeColor(interview.interview_type),
-                            marginBottom: '0.8em'
-                          }}>
+          <div className="dashboard-header__actions">
+            <button type="button" className="ghost-button" onClick={() => navigate("/dashboard")}>Back to dashboard</button>
+            <button type="button" className="accent-button" onClick={() => navigate("/interview-type")}>Start new session</button>
+          </div>
+        </header>
+
+        <section className="glass-panel history-tabs animate-float">
+          <div className="tab-strip">
+            {tabs.map((tab) => (
+              <button
+                key={tab.id}
+                type="button"
+                className={`tab-strip__button ${selectedTab === tab.id ? "tab-strip__button--active" : ""}`}
+                onClick={() => setSelectedTab(tab.id)}
+              >
+                {tab.label}
+                {tab.id === "interviews" && ` (${interviews.length})`}
+              </button>
+            ))}
+          </div>
+
+          {loading ? (
+            <div className="history-loading">Loading your activity...</div>
+          ) : (
+            <div className="history-content">
+              {selectedTab === "interviews" && (
+                <div className="history-list">
+                  {interviews.length === 0 ? (
+                    <div className="history-empty">
+                      <div className="history-empty__icon">📋</div>
+                      <h3>No interviews yet</h3>
+                      <p>Kickstart your first AI-powered mock from the dashboard.</p>
+                      <button type="button" className="accent-button" onClick={() => navigate("/dashboard")}>
+                        Go to dashboard
+                      </button>
+                    </div>
+                  ) : (
+                    interviews.map((interview) => (
+                      <article key={interview.interview_id} className="history-card glass-panel">
+                        <div className="history-card__header">
+                          <span
+                            className="history-badge"
+                            style={{
+                              background: `${getInterviewTypeColor(interview.interview_type)}22`,
+                              color: getInterviewTypeColor(interview.interview_type),
+                            }}
+                          >
                             {interview.interview_type}
-                          </div>
-                          <div style={{fontSize: '1.1em', fontWeight: '500', marginBottom: '0.5em'}}>
-                            Interview #{interview.interview_id}
-                          </div>
-                          <div style={{color: '#aaa', fontSize: '0.9em'}}>
-                            {formatDate(interview.conducted_at)}
-                            {interview.duration_minutes && ` • ${interview.duration_minutes} minutes`}
-                          </div>
+                          </span>
+                          <span className={`status-chip ${interview.report_sent ? "status-chip--success" : "status-chip--warning"}`}>
+                            {interview.report_sent ? "Completed" : "In progress"}
+                          </span>
                         </div>
-                        <div>
-                          {interview.report_sent ? (
-                            <span style={{
-                              padding: '0.5em 1em',
-                              borderRadius: '6px',
-                              background: '#44ff4422',
-                              color: '#44ff44',
-                              fontSize: '0.9em'
-                            }}>
-                              ✓ Completed
-                            </span>
-                          ) : (
-                            <span style={{
-                              padding: '0.5em 1em',
-                              borderRadius: '6px',
-                              background: '#ff990022',
-                              color: '#ff9900',
-                              fontSize: '0.9em'
-                            }}>
-                              In Progress
-                            </span>
+                        <div className="history-card__body">
+                          <h3>Interview #{interview.interview_id}</h3>
+                          <p>{formatDate(interview.conducted_at)}</p>
+                          {interview.duration_minutes && (
+                            <p>{interview.duration_minutes} minute session</p>
                           )}
                         </div>
-                      </div>
-                    ))}
-                  </div>
-                )}
-              </div>
-            )}
-            
-            {/* Resumes Tab */}
-            {selectedTab === 'resumes' && (
-              <div style={{
-                background: '#222',
-                padding: '3em',
-                borderRadius: '1em',
-                textAlign: 'center',
-                color: '#aaa'
-              }}>
-                <div style={{fontSize: '3em', marginBottom: '0.5em'}}>📄</div>
-                <h3 style={{color: '#fff'}}>Resume History</h3>
-                <p>View all your uploaded resumes</p>
-                <div style={{
-                  marginTop: '2em',
-                  padding: '1em',
-                  background: '#2187fb22',
-                  borderRadius: '8px',
-                  color: '#4ec6fa'
-                }}>
-                  Feature coming soon! You'll be able to view, download, and manage all your uploaded resumes here.
+                        <div className="history-card__footer">
+                          <button type="button" className="ghost-button" onClick={() => navigate("/interview-type")}>Recreate format</button>
+                          <button type="button" className="ghost-button" onClick={() => navigate("/dashboard")}>Download report</button>
+                        </div>
+                      </article>
+                    ))
+                  )}
                 </div>
-              </div>
-            )}
-            
-            {/* Job Descriptions Tab */}
-            {selectedTab === 'jds' && (
-              <div style={{
-                background: '#222',
-                padding: '3em',
-                borderRadius: '1em',
-                textAlign: 'center',
-                color: '#aaa'
-              }}>
-                <div style={{fontSize: '3em', marginBottom: '0.5em'}}>📋</div>
-                <h3 style={{color: '#fff'}}>Job Description History</h3>
-                <p>View all your uploaded job descriptions</p>
-                <div style={{
-                  marginTop: '2em',
-                  padding: '1em',
-                  background: '#2187fb22',
-                  borderRadius: '8px',
-                  color: '#4ec6fa'
-                }}>
-                  Feature coming soon! You'll be able to view, download, and manage all your uploaded job descriptions here.
+              )}
+
+              {selectedTab === "resumes" && (
+                <div className="history-empty">
+                  <div className="history-empty__icon">📄</div>
+                  <h3>Resume library coming soon</h3>
+                  <p>We’re building a timeline to manage every version you’ve uploaded.</p>
+                  <button type="button" className="ghost-button" onClick={() => navigate("/dashboard")}>Upload a resume</button>
                 </div>
-              </div>
-            )}
-          </>
-        )}
+              )}
+
+              {selectedTab === "jds" && (
+                <div className="history-empty">
+                  <div className="history-empty__icon">📝</div>
+                  <h3>Job description archive</h3>
+                  <p>Soon you’ll be able to revisit the roles you’ve targeted and their tailored drills.</p>
+                  <button type="button" className="ghost-button" onClick={() => navigate("/dashboard")}>Upload JD</button>
+                </div>
+              )}
+            </div>
+          )}
+        </section>
       </main>
     </div>
   );
