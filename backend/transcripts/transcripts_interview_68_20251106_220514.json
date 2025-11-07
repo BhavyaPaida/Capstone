@@ -1,0 +1,42 @@
+{
+  "items": [
+    {
+      "id": "item_ec4f8184d6a3",
+      "type": "message",
+      "role": "assistant",
+      "content": [
+        "Great! Let's"
+      ],
+      "interrupted": true
+    },
+    {
+      "id": "item_f4c42337e93c",
+      "type": "message",
+      "role": "user",
+      "content": [
+        "The Google night campaign"
+      ],
+      "interrupted": false,
+      "transcript_confidence": 0.35009766
+    },
+    {
+      "id": "item_dbedb13f1b1c",
+      "type": "message",
+      "role": "assistant",
+      "content": [
+        "Okay, I'm ready to begin the interview.\n\n**(Question 0)**\nPlease introduce yourself. Tell me about your background, your education, and what you're passionate about."
+      ],
+      "interrupted": false
+    },
+    {
+      "id": "item_eceec227f953",
+      "type": "message",
+      "role": "user",
+      "content": [
+        "is"
+      ],
+      "interrupted": false,
+      "transcript_confidence": 0.0
+    }
+  ]
+}

@@ -1,0 +1,32 @@
+{
+  "items": [
+    {
+      "id": "item_2a4e39539588",
+      "type": "message",
+      "role": "assistant",
+      "content": [
+        "Hello! Welcome to your Resume Based session.\nI'm your AI interviewer today. We'll start with a brief introduction, then go through 5 main questions with follow-ups.\nThis will take about 15-20 minutes. Take your time with your responses and feel free to be detailed. Ready to begin?"
+      ],
+      "interrupted": false
+    },
+    {
+      "id": "item_7b40c88b976c",
+      "type": "message",
+      "role": "user",
+      "content": [
+        "Yes."
+      ],
+      "interrupted": false,
+      "transcript_confidence": 0.9875488
+    },
+    {
+      "id": "item_6da744093a2d",
+      "type": "message",
+      "role": "assistant",
+      "content": [
+        "Great!\n\n**Question 0:** Introduce yourself - tell me about your background, education, and what"
+      ],
+      "interrupted": true
+    }
+  ]
+}

@@ -7,6 +7,8 @@ import ForgotPassword from "./pages/ForgotPassword";
 import SignUp from "./pages/SignUp";
 import Profile from "./pages/UserProfile";
 import History from "./pages/History";
+import InterviewSession from "./pages/InterviewSession";
+import InterviewReport from "./pages/InterviewReport";
 
 function App() {
   return (
@@ -20,6 +22,8 @@ function App() {
         <Route path="/profile" element={<Profile />} />
         <Route path="/history" element={<History />} />
         <Route path="/interview-type" element={<InterviewType />} />
+        <Route path="/interview-session" element={<InterviewSession />} />
+        <Route path="/interview-report/:interviewId" element={<InterviewReport />} />
       </Routes>
     </BrowserRouter>
   );

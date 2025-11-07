@@ -1,0 +1,13 @@
+{
+  "items": [
+    {
+      "id": "item_73b651f7dad0",
+      "type": "message",
+      "role": "assistant",
+      "content": [
+        "Excellent. Let's begin."
+      ],
+      "interrupted": true
+    }
+  ]
+}

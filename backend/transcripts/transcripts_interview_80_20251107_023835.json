@@ -1,0 +1,13 @@
+{
+  "items": [
+    {
+      "id": "item_4fed87c79572",
+      "type": "message",
+      "role": "assistant",
+      "content": [
+        "Hello! Welcome to"
+      ],
+      "interrupted": true
+    }
+  ]
+}

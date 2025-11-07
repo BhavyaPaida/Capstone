@@ -58,7 +58,7 @@ export default function InterviewType() {
       description: "Assesses communication skills, leadership potential, teamwork, and cultural fit within the organization."
     },
     {
-      type: "AI/ML Specific",
+      type: "Resume Based",
       description: "Covers machine learning algorithms, deep learning architectures, model evaluation, and deployment strategies."
     },
     {
@@ -91,25 +91,21 @@ export default function InterviewType() {
       );
 
       if (response.success) {
-        setMessage('Interview created! Starting session...');
         // Store interview ID for the interview page
         localStorage.setItem('current_interview', JSON.stringify({
           interview_id: response.interview_id,
           interview_type: selectedType
         }));
         
-        // Navigate to interview page (you'll need to create this)
-        setTimeout(() => {
-          // For now, just show success message
-          setMessage('Interview session ready! (Interview page coming soon)');
-        }, 1000);
+        // Navigate to interview session page
+        navigate('/interview-session');
       } else {
         setMessage(response.error || 'Failed to create interview');
+        setLoading(false);
       }
     } catch (err) {
       setMessage('Network error. Please try again.');
       console.error('Create interview error:', err);
-    } finally {
       setLoading(false);
     }
   };
@@ -138,9 +134,9 @@ export default function InterviewType() {
         
         {message && (
           <div style={{
-            background: message.includes('ready') || message.includes('created') ? '#44ff4422' : '#ff444422',
-            border: `1px solid ${message.includes('ready') || message.includes('created') ? '#44ff44' : '#ff4444'}`,
-            color: message.includes('ready') || message.includes('created') ? '#66ff66' : '#ff6666',
+            background: message.includes('Creating') ? '#2187fb22' : '#ff444422',
+            border: `1px solid ${message.includes('Creating') ? '#2187fb' : '#ff4444'}`,
+            color: message.includes('Creating') ? '#4ec6fa' : '#ff6666',
             padding: '1em',
             borderRadius: '8px',
             marginBottom: '1em'

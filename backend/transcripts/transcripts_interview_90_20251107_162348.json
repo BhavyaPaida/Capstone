@@ -1,0 +1,360 @@
+{
+  "items": [
+    {
+      "id": "item_e1f45e7b0b41",
+      "type": "message",
+      "role": "assistant",
+      "content": [
+        "Great! Let's start.\n\n**Question 0:** Introduce yourself - tell me about your background, education, and what you're passionate about."
+      ],
+      "interrupted": false
+    },
+    {
+      "id": "item_c9a09ae9bed5",
+      "type": "message",
+      "role": "user",
+      "content": [
+        "Hi. I am Bob. Yeah."
+      ],
+      "interrupted": false,
+      "transcript_confidence": 0.9614258
+    },
+    {
+      "id": "item_5b8fd1b0f2c7",
+      "type": "message",
+      "role": "user",
+      "content": [
+        "Am a student, and we are"
+      ],
+      "interrupted": false,
+      "transcript_confidence": 0.9394531
+    },
+    {
+      "id": "item_b54180139e30",
+      "type": "message",
+      "role": "user",
+      "content": [
+        "University. I am passionate about cooking. I don't want to do job, but my parents are forcing me to do that. So I'm this interview."
+      ],
+      "interrupted": false,
+      "transcript_confidence": 0.9978027475
+    },
+    {
+      "id": "item_7d17f0323cd6",
+      "type": "message",
+      "role": "assistant",
+      "content": [
+        "Thank you, Bob.\n\n**Question 1:** It's interesting that you mentioned your parents are encouraging you to pursue a job, even though your passion lies in cooking. Can you tell me more about what makes you passionate about cooking and how you see that passion relating to a career in technology?"
+      ],
+      "interrupted": false
+    },
+    {
+      "id": "item_2908d6fbe057",
+      "type": "message",
+      "role": "user",
+      "content": [
+        "I don't see a relation between"
+      ],
+      "interrupted": false,
+      "transcript_confidence": 0.99609375
+    },
+    {
+      "id": "item_297fb1e4b07f",
+      "type": "message",
+      "role": "user",
+      "content": [
+        "and technology. Maybe it will help me in building cooking apps."
+      ],
+      "interrupted": false,
+      "transcript_confidence": 0.9902344
+    },
+    {
+      "id": "item_de009926e1bb",
+      "type": "message",
+      "role": "assistant",
+      "content": [
+        "That's an interesting thought.\n\n**Follow-up to Question 1:** Beyond building apps, can you think of any other ways your skills or mindset from cooking might translate into a professional environment, even if it's not directly related to the culinary world?"
+      ],
+      "interrupted": false
+    },
+    {
+      "id": "item_96c122c0d090",
+      "type": "message",
+      "role": "user",
+      "content": [
+        "Maybe something that is related to cooking or kitchen, maybe."
+      ],
+      "interrupted": false,
+      "transcript_confidence": 0.9855957
+    },
+    {
+      "id": "item_299788084ee5",
+      "type": "message",
+      "role": "user",
+      "content": [
+        "Same games or"
+      ],
+      "interrupted": false,
+      "transcript_confidence": 0.75097656
+    },
+    {
+      "id": "item_aedf0ab5e4fc",
+      "type": "message",
+      "role": "user",
+      "content": [
+        "any app"
+      ],
+      "interrupted": false,
+      "transcript_confidence": 0.9760742
+    },
+    {
+      "id": "item_817189f97ad1",
+      "type": "message",
+      "role": "user",
+      "content": [
+        "something like that."
+      ],
+      "interrupted": false,
+      "transcript_confidence": 0.9458008
+    },
+    {
+      "id": "item_08415f9d361a",
+      "type": "message",
+      "role": "assistant",
+      "content": [
+        "Okay, I understand.\n\n**Question 2:** Let's shift gears a bit. As a fresher, you'll be encountering new technologies and project requirements regularly. Can you describe a time when you had to learn something completely new, perhaps a new skill or a complex concept, for a project or academic work? How did you approach it, and what was the outcome?"
+      ],
+      "interrupted": false
+    },
+    {
+      "id": "item_3842447912ad",
+      "type": "message",
+      "role": "user",
+      "content": [
+        "I went to"
+      ],
+      "interrupted": false,
+      "transcript_confidence": 0.921875
+    },
+    {
+      "id": "item_50a141b9c19b",
+      "type": "message",
+      "role": "user",
+      "content": [
+        "so many sources that"
+      ],
+      "interrupted": false,
+      "transcript_confidence": 0.9873047
+    },
+    {
+      "id": "item_33e9ec02650a",
+      "type": "message",
+      "role": "user",
+      "content": [
+        "was provided to me, and"
+      ],
+      "interrupted": false,
+      "transcript_confidence": 0.99121094
+    },
+    {
+      "id": "item_55d8ded48ee8",
+      "type": "message",
+      "role": "assistant",
+      "content": [
+        "Thank"
+      ],
+      "interrupted": true
+    },
+    {
+      "id": "item_892ccc152b80",
+      "type": "message",
+      "role": "user",
+      "content": [
+        "if I had any doubts, I went and asked my client and who sent me that job"
+      ],
+      "interrupted": false,
+      "transcript_confidence": 0.9191894475
+    },
+    {
+      "id": "item_341b0dfdd7db",
+      "type": "message",
+      "role": "user",
+      "content": [
+        "So yeah."
+      ],
+      "interrupted": false,
+      "transcript_confidence": 0.99853516
+    },
+    {
+      "id": "item_b44d9bf45ac3",
+      "type": "message",
+      "role": "assistant",
+      "content": [
+        "Thank you for sharing that.\n\n**Follow-up to Question 2:** It sounds like you utilized multiple resources and weren't afraid to ask for help. When you encountered those doubts, how did you decide *what* specifically to ask, and how did you ensure you understood the explanation fully?"
+      ],
+      "interrupted": false
+    },
+    {
+      "id": "item_f622f5b988b6",
+      "type": "message",
+      "role": "user",
+      "content": [
+        "I don't know."
+      ],
+      "interrupted": false,
+      "transcript_confidence": 0.9316406
+    },
+    {
+      "id": "item_fd076a04d310",
+      "type": "message",
+      "role": "assistant",
+      "content": [
+        "I see.\n\n**Question 3:** In any team project, there might be times when you disagree with a teammate's approach or idea. Can you tell me about a situation where you had a difference of opinion with a colleague or classmate on a project? How did you handle it, and what was the result?"
+      ],
+      "interrupted": false
+    },
+    {
+      "id": "item_4f90c6d9c147",
+      "type": "message",
+      "role": "user",
+      "content": [
+        "Yeah. I had, and then I"
+      ],
+      "interrupted": false,
+      "transcript_confidence": 0.9921875
+    },
+    {
+      "id": "item_853789c60bcb",
+      "type": "message",
+      "role": "user",
+      "content": [
+        "discussed with them and then sorted it out."
+      ],
+      "interrupted": false,
+      "transcript_confidence": 0.92700195
+    },
+    {
+      "id": "item_3d40dd49ee3e",
+      "type": "message",
+      "role": "assistant",
+      "content": [
+        "Thank you for that.\n\n**Follow-up to Question 3:** When you \"discussed\" and \"sorted it out,\" can you walk me through the actual conversation? What did you say, what did they say, and how did you arrive at a resolution together?"
+      ],
+      "interrupted": false
+    },
+    {
+      "id": "item_31c217040207",
+      "type": "message",
+      "role": "user",
+      "content": [
+        "Don't know."
+      ],
+      "interrupted": false,
+      "transcript_confidence": 0.9213867
+    },
+    {
+      "id": "item_e85515f25345",
+      "type": "message",
+      "role": "assistant",
+      "content": [
+        "I understand.\n\n**Question 4:** Imagine you're working on a project with a tight deadline, and you encounter an unexpected technical challenge that threatens to delay your progress significantly. How would you approach this situation? What steps would you take to manage the pressure and still aim to meet the deadline?"
+      ],
+      "interrupted": false
+    },
+    {
+      "id": "item_3da416c1a536",
+      "type": "message",
+      "role": "user",
+      "content": [
+        "And"
+      ],
+      "interrupted": false,
+      "transcript_confidence": 0.7050781
+    },
+    {
+      "id": "item_ea0db950fd89",
+      "type": "message",
+      "role": "assistant",
+      "content": [
+        "Please"
+      ],
+      "interrupted": true
+    },
+    {
+      "id": "item_ec2fba5e7bc5",
+      "type": "message",
+      "role": "user",
+      "content": [
+        "do time management where I'll send task nicely. That's it."
+      ],
+      "interrupted": false,
+      "transcript_confidence": 0.810791
+    },
+    {
+      "id": "item_1dfdb6da01c8",
+      "type": "message",
+      "role": "assistant",
+      "content": [
+        "Thank you for that.\n\n**Follow-up to Question 4:** You mentioned \"time management\" and \"sending tasks nicely.\" Could you elaborate on what that looks like in practice when you're under pressure? For instance, how would you prioritize tasks, and how would you communicate the situation and your plan to your team or manager?"
+      ],
+      "interrupted": false
+    },
+    {
+      "id": "item_8163ebfbb45c",
+      "type": "message",
+      "role": "user",
+      "content": [
+        "Know."
+      ],
+      "interrupted": false,
+      "transcript_confidence": 0.7753906
+    },
+    {
+      "id": "item_bf36dacf7de2",
+      "type": "message",
+      "role": "assistant",
+      "content": [
+        "Okay.\n\n**Question 5:** Looking ahead, where do you see yourself in your career five years from now? What are your aspirations and goals in the technology field?"
+      ],
+      "interrupted": false
+    },
+    {
+      "id": "item_6a4255eade73",
+      "type": "message",
+      "role": "user",
+      "content": [
+        "I have to see myself as the CEO."
+      ],
+      "interrupted": false,
+      "transcript_confidence": 0.98535156
+    },
+    {
+      "id": "item_22905e96103b",
+      "type": "message",
+      "role": "assistant",
+      "content": [
+        "That's an ambitious goal.\n\n**Follow-up to Question 5:** Being a CEO involves a broad range of responsibilities. What specific skills or experiences do you believe you need to acquire in the next five years to help you move towards that aspiration?"
+      ],
+      "interrupted": false
+    },
+    {
+      "id": "item_7225e315f19b",
+      "type": "message",
+      "role": "user",
+      "content": [
+        "No. No."
+      ],
+      "interrupted": false,
+      "transcript_confidence": 0.93530273
+    },
+    {
+      "id": "item_32b6b8d1ab2f",
+      "type": "message",
+      "role": "assistant",
+      "content": [
+        "Thank you for your time today, Bob. We appreciate you coming in and sharing your thoughts with us."
+      ],
+      "interrupted": false
+    }
+  ]
+}

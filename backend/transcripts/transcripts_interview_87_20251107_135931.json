@@ -1,0 +1,118 @@
+{
+  "items": [
+    {
+      "id": "item_57a7a01559c7",
+      "type": "message",
+      "role": "assistant",
+      "content": [
+        "Hello! Welcome to your Resume Based session.\nI'm your AI interviewer today. We'll start with a brief introduction, then go through 5 main questions with follow-ups.\nThis will take about 15-20 minutes. Take your time with your responses and feel free to be detailed. Ready to begin?"
+      ],
+      "interrupted": false
+    },
+    {
+      "id": "item_e0b7a28745ba",
+      "type": "message",
+      "role": "user",
+      "content": [
+        "Yes."
+      ],
+      "interrupted": false,
+      "transcript_confidence": 0.95092773
+    },
+    {
+      "id": "item_43bdff4a109f",
+      "type": "message",
+      "role": "assistant",
+      "content": [
+        "Great!\n\n**Question 0:** Introduce yourself - tell me about your background, education, and what you're passionate about."
+      ],
+      "interrupted": false
+    },
+    {
+      "id": "item_ee5bc9dc4f8e",
+      "type": "message",
+      "role": "user",
+      "content": [
+        "I am Bob Yeo."
+      ],
+      "interrupted": false,
+      "transcript_confidence": 0.80810547
+    },
+    {
+      "id": "item_4f73d95799d6",
+      "type": "message",
+      "role": "assistant",
+      "content": [
+        "Thanks, Bob.\n\n**Question 1:** I see you have listed [Specific Project Name] on your resume. Could you walk me through your role in this project, the technologies you used, and what your key contributions were?"
+      ],
+      "interrupted": false
+    },
+    {
+      "id": "item_7c624c7f5330",
+      "type": "message",
+      "role": "user",
+      "content": [
+        "How are you doing, Hugh?"
+      ],
+      "interrupted": false,
+      "transcript_confidence": 0.7817383
+    },
+    {
+      "id": "item_e4bb16f31b4e",
+      "type": "message",
+      "role": "assistant",
+      "content": [
+        "I'm doing well, thank you for asking, Bob! I'm ready to proceed with the interview.\n\n**Question 1:** I see you have listed [Specific Project Name] on your resume. Could you walk me through your role in this project, the technologies you used, and what your key contributions were?"
+      ],
+      "interrupted": false
+    },
+    {
+      "id": "item_54e862ca993b",
+      "type": "message",
+      "role": "user",
+      "content": [
+        "Can you repeat the question?"
+      ],
+      "interrupted": false,
+      "transcript_confidence": 0.9770508
+    },
+    {
+      "id": "item_91de0827cd48",
+      "type": "message",
+      "role": "assistant",
+      "content": [
+        "Absolutely, Bob. No problem at all.\n\n**Question 1:** I see you have listed **[Specific Project Name]** on your resume. Could you walk me through your role in this project, the technologies you used, and what your key contributions were?"
+      ],
+      "interrupted": false
+    },
+    {
+      "id": "item_864bb7e349c2",
+      "type": "message",
+      "role": "user",
+      "content": [
+        "The part it was"
+      ],
+      "interrupted": false,
+      "transcript_confidence": 0.97998047
+    },
+    {
+      "id": "item_6b8b2ea1f6e8",
+      "type": "message",
+      "role": "user",
+      "content": [
+        "resume analyzer and"
+      ],
+      "interrupted": false,
+      "transcript_confidence": 0.94555664
+    },
+    {
+      "id": "item_5b64650b52b2",
+      "type": "message",
+      "role": "assistant",
+      "content": [
+        "Thank you"
+      ],
+      "interrupted": true
+    }
+  ]
+}

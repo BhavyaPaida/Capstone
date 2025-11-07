@@ -1,0 +1,52 @@
+{
+  "items": [
+    {
+      "id": "item_84e9a0fb147d",
+      "type": "message",
+      "role": "assistant",
+      "content": [
+        "Great! Let's"
+      ],
+      "interrupted": true
+    },
+    {
+      "id": "item_6758f747c6dc",
+      "type": "message",
+      "role": "user",
+      "content": [
+        "That is not less. Don't worry. People get less also."
+      ],
+      "interrupted": false,
+      "transcript_confidence": 0.97509766
+    },
+    {
+      "id": "item_24a7e0565356",
+      "type": "message",
+      "role": "user",
+      "content": [
+        "Because and not everyone can write to. She give marks for that."
+      ],
+      "interrupted": false,
+      "transcript_confidence": 0.96972656
+    },
+    {
+      "id": "item_9d28209bf4aa",
+      "type": "message",
+      "role": "assistant",
+      "content": [
+        "Okay, I understand. Thank you for explaining."
+      ],
+      "interrupted": true
+    },
+    {
+      "id": "item_65ea56623587",
+      "type": "message",
+      "role": "user",
+      "content": [
+        "Okay. I can ask for this finance."
+      ],
+      "interrupted": false,
+      "transcript_confidence": 0.8774414
+    }
+  ]
+}

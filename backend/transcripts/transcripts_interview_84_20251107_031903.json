@@ -1,0 +1,32 @@
+{
+  "items": [
+    {
+      "id": "item_40f03b19424d",
+      "type": "message",
+      "role": "assistant",
+      "content": [
+        "Excellent! I'm glad you're ready.\n\nLet's start with our first question.\n\n**Question 0:** Introduce yourself – tell me about your background, education, and what you're passionate about."
+      ],
+      "interrupted": false
+    },
+    {
+      "id": "item_6b6bfbb0979e",
+      "type": "message",
+      "role": "user",
+      "content": [
+        "Hi. I am."
+      ],
+      "interrupted": false,
+      "transcript_confidence": 0.94311523
+    },
+    {
+      "id": "item_10e346221c1f",
+      "type": "message",
+      "role": "assistant",
+      "content": [
+        "*(Waits patiently for the candidate to complete their introduction)*"
+      ],
+      "interrupted": false
+    }
+  ]
+}

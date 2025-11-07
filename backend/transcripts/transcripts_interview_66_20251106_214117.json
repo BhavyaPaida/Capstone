@@ -1,0 +1,23 @@
+{
+  "items": [
+    {
+      "id": "item_2f818b14adce",
+      "type": "message",
+      "role": "assistant",
+      "content": [
+        "Hello! Welcome to your Resume Based session.\nI'm your AI interviewer today. We'll start with a brief introduction,"
+      ],
+      "interrupted": true
+    },
+    {
+      "id": "item_19d55b24afd5",
+      "type": "message",
+      "role": "user",
+      "content": [
+        "Long term."
+      ],
+      "interrupted": false,
+      "transcript_confidence": 0.8391113
+    }
+  ]
+}

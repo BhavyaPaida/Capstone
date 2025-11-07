@@ -1,0 +1,13 @@
+{
+  "items": [
+    {
+      "id": "item_1b7eb63e5320",
+      "type": "message",
+      "role": "assistant",
+      "content": [
+        "Hello! Welcome to your Resume Based"
+      ],
+      "interrupted": true
+    }
+  ]
+}

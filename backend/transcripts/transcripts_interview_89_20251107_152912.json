@@ -1,0 +1,61 @@
+{
+  "items": [
+    {
+      "id": "item_05b4520930c9",
+      "type": "message",
+      "role": "assistant",
+      "content": [
+        "Hello! Welcome to your Resume Based session. I'm your AI interviewer today. We'll start with a brief introduction, then go through 5 main questions with follow-ups. This will take about 15-20 minutes. Take your time with your responses and feel free to be detailed. Ready to begin?"
+      ],
+      "interrupted": false
+    },
+    {
+      "id": "item_cead5e9ca352",
+      "type": "message",
+      "role": "user",
+      "content": [
+        "Yes."
+      ],
+      "interrupted": false,
+      "transcript_confidence": 0.9812012
+    },
+    {
+      "id": "item_331160c0a787",
+      "type": "message",
+      "role": "assistant",
+      "content": [
+        "Great! Let's start with **Question 0: Introduce yourself - tell me about your background, education, and what you're passionate about.**"
+      ],
+      "interrupted": false
+    },
+    {
+      "id": "item_5dd85eb1bf9b",
+      "type": "message",
+      "role": "user",
+      "content": [
+        "I am above your IMF or"
+      ],
+      "interrupted": false,
+      "transcript_confidence": 0.79833984
+    },
+    {
+      "id": "item_67c938e05009",
+      "type": "message",
+      "role": "user",
+      "content": [
+        "year BTEC student in BITAP University. I am passionate about cooking. I don't know how to study. So technically, I don't want a job my parents forced, so I'm coming."
+      ],
+      "interrupted": false,
+      "transcript_confidence": 0.9674886016666666
+    },
+    {
+      "id": "item_bb1599252240",
+      "type": "message",
+      "role": "assistant",
+      "content": [
+        "Thank you for sharing that. It sounds like you have a passion for cooking.\n\nNow, let's move on to your resume. **Question 1: Could you please tell me about your most significant"
+      ],
+      "interrupted": true
+    }
+  ]
+}

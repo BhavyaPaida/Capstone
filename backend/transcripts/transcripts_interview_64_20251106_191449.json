@@ -1,0 +1,60 @@
+{
+  "items": [
+    {
+      "id": "item_a0537207f497",
+      "type": "message",
+      "role": "assistant",
+      "content": [
+        "Hello! Welcome to your Technical Interview session. I'm your AI interviewer today. We'll start with a brief introduction, then go through 5 main questions with follow-ups. This will take about 15-20 minutes. Take your time with your responses and feel free to be detailed. Ready to begin?"
+      ],
+      "interrupted": false
+    },
+    {
+      "id": "item_c438a366ef91",
+      "type": "message",
+      "role": "assistant",
+      "content": [
+        "\n\nLet's"
+      ],
+      "interrupted": true
+    },
+    {
+      "id": "item_bf5ab11a9bac",
+      "type": "message",
+      "role": "user",
+      "content": [
+        "Yes."
+      ],
+      "interrupted": false,
+      "transcript_confidence": 0.98657227
+    },
+    {
+      "id": "item_947ddeb2f8cf",
+      "type": "message",
+      "role": "assistant",
+      "content": [
+        "Great. So, to start, could you please **introduce yourself - tell me about your background, education, and what you're passionate about**?"
+      ],
+      "interrupted": false
+    },
+    {
+      "id": "item_56e97bac0f58",
+      "type": "message",
+      "role": "user",
+      "content": [
+        "I am, Bhavya."
+      ],
+      "interrupted": false,
+      "transcript_confidence": 0.6756592
+    },
+    {
+      "id": "item_5aeb04f899b4",
+      "type": "message",
+      "role": "assistant",
+      "content": [
+        "Thank you, Bhavya. It's nice to"
+      ],
+      "interrupted": true
+    }
+  ]
+}

@@ -1,0 +1,13 @@
+{
+  "items": [
+    {
+      "id": "item_28ad833addd1",
+      "type": "message",
+      "role": "assistant",
+      "content": [
+        "Great! Let's begin.\n\n**Question 0:**"
+      ],
+      "interrupted": true
+    }
+  ]
+}

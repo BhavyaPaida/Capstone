@@ -1,0 +1,70 @@
+{
+  "items": [
+    {
+      "id": "item_29edcc35abcc",
+      "type": "message",
+      "role": "assistant",
+      "content": [
+        "Hello! Welcome to your HR & Behavioral session.\nI'm your AI interviewer today. We'll start with a brief introduction, then go through 5 main questions with follow-ups.\nThis will take about 15-20 minutes. Take your time with your responses and feel free to be detailed. Ready to begin?"
+      ],
+      "interrupted": false
+    },
+    {
+      "id": "item_16d7fb9bc5f3",
+      "type": "message",
+      "role": "user",
+      "content": [
+        "Yes."
+      ],
+      "interrupted": false,
+      "transcript_confidence": 0.98583984
+    },
+    {
+      "id": "item_466d2be1867f",
+      "type": "message",
+      "role": "assistant",
+      "content": [
+        "Great! To start, **Introduce yourself - tell me about your background, education, and what you're passionate about.**"
+      ],
+      "interrupted": false
+    },
+    {
+      "id": "item_0a62a817867c",
+      "type": "message",
+      "role": "user",
+      "content": [
+        "Hi. I am, Pavia."
+      ],
+      "interrupted": false,
+      "transcript_confidence": 0.7473958
+    },
+    {
+      "id": "item_ba0d80a31156",
+      "type": "message",
+      "role": "assistant",
+      "content": [
+        "Thank you, Pavia. It's nice to meet you.\n\nCould you please elaborate a little more on your background and what specifically in computer science and technology ignites your passion? What experiences or moments led you to pursue this field?"
+      ],
+      "interrupted": false
+    },
+    {
+      "id": "item_a17e882b5f14",
+      "type": "message",
+      "role": "user",
+      "content": [
+        "I don't know."
+      ],
+      "interrupted": false,
+      "transcript_confidence": 0.90405273
+    },
+    {
+      "id": "item_15ab2f1e1c46",
+      "type": "message",
+      "role": "assistant",
+      "content": [
+        "It's okay if you're not sure how to articulate that right now. Many people discover their passions through experiences.\n\nLet's move on to our next question. Tell me about a time you had to **work with a difficult team member or in"
+      ],
+      "interrupted": true
+    }
+  ]
+}

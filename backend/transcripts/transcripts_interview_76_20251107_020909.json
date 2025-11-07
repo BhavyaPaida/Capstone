@@ -1,0 +1,13 @@
+{
+  "items": [
+    {
+      "id": "item_09b528c1a89b",
+      "type": "message",
+      "role": "assistant",
+      "content": [
+        "Great! Let's begin.\n\n**Question 0:** Introduce yourself - tell me about your background,"
+      ],
+      "interrupted": true
+    }
+  ]
+}
