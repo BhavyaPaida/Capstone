@@ -100,7 +100,7 @@ export default function Login() {
 
         <div className="auth-actions">
           <span>Stay focused and keep learning.</span>
-          <Link to="/forgot-password">Forgot password?</Link>
+          
         </div>
 
         <button type="submit" className="auth-submit" disabled={loading}>

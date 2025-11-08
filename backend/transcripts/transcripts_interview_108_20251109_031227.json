@@ -1,0 +1,356 @@
+{
+  "items": [
+    {
+      "id": "item_6aea7440a65a",
+      "type": "message",
+      "role": "assistant",
+      "content": [
+        "Great! Let's begin.\n\n**Question 0: Introduce yourself - tell me about your background, education, and what you're passionate about.**"
+      ],
+      "interrupted": false
+    },
+    {
+      "id": "item_c030ce58f518",
+      "type": "message",
+      "role": "user",
+      "content": [
+        "Hi. My name is Aksai Lemajodi. I am a computer science student in technology."
+      ],
+      "interrupted": false,
+      "transcript_confidence": 0.9980469
+    },
+    {
+      "id": "item_3e5bcedc4588",
+      "type": "message",
+      "role": "user",
+      "content": [
+        "I'm passionate about analysis, data working,"
+      ],
+      "interrupted": false,
+      "transcript_confidence": 0.9951172
+    },
+    {
+      "id": "item_f5d0c1bd7668",
+      "type": "message",
+      "role": "user",
+      "content": [
+        "working in market."
+      ],
+      "interrupted": false,
+      "transcript_confidence": 0.9394531
+    },
+    {
+      "id": "item_c9cbdb30cdc3",
+      "type": "message",
+      "role": "assistant",
+      "content": [
+        "Thank you, Aksai. It's good to meet you.\n\n**Question 1: Zomato's core business revolves around connecting restaurants with customers through our platform. Can you tell me about a time you used a food delivery app and what aspects of the user experience stood out to you, either positively or negatively?**"
+      ],
+      "interrupted": false
+    },
+    {
+      "id": "item_43bd189a0cc0",
+      "type": "message",
+      "role": "user",
+      "content": [
+        "Zometo seems like a very user friendly app in which already the time centric display is there of how many minutes the"
+      ],
+      "interrupted": false,
+      "transcript_confidence": 0.9767252566666667
+    },
+    {
+      "id": "item_330a921dd359",
+      "type": "message",
+      "role": "user",
+      "content": [
+        "in which the food will be delivered. And it is very user friendly. We can"
+      ],
+      "interrupted": false,
+      "transcript_confidence": 0.99707032
+    },
+    {
+      "id": "item_776be82d73d0",
+      "type": "message",
+      "role": "user",
+      "content": [
+        "easily you know, like, find out from where to where it shows also how much distance each restaurant is available. These are some of"
+      ],
+      "interrupted": false,
+      "transcript_confidence": 0.9944661333333333
+    },
+    {
+      "id": "item_68f87cf63f70",
+      "type": "message",
+      "role": "user",
+      "content": [
+        "the cool features I have found in the app."
+      ],
+      "interrupted": false,
+      "transcript_confidence": 0.9951172
+    },
+    {
+      "id": "item_b7460b0d7f7e",
+      "type": "message",
+      "role": "assistant",
+      "content": [
+        "That's insightful, Aksai. You mentioned the time-centric display and distance information as positive features.\n\n**Follow-up Question 1: Beyond the current features you've highlighted, if you were to suggest one *new* feature to enhance the Zomato app experience for users like yourself, what would it be and why?**"
+      ],
+      "interrupted": false
+    },
+    {
+      "id": "item_6e49945689c4",
+      "type": "message",
+      "role": "user",
+      "content": [
+        "I think one of the other feature could be"
+      ],
+      "interrupted": false,
+      "transcript_confidence": 0.9921875
+    },
+    {
+      "id": "item_23b161cbc433",
+      "type": "message",
+      "role": "user",
+      "content": [
+        "you know, if you suddenly ask me, it's confusing. But"
+      ],
+      "interrupted": false,
+      "transcript_confidence": 0.8691406
+    },
+    {
+      "id": "item_a1f3bf79d186",
+      "type": "message",
+      "role": "user",
+      "content": [
+        "maybe you can put the Uber driver"
+      ],
+      "interrupted": false,
+      "transcript_confidence": 0.9941406
+    },
+    {
+      "id": "item_10b77d9e7129",
+      "type": "message",
+      "role": "user",
+      "content": [
+        "sorry, the the network driver detail."
+      ],
+      "interrupted": false,
+      "transcript_confidence": 0.9472656
+    },
+    {
+      "id": "item_7b68a1753513",
+      "type": "message",
+      "role": "user",
+      "content": [
+        "Who's picking up"
+      ],
+      "interrupted": false,
+      "transcript_confidence": 0.99121094
+    },
+    {
+      "id": "item_acc1d32f2dce",
+      "type": "message",
+      "role": "assistant",
+      "content": [
+        "Thank you for that suggestion, Aksai. Transparency about the delivery partner is an interesting idea.\n\n**Question 2: At Zomato, we're constantly innovating. Imagine you're part of a small team tasked with developing a new service that leverages our existing restaurant and delivery network. What's a creative idea you have for a new Zomato service, and how might you approach its initial development?**"
+      ],
+      "interrupted": false
+    },
+    {
+      "id": "item_cd0dd0d2b383",
+      "type": "message",
+      "role": "user",
+      "content": [
+        "A new Zomato server."
+      ],
+      "interrupted": false,
+      "transcript_confidence": 0.89469403
+    },
+    {
+      "id": "item_f093117feaeb",
+      "type": "message",
+      "role": "user",
+      "content": [
+        "My idea would preferably"
+      ],
+      "interrupted": false,
+      "transcript_confidence": 0.9194336
+    },
+    {
+      "id": "item_93bb36a96a00",
+      "type": "message",
+      "role": "user",
+      "content": [
+        "connecting more of the what is it? Called, home bakers because I have not seen many home bakers giving a or registering in Zometra. So if we could connect with them it would be a business boost for them as well as price pluck for us also."
+      ],
+      "interrupted": false,
+      "transcript_confidence": 0.99121094
+    },
+    {
+      "id": "item_ea2f9bcb71e3",
+      "type": "message",
+      "role": "assistant",
+      "content": [
+        "That's a great idea, Aksai, focusing on home bakers. It taps into a growing market.\n\n**Follow-up Question 2: You mentioned connecting with home bakers. What specific challenges do you anticipate Zomato might face in onboarding and managing a large number of home-based food businesses onto its platform, and how might you propose to address them?**"
+      ],
+      "interrupted": false
+    },
+    {
+      "id": "item_f22058840c5a",
+      "type": "message",
+      "role": "user",
+      "content": [
+        "The main challenges would be home because they're unaware of the"
+      ],
+      "interrupted": false,
+      "transcript_confidence": 0.94628906
+    },
+    {
+      "id": "item_2eabfed93abf",
+      "type": "message",
+      "role": "user",
+      "content": [
+        "working style as well as how the app would be functioning well."
+      ],
+      "interrupted": false,
+      "transcript_confidence": 0.99902344
+    },
+    {
+      "id": "item_7dfeeddab2c0",
+      "type": "message",
+      "role": "user",
+      "content": [
+        "So providing them with the clear idea of how the app"
+      ],
+      "interrupted": false,
+      "transcript_confidence": 0.9960937466666667
+    },
+    {
+      "id": "item_7fdb91231f5d",
+      "type": "message",
+      "role": "user",
+      "content": [
+        "should function as well as what are we looking forward to the"
+      ],
+      "interrupted": false,
+      "transcript_confidence": 0.99609375
+    },
+    {
+      "id": "item_f137f5cb7660",
+      "type": "message",
+      "role": "user",
+      "content": [
+        "time of the delivery, and everything should be provided to them so that they would understand very well."
+      ],
+      "interrupted": false,
+      "transcript_confidence": 0.9975586
+    },
+    {
+      "id": "item_f5a0b5883ed9",
+      "type": "message",
+      "role": "assistant",
+      "content": [
+        "That's a practical approach, Aksai, focusing on clear communication and training.\n\n**Question 3: Zomato operates in a fast-paced environment with a strong emphasis on problem-solving and quick decision-making. Can you describe a situation in your academic projects or personal life where you encountered an unexpected technical challenge, and how you went about resolving it?**"
+      ],
+      "interrupted": false
+    },
+    {
+      "id": "item_54d659640c59",
+      "type": "message",
+      "role": "user",
+      "content": [
+        "As a computer science student, every day is a technical challenge for us. If I have to highlight one of the main challenges that I face,"
+      ],
+      "interrupted": false,
+      "transcript_confidence": 0.99462892
+    },
+    {
+      "id": "item_57b552d09564",
+      "type": "message",
+      "role": "user",
+      "content": [
+        "was while making a news aggregator app, I was unable to find a proper way to the workflow actions in a continuous way. So in because deploying it in any other plan"
+      ],
+      "interrupted": false,
+      "transcript_confidence": 0.9691162099999999
+    },
+    {
+      "id": "item_9df1ae92ef83",
+      "type": "message",
+      "role": "user",
+      "content": [
+        "like Render or by sorry. The Python workflow was giving me HTTP polling"
+      ],
+      "interrupted": false,
+      "transcript_confidence": 0.91064455
+    },
+    {
+      "id": "item_90767359b375",
+      "type": "message",
+      "role": "user",
+      "content": [
+        "request analysis issue. So I had to come up with an idea of"
+      ],
+      "interrupted": false,
+      "transcript_confidence": 0.9980469
+    },
+    {
+      "id": "item_8962615176be",
+      "type": "message",
+      "role": "user",
+      "content": [
+        "integrating it into GitHub workflow. Which the GitHub actions will continuously"
+      ],
+      "interrupted": false,
+      "transcript_confidence": 0.95825195
+    },
+    {
+      "id": "item_38d7b809da7a",
+      "type": "message",
+      "role": "user",
+      "content": [
+        "run as a scheduled task base."
+      ],
+      "interrupted": false,
+      "transcript_confidence": 0.98535156
+    },
+    {
+      "id": "item_c35f351162de",
+      "type": "message",
+      "role": "assistant",
+      "content": [
+        "That's a very specific and well-explained technical challenge, Aksai. Migrating to GitHub Actions for continuous workflow is a smart solution.\n\n**Follow-up Question 3: You mentioned the HTTP polling request issues and then integrating with GitHub Actions. Could you elaborate a bit more on *why* the HTTP polling approach was problematic in that context, and what specific benefits did GitHub Actions offer that solved that problem for your news aggregator?**"
+      ],
+      "interrupted": false
+    },
+    {
+      "id": "item_67bedb49ddea",
+      "type": "message",
+      "role": "user",
+      "content": [
+        "That's it."
+      ],
+      "interrupted": false,
+      "transcript_confidence": 0.9970703
+    },
+    {
+      "id": "item_370bf8ef2d90",
+      "type": "message",
+      "role": "assistant",
+      "content": [
+        "I understand you've explained the solution well. To ensure I fully grasp the technical nuances, could you perhaps elaborate on the *specific reasons* why the HTTP polling method was problematic for your news aggregator app, and what made GitHub Actions a more suitable alternative in that particular scenario? For example, were there issues with efficiency, reliability, or cost associated with the polling?"
+      ],
+      "interrupted": false
+    },
+    {
+      "id": "item_97fe553bc305",
+      "type": "message",
+      "role": "user",
+      "content": [
+        "That's it."
+      ],
+      "interrupted": false,
+      "transcript_confidence": 0.9970703
+    }
+  ]
+}

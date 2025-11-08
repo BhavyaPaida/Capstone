@@ -1,16 +1,12 @@
 import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import "./Dashboard.css";
-import { api } from "../services/api";
 
 export default function Profile() {
   const [user, setUser] = useState(null);
   const [editing, setEditing] = useState(false);
   const [fullName, setFullName] = useState("");
   const [email, setEmail] = useState("");
-  const [currentPassword, setCurrentPassword] = useState("");
-  const [newPassword, setNewPassword] = useState("");
-  const [confirmPassword, setConfirmPassword] = useState("");
   const [message, setMessage] = useState("");
   const [resumeCount, setResumeCount] = useState(0);
   const [jdCount, setJdCount] = useState(0);
@@ -49,37 +45,6 @@ export default function Profile() {
     setEditing(false);
   };
 
-  const handleChangePassword = async (e) => {
-    e.preventDefault();
-
-    if (newPassword !== confirmPassword) {
-      setMessage("Passwords do not match!");
-      setTimeout(() => setMessage(""), 3200);
-      return;
-    }
-
-    if (newPassword.length < 6) {
-      setMessage("Password must be at least 6 characters!");
-      setTimeout(() => setMessage(""), 3200);
-      return;
-    }
-
-    try {
-      const res = await api.changePassword(user.user_id, currentPassword, newPassword);
-      if (res.success) {
-        setMessage("Password changed successfully!");
-        setCurrentPassword("");
-        setNewPassword("");
-        setConfirmPassword("");
-      } else {
-        setMessage(res.error || "Password change failed");
-      }
-    } catch (err) {
-      setMessage("Network error. Please try again.");
-    } finally {
-      setTimeout(() => setMessage(""), 3200);
-    }
-  };
 
   if (!user) return null;
 
@@ -184,49 +149,11 @@ export default function Profile() {
             </form>
           )}
         </section>
-
-        <section className="glass-panel profile-section animate-float">
-          <div className="profile-section__header">
-            <h2>Change password</h2>
-            <span>Keep your account secure with a strong password.</span>
-          </div>
-          <form className="profile-form" onSubmit={handleChangePassword}>
-            <label htmlFor="current-password">Current password</label>
-            <input
-              id="current-password"
-              type="password"
-              value={currentPassword}
-              onChange={(e) => setCurrentPassword(e.target.value)}
-              required
-              className="profile-input"
-              placeholder="Enter current password"
-            />
-            <label htmlFor="new-password">New password</label>
-            <input
-              id="new-password"
-              type="password"
-              value={newPassword}
-              onChange={(e) => setNewPassword(e.target.value)}
-              required
-              minLength={6}
-              className="profile-input"
-              placeholder="Enter new password"
-            />
-            <label htmlFor="confirm-password">Confirm new password</label>
-            <input
-              id="confirm-password"
-              type="password"
-              value={confirmPassword}
-              onChange={(e) => setConfirmPassword(e.target.value)}
-              required
-              minLength={6}
-              className="profile-input"
-              placeholder="Confirm new password"
-            />
-            <button type="submit" className="accent-button">Change password</button>
-          </form>
-        </section>
-      </main>
+        </main>
     </div>
   );
 }
+
+        
+            
+       

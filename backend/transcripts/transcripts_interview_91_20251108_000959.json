@@ -1,0 +1,32 @@
+{
+  "items": [
+    {
+      "id": "item_124a25f0bb49",
+      "type": "message",
+      "role": "assistant",
+      "content": [
+        "Great! Let's start with **Question 0: Introduce yourself - tell me about your background, education, and what you're passionate about.**"
+      ],
+      "interrupted": false
+    },
+    {
+      "id": "item_4eaeb2638dfc",
+      "type": "message",
+      "role": "user",
+      "content": [
+        "Right."
+      ],
+      "interrupted": false,
+      "transcript_confidence": 0.9538574
+    },
+    {
+      "id": "item_fdf83f8ac7a0",
+      "type": "message",
+      "role": "assistant",
+      "content": [
+        "Thank you."
+      ],
+      "interrupted": true
+    }
+  ]
+}

@@ -1,0 +1,13 @@
+{
+  "items": [
+    {
+      "id": "item_f0a42f18ffb4",
+      "type": "message",
+      "role": "assistant",
+      "content": [
+        "Great,"
+      ],
+      "interrupted": true
+    }
+  ]
+}

@@ -1,0 +1,32 @@
+{
+  "items": [
+    {
+      "id": "item_a7a460ac0481",
+      "type": "message",
+      "role": "assistant",
+      "content": [
+        "Excellent. Let's begin.\n\n**Question 0: Introduce yourself - tell me about your background, education, and what you're passionate about.**"
+      ],
+      "interrupted": false
+    },
+    {
+      "id": "item_3b07827a7b66",
+      "type": "message",
+      "role": "user",
+      "content": [
+        "I am Bob. Yeah."
+      ],
+      "interrupted": false,
+      "transcript_confidence": 0.7919922
+    },
+    {
+      "id": "item_0df3dea808f0",
+      "type": "message",
+      "role": "assistant",
+      "content": [
+        "Thank you, Bob. It's good to meet you.\n\nNow, let's dive"
+      ],
+      "interrupted": true
+    }
+  ]
+}

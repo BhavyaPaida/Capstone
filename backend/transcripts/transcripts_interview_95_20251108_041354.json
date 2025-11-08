@@ -1,0 +1,51 @@
+{
+  "items": [
+    {
+      "id": "item_d4939c7b3254",
+      "type": "message",
+      "role": "assistant",
+      "content": [
+        "Fantastic. Let's get started.\n\n**Question 0:** Introduce yourself - tell me about your background, education, and what you're passionate about."
+      ],
+      "interrupted": false
+    },
+    {
+      "id": "item_00573d070b07",
+      "type": "message",
+      "role": "user",
+      "content": [
+        "I am Bhavya."
+      ],
+      "interrupted": false,
+      "transcript_confidence": 0.77685547
+    },
+    {
+      "id": "item_0e404c2d7e53",
+      "type": "message",
+      "role": "assistant",
+      "content": [
+        "Thank you, Bhavya. It's great to meet you.\n\nTo get a better understanding, could you please elaborate a bit more on your background, your educational journey in Computer Science and Engineering, and what specifically sparks your passion within the field?"
+      ],
+      "interrupted": false
+    },
+    {
+      "id": "item_324338b8250b",
+      "type": "message",
+      "role": "user",
+      "content": [
+        "Next question."
+      ],
+      "interrupted": false,
+      "transcript_confidence": 0.96875
+    },
+    {
+      "id": "item_fb3fa897a263",
+      "type": "message",
+      "role": "assistant",
+      "content": [
+        "Understood. Thank you for your concise introduction.\n\nLet's move on to our first main question, Bhavya.\n\n**Question 1:** Microsoft's mission is to empower every person and every organization on the planet to achieve more. Can you share an"
+      ],
+      "interrupted": true
+    }
+  ]
+}

@@ -1,0 +1,90 @@
+{
+  "items": [
+    {
+      "id": "item_14b5835c77f0",
+      "type": "message",
+      "role": "assistant",
+      "content": [
+        "Hello! Welcome to your Technical interview session. I'm your AI interviewer today. We'll start with a brief introduction, then go through 5 main questions with follow-ups. This will take about 15-20 minutes. Take your time with your responses and feel free to be detailed. Ready to begin?"
+      ],
+      "interrupted": false
+    },
+    {
+      "id": "item_c474340b5acb",
+      "type": "message",
+      "role": "user",
+      "content": [
+        "Yes."
+      ],
+      "interrupted": false,
+      "transcript_confidence": 0.9797363
+    },
+    {
+      "id": "item_0af0bf649b23",
+      "type": "message",
+      "role": "assistant",
+      "content": [
+        "Great! Let's start"
+      ],
+      "interrupted": true
+    },
+    {
+      "id": "item_8e5c0fd614a2",
+      "type": "message",
+      "role": "user",
+      "content": [
+        "Yes."
+      ],
+      "interrupted": false,
+      "transcript_confidence": 0.9448242
+    },
+    {
+      "id": "item_33d0f2991613",
+      "type": "message",
+      "role": "assistant",
+      "content": [
+        "Excellent. To begin, **introduce yourself - tell me about your background, education, and what you're passionate about.**"
+      ],
+      "interrupted": false
+    },
+    {
+      "id": "item_e30de404d3b1",
+      "type": "message",
+      "role": "user",
+      "content": [
+        "Hi. I'm Bavia. I'm from"
+      ],
+      "interrupted": false,
+      "transcript_confidence": 0.98046875
+    },
+    {
+      "id": "item_18573bdf0db9",
+      "type": "message",
+      "role": "user",
+      "content": [
+        "University."
+      ],
+      "interrupted": false,
+      "transcript_confidence": 0.4212036
+    },
+    {
+      "id": "item_15d452d202c8",
+      "type": "message",
+      "role": "assistant",
+      "content": [
+        "Thank you, Bavia. It's nice to meet you. You mentioned you're from [University Name]. Could you elaborate a bit more on your academic journey there? What were some of your favorite subjects or areas of focus within your Computer Science curriculum?"
+      ],
+      "interrupted": false
+    },
+    {
+      "id": "item_b6b7c4005615",
+      "type": "message",
+      "role": "user",
+      "content": [
+        "Alright. I think"
+      ],
+      "interrupted": false,
+      "transcript_confidence": 0.0
+    }
+  ]
+}

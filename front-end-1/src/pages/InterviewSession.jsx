@@ -110,14 +110,16 @@ export default function InterviewSession() {
       console.log("Requesting LiveKit token with:", {
         user_id: userData.user_id,
         interview_id: interviewData.interview_id,
-        interview_type: interviewData.interview_type
+        interview_type: interviewData.interview_type,
+        company_name: interviewData.company_name || null
       });
       
-      // Get LiveKit token from backend
+      // Get LiveKit token from backend (with company_name if available)
       const response = await api.getLiveKitToken(
         userData.user_id,
         interviewData.interview_id,
-        interviewData.interview_type
+        interviewData.interview_type,
+        interviewData.company_name || null
       );
 
       console.log("LiveKit token response:", response);
@@ -128,6 +130,10 @@ export default function InterviewSession() {
         setError("");
         console.log("✓ LiveKit token obtained successfully");
         console.log("Room metadata:", response.room_metadata);
+        
+        if (response.room_metadata?.company_name) {
+          console.log("🏢 Company-specific interview for:", response.room_metadata.company_name);
+        }
       } else {
         console.error("Failed to get token:", response.error);
         setError(response.error || "Failed to initialize interview session");
@@ -205,6 +211,12 @@ export default function InterviewSession() {
               <span className="label">Interview Type:</span>
               <span className="value">{interviewData?.interview_type}</span>
             </div>
+            {interviewData?.company_name && (
+              <div className="detail-item">
+                <span className="label">Company:</span>
+                <span className="value" style={{ color: '#8fffe3' }}>🏢 {interviewData.company_name}</span>
+              </div>
+            )}
             <div className="detail-item">
               <span className="label">Interview ID:</span>
               <span className="value">#{interviewData?.interview_id}</span>
@@ -275,6 +287,18 @@ export default function InterviewSession() {
           <div className="interview-header">
             <div className="header-left">
               <h2>{interviewData?.interview_type}</h2>
+              {interviewData?.company_name && (
+                <p style={{ 
+                  margin: '0.5rem 0 0 0', 
+                  fontSize: '0.95rem', 
+                  color: '#8fffe3',
+                  display: 'flex',
+                  alignItems: 'center',
+                  gap: '0.5rem'
+                }}>
+                  🏢 <strong>{interviewData.company_name}</strong>
+                </p>
+              )}
               <RoomName />
             </div>
             <div className="header-right">
@@ -295,6 +319,14 @@ export default function InterviewSession() {
                 <span className="info-label">Interview Type:</span>
                 <span className="info-value">{interviewData?.interview_type}</span>
               </div>
+              {interviewData?.company_name && (
+                <div className="info-card">
+                  <span className="info-label">Company:</span>
+                  <span className="info-value" style={{ color: '#8fffe3' }}>
+                    🏢 {interviewData.company_name}
+                  </span>
+                </div>
+              )}
               <div className="info-card">
                 <span className="info-label">Status:</span>
                 <span className="info-value status-active">● Active</span>

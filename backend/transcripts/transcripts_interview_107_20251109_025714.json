@@ -1,0 +1,13 @@
+{
+  "items": [
+    {
+      "id": "item_c894b1b35749",
+      "type": "message",
+      "role": "assistant",
+      "content": [
+        "Great! Let's start.\n\n**Question 0: Introduce yourself - tell me about your background, education, and what you're passionate about.**"
+      ],
+      "interrupted": false
+    }
+  ]
+}

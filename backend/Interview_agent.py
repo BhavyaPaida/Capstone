@@ -26,10 +26,28 @@ load_dotenv()
 
 # Configure Gemini
 genai.configure(api_key=os.getenv('GOOGLE_API_KEY'))
+ 
+
+def get_company_info(company_name: str):
+    """Fetch company interview context from local JSON."""
+    file_path = os.path.join(os.getcwd(), "company_data.json")
+    if not os.path.exists(file_path):
+        print(f"⚠️ company_data.json not found at {file_path}")
+        return None
+
+    with open(file_path, "r", encoding="utf-8") as f:
+        data = json.load(f)
+
+    for segment in data:
+        for company in segment.get("companies", []):
+            if company["name"].lower() == company_name.lower():
+                return company
+    print(f"⚠️ No entry found for {company_name}")
+    return None
 
 # Interview state management
 class InterviewState:
-    def __init__(self, interview_type: str, resume_data: dict = None, jd_data: dict = None):
+    def __init__(self, interview_type: str, resume_data: dict = None, jd_data: dict = None, company_name: str=None):
         self.interview_type = interview_type.strip().title()
         self.resume_data = resume_data
         self.jd_data = jd_data
@@ -41,6 +59,8 @@ class InterviewState:
         self.waiting_for_answer = False
         self.conversation_history = []
         self.introduction_done = False
+        self.company_name = company_name
+        self.company_info = get_company_info(company_name) if company_name else None
         
 
         # NEW: Add transcript buffers
@@ -74,6 +94,7 @@ class InterviewState:
             "timestamp": datetime.now().isoformat()
         })
         
+
     def get_next_question(self) -> str:
         print(f"🧠 [DEBUG] Interview type received in get_next_question(): '{self.interview_type}'")
         """Generate next question based on interview type"""
@@ -83,9 +104,12 @@ class InterviewState:
             return self._get_hr_question()
         elif self.interview_type == "Resume Based":
             return self._get_resume_based_question()
+        elif self.interview_type == "Company-Specific":
+            return self._get_company_specific_question()
         else:
             return "That concludes our interview questions."
     
+
     def _get_technical_question(self) -> str:
         """Technical interview questions for B.Tech CSE freshers"""
         questions = [
@@ -199,11 +223,104 @@ Return ONLY the question text, nothing else."""
             if self.questions_asked < len(fallback):
                 return fallback[self.questions_asked]
             return "That concludes our resume-based interview."
+        
+
+    def _get_company_specific_question(self) -> str:
+        """Generate company-specific questions using Gemini based on company context"""
+        
+        if not self.company_info:
+            print(f"⚠️ No company info found, using fallback questions")
+            fallback = [
+                "What do you know about our company and why do you want to work here?",
+                "How do your skills and experience align with our company's mission and values?",
+                "Can you describe a situation where you demonstrated problem-solving skills similar to what we value?",
+                "What recent developments or news about our company have caught your attention?",
+                "How do you see yourself contributing to our team's success?"
+            ]
+            if self.questions_asked < len(fallback):
+                return fallback[self.questions_asked]
+            return "That concludes our company-specific interview."
+        
+        try:
+            model = genai.GenerativeModel('gemini-2.0-flash-exp')
+            
+            company_name = self.company_name
+            interview_style = self.company_info.get('interview_style', '')
+            focus_areas = self.company_info.get('focus_areas', '')
+            question_tone = self.company_info.get('question_tone', '')
+            keywords = self.company_info.get('keywords', [])
+            
+            # Build context from resume if available
+            candidate_context = ""
+            if self.resume_data:
+                candidate_context = f"""
+CANDIDATE'S BACKGROUND:
+Projects: {json.dumps(self.resume_data.get('projects', []), indent=2)}
+Skills: {json.dumps(self.resume_data.get('skills', []), indent=2)}
+"""
+            
+            prompt = f"""You are conducting a Company-Specific interview for {company_name} for a B.Tech CSE fresher candidate.
+##NOTE: IMPORTANT!! if the user is not able to answer a particular question or gave a very vague answer, then decrease the level of difficulty of the next question accordingly.##
+COMPANY INTERVIEW CONTEXT:
+Company Name: {company_name}
+Interview Style: {interview_style}
+Focus Areas: {focus_areas}
+Question Tone: {question_tone}
+Key Topics: {', '.join(keywords)}
+
+{candidate_context}
+
+PREVIOUS QUESTIONS ASKED:
+{json.dumps([qa['question'] for qa in self.qa_pairs if not qa['is_follow_up'] and qa['question_number'] != 0], indent=2)}
+
+CURRENT QUESTION NUMBER: {self.questions_asked + 1} of 5
+
+YOUR TASK:
+Generate ONE interview question that STRICTLY follows {company_name}'s interview style and tone.
+
+CRITICAL REQUIREMENTS:
+1. The question MUST match the "{interview_style}" style exactly
+2. Use the "{question_tone}" tone in your question
+3. Focus on the specified areas: {focus_areas}
+4. Incorporate relevant keywords: {', '.join(keywords[:3])}
+5. Make it appropriate for a B.Tech CSE fresher
+6. Don't repeat previous questions
+7. Keep it clear, specific, and aligned with {company_name}'s hiring approach
+
+QUESTION SHOULD BE:
+- Reflective of {company_name}'s actual interview process
+- Appropriate difficulty level for freshers
+- Clear and unambiguous
+- One focused question (not multiple parts unless that's the company style)
+
+Return ONLY the question text in {company_name}'s interview style, nothing else."""
+
+            response = model.generate_content(prompt)
+            question = response.text.strip().strip('"').strip("'")
+            
+            print(f"✅ Generated {company_name}-specific question: {question}")
+            return question
+            
+        except Exception as e:
+            print(f"❌ Error generating company-specific question: {e}")
+            traceback.print_exc()
+            fallback = [
+                f"What do you know about {self.company_name} and why do you want to work here?",
+                f"How do your skills align with what {self.company_name} is looking for?",
+                "Can you describe a situation where you demonstrated problem-solving skills?",
+                f"What recent developments about {self.company_name} have interested you?",
+                f"How do you see yourself contributing to {self.company_name}'s success?"
+            ]
+            if self.questions_asked < len(fallback):
+                return fallback[self.questions_asked]
+            return "That concludes our company-specific interview."
+
+
 
 # Global interview state
 interview_states = {}
 
-def get_interview_instructions(interview_type: str, resume_data: dict = None, jd_data: dict = None) -> str:
+def get_interview_instructions(interview_type: str, resume_data: dict = None, jd_data: dict = None, company_name: str=None, company_info: dict=None) -> str:
     """Get specialized instructions based on interview type"""
     base_instructions = f"""You are conducting a {interview_type} interview for a B.Tech CSE fresher candidate.
 
@@ -281,11 +398,37 @@ Ask questions that explore:
 4. Depth of skills they've listed
 5. How their experience matches job requirements
 6. Why they want to work for this specific company
+""",
+         "Company-Specific": f"""
+COMPANY-SPECIFIC INTERVIEW FOR: {company_name if company_name else 'Selected Company'}
+
+{f'''COMPANY INTERVIEW STYLE:
+{company_info.get('interview_style', 'N/A')}
+
+FOCUS AREAS:
+{company_info.get('focus_areas', 'N/A')}
+
+QUESTION TONE:
+{company_info.get('question_tone', 'Professional and engaging')}
+
+KEY TOPICS: {', '.join(company_info.get('keywords', []))}''' if company_info else 'Company context will be loaded during interview.'}
+
+YOUR ROLE IN COMPANY-SPECIFIC INTERVIEW:
+- Conduct interview in the EXACT style this company uses
+- Follow their tone and approach closely
+- Focus on areas they prioritize
+- Assess company-culture fit
+- Evaluate candidate's knowledge about the company
+- Check alignment with company values and mission
+
+CRITICAL: Every question must reflect this company's actual interview approach and expectations.
 """
     }
     
     return base_instructions + type_specific.get(interview_type, "")
-
+ 
+            
+            
 async def entrypoint(ctx: JobContext):
     """Main entrypoint for the LiveKit agent"""
 
@@ -303,6 +446,7 @@ async def entrypoint(ctx: JobContext):
     interview_id = None
     resume_data = None
     jd_data = None
+    company_name=None
 
     print("\n⏳ Waiting for participant to join...")
 
@@ -320,6 +464,7 @@ async def entrypoint(ctx: JobContext):
                         interview_id = metadata.get("interview_id")
                         resume_data = metadata.get("resume_data")
                         jd_data = metadata.get("jd_data")
+                        company_name = metadata.get("company_name")
                         break
                     except Exception as e:
                         print(f"❌ Failed to parse participant metadata: {e}")
@@ -334,6 +479,7 @@ async def entrypoint(ctx: JobContext):
             interview_id = metadata.get("interview_id")
             resume_data = metadata.get("resume_data")
             jd_data = metadata.get("jd_data")
+            company_name = metadata.get("company_name") 
             print("📦 Found room-level metadata instead.")
         except Exception as e:
             print(f"❌ Failed to parse room metadata: {e}")
@@ -345,6 +491,7 @@ async def entrypoint(ctx: JobContext):
     print(f"\n📋 Interview Setup:")
     print(f"  Type: {interview_type}")
     print(f"  ID: {interview_id}")
+    print(f"  Company: {company_name if company_name else 'N/A'}")
     print(f"  Resume Data: {'✓' if resume_data else '✗'}")
     print(f"  JD Data: {'✓' if jd_data else '✗'}")
 
@@ -355,7 +502,8 @@ async def entrypoint(ctx: JobContext):
     
     # Create agent
     agent = Agent(
-        instructions=get_interview_instructions(interview_type, resume_data, jd_data),
+        instructions=get_interview_instructions(interview_type, resume_data, jd_data, company_name,
+            state.company_info),
     )
     
     # Create session
@@ -414,6 +562,7 @@ async def entrypoint(ctx: JobContext):
                 "interview_id": int(interview_id) if interview_id else 0,
                 "qa_pairs": qa_pairs,
                 "interview_type": interview_type,
+                "company_name": company_name,
                 "conversation_history": full_transcript
                 }
 
@@ -456,32 +605,64 @@ This will take about 15-20 minutes. Take your time with your responses and feel 
     # Question 0: Introduction
     intro_question = "Let's begin. Please introduce yourself - tell me about your educational background, what you're passionate about, and what interests you about this field."
     await session.generate_reply(instructions=f"Ask this question naturally: {intro_question}")
+    await asyncio.sleep(5)
+    # Wait with timeout for intro
     
-    await asyncio.sleep(60)
-    state.introduction_done = True  # <-- mark intro done
+        
+    state.introduction_done = True
+
     # Ask 5 questions
     for i in range(5):
         question = state.get_next_question()
         state.current_question = question
         await session.generate_reply(instructions=f"Ask this question naturally: {question}")
-        await asyncio.sleep(60)
-
+        await asyncio.sleep(5)
+      
+        
     
         state.questions_asked += 1 
 
-        follow_up = "That's interesting. Can you elaborate more with an example?"
+        follow_up = "That's interesting.Ask only one follow-up. Can you elaborate more with an example?"
         await session.generate_reply(instructions=follow_up)
-        await asyncio.sleep(45)
+        await asyncio.sleep(5)
+        
 
     # End interview
-    closing = """Thank you so much for completing the interview! You provided excellent, detailed answers. 
-Your responses have been recorded and will be analyzed by our AI system to generate a comprehensive interview report with detailed feedback. 
-You'll receive your report shortly with scores, strengths, areas for improvement, and recommendations. Have a wonderful day!"""
+    closing = """Thank you for joining this interview session! 
+This was a short demo interaction. Your responses will now be processed, 
+and your interview report will be generated automatically. Have a great day ahead!"""
     
     state.add_conversation("agent", closing)
     await session.generate_reply(instructions=closing)
-    
-    # Save to backend - CRITICAL FIX HERE
+    # ✅ Automatically end the interview after the closing message
+    print("🏁 Interview complete — auto-ending session and saving transcript...")
+
+    await asyncio.sleep(5)
+     
+        # ✅ Automatically end the interview after the closing message
+    print("🏁 Interview complete — auto-ending session and saving transcript...")
+
+   
+    # Immediately save transcript + Q&A pairs (same logic used in shutdown)
+    await write_transcript()
+    await ctx.room.disconnect()
+    # ✅ Notify backend or frontend to redirect to report page
+    try:
+        api_url = os.getenv("API_URL", "http://localhost:5000")
+        redirect_payload = {
+            "interview_id": interview_id,
+            "action": "interview_complete",
+        }
+        requests.post(f"{api_url}/api/interview-complete", json=redirect_payload, timeout=10)
+        print("🔄 Triggered interview completion redirect to report page.")
+    except Exception as e:
+        print(f"⚠️ Redirect trigger failed: {e}")
+
+    print("✅ Interview fully completed and transcript saved.")
+    return
+
+
+    """# Save to backend - CRITICAL FIX HERE
     print(f"\n📊 Interview Complete!")
     print(f"  Questions: {state.questions_asked + 1} (including introduction)")
     
@@ -560,6 +741,7 @@ You'll receive your report shortly with scores, strengths, areas for improvement
                 "interview_id": int(interview_id),
                 "qa_pairs": qa_pairs,
                 "interview_type": interview_type,
+                "company_name": company_name,   
                 "conversation_history": full_transcript
             }
             
@@ -589,7 +771,7 @@ You'll receive your report shortly with scores, strengths, areas for improvement
             print(f"❌ Error saving to backend: {e}")
             traceback.print_exc()
     else:
-        print("⚠️ No interview_id found; skipping save.")
+        print("⚠️ No interview_id found; skipping save.")"""
 
     await asyncio.sleep(3)
 # -------------------------------------------------------

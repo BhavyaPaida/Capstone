@@ -59,7 +59,7 @@ class InterviewReportGenerator:
         else:
             raise ValueError("No LLM configured. Set USE_OLLAMA=True or GROQ_API_KEY.")
         
-    def generate_report(self, interview_type: str, qa_pairs: list, resume_data: dict = None, jd_data: dict = None, full_transcript: dict = None) -> dict:
+    def generate_report(self, interview_type: str, qa_pairs: list, resume_data: dict = None, jd_data: dict = None, full_transcript: dict = None, company_name: str= None) -> dict:
         """
         Generate comprehensive interview report using LLM
         """
@@ -128,15 +128,18 @@ class InterviewReportGenerator:
             print(f"❌ Groq generation failed: {e}")
             return self._generate_fallback_report(interview_type, qa_pairs)            
     
-    def _build_report_prompt(self, interview_type: str, qa_pairs: list, resume_data: dict = None, jd_data: dict = None, full_transcript: dict = None) -> str:
+    def _build_report_prompt(self, interview_type: str, qa_pairs: list, resume_data: dict = None, jd_data: dict = None, full_transcript: dict = None, company_name: str = None) -> str:
         """Build comprehensive prompt for LLM"""
         
         # Format Q&A pairs with clear numbering
         qa_text = ""
         for idx, qa in enumerate(qa_pairs, 1):
             qa_text += f"\n### Question {idx}\n"
-            qa_text += f"**Q:** {qa.get('question', 'N/A')}\n"
-            qa_text += f"**A:** {qa.get('answer', 'N/A')}\n"
+            qa_text += f"**Actual Question:** {qa.get('question', 'N/A')}\n\n"
+            qa_text += f"**Your Answer:** {qa.get('answer', 'N/A')}\n\n"
+            qa_text += f"Provide a detailed evaluation of this exact response (don’t summarize). "
+            qa_text += f"Include feedback that addresses what the student said and how they could improve it.\n"
+
             if qa.get('is_follow_up'):
                 qa_text += "*[This was a follow-up question]*\n"
         
@@ -188,7 +191,8 @@ Low confidence scores (<70%) may indicate:
     """
         
         # Base prompt
-        prompt = f"""You are an expert interview evaluator for B.Tech CSE fresher positions. Analyze this {interview_type} interview and generate a COMPREHENSIVE, DETAILED, PROFESSIONAL report.
+        prompt = f""""You are an AI interview coach helping a B.Tech CSE fresher understand their interview performance. Generate a detailed, second-person feedback report that directly addresses the student — e.g., use 'you' and 'your' instead of 'the candidate'. The tone should be supportive, motivational, and constructive, while remaining honest and specific."
+
 
 ## INTERVIEW TYPE: {interview_type}
 
@@ -233,9 +237,15 @@ EVALUATION FOCUS for HR & Behavioral:
 - Confidence and professionalism
 - Adaptability and learning agility
 """
-        else:  # Resume Based
+        elif interview_type== "Resume Based":
             evaluation_focus = """
 EVALUATION FOCUS for Resume Based:
+If the interview type is "Resume Based", for each competency section, include specific feedback on how the student can align their answers more closely with the Job Description. 
+For example:
+- Suggest what additional technical terms, tools, or project outcomes they could mention.
+- Recommend how to connect their resume achievements to the JD requirements.
+- Provide short examples of sentences they could add to strengthen their alignment.
+
 - Depth of knowledge in mentioned skills
 - Project complexity and contribution
 - Technical decision-making ability
@@ -245,7 +255,18 @@ EVALUATION FOCUS for Resume Based:
 - Practical application of certifications
 - Problem-solving in real projects
 """
-        
+        else:  # Company-Specific
+            evaluation_focus = f"""
+EVALUATION FOCUS for Company-Specific ({company_name if company_name else 'Target Company'}):
+- Knowledge about {company_name if company_name else 'the company'}
+- Cultural fit and alignment with company values
+- Understanding of company's products/services
+- Relevance of skills to company's tech stack
+- Enthusiasm and genuine interest in the company
+- Awareness of company's interview style and expectations
+- Ability to articulate why they want to join this specific company
+- How their background aligns with company's needs
+""" 
         prompt += evaluation_focus
         
         # Detailed instructions for report structure
@@ -256,27 +277,38 @@ NOTE: The candidate did not complete the entire interview.
 Generate a partial performance analysis using the available answers, 
 and then assess their suitability based on resume and job description alignment. 
 
-### 1. EXECUTIVE SUMMARY (3-4 paragraphs, ~300 words)
-Write a comprehensive overview covering:
-- Overall interview performance assessment
-- Key strengths demonstrated during the interview
-- Critical areas needing improvement
-- Final hiring recommendation with justification
-- Candidate's readiness for the role
+### 1. PERFORMANCE SUMMARY (Direct Feedback for You)
+Write a concise and realistic overview of how the interview went, addressing the student directly (use "you" and "your").
+Focus on:
+- Your overall performance level and communication clarity
+- What you handled well during the interview
+- The areas that need improvement, with specific reasoning
+- A short, honest takeaway — what this interview revealed about your readiness
+Avoid exaggeration or praise — keep it factual, balanced, and improvement-oriented.
+
+
 
 ### 2. DETAILED QUESTION-BY-QUESTION ANALYSIS
-For EACH question the candidate answered, provide:
-- **Question [Number]**: [Restate the question]
-- **Candidate's Response Summary**: [Summarize what they said]
-- **Evaluation Score**: X/10
-- **Strengths in Response**: [Specific positive points]
-- **Weaknesses/Gaps**: [What was missing or incorrect]
-- **Suggested Better Answer**: [A concise example of an improved response]
-- **Grammar & English Assessment**: [Rate fluency, grammar, vocabulary - 1-10]
-- **Relevance Score**: [How relevant was the answer - 1-10]
-- **Improvement Suggestions**: [Specific actionable feedback]
 
-Do this for ALL questions including the introduction and follow-ups.
+You must analyze **every question and answer pair** listed in the Q&A data below.
+Do NOT skip, summarize, or generalize. The student must get personalized feedback for every single response.
+
+For each Q&A pair, strictly include:
+- **Question [Number]**: [Restate the exact question]
+- **Candidate’s Actual Answer**: [Show what they said in brief, from the transcript or QA pair]
+- **Evaluation Score**: /10
+- **Strengths in Response**: [Specific accurate points from the answer]
+- **Weaknesses/Gaps**: [What was missing or could be improved]
+- **Suggested Better Answer**: [Short, improved version — realistic and educational]
+- **Grammar & English Assessment**: [Fluency, structure, tone, vocabulary]
+- **Relevance Score**: [How relevant the answer is to the question — /10]
+- **Improvement Suggestions**: [Actionable advice to improve that answer]
+
+Keep the tone realistic and second-person (e.g., “You explained X well, but you should also include Y next time.”)
+Avoid vague praise or generic statements — feedback should be factual, concise, and personal.
+The student’s answers are short and limited in number (usually 5–10). 
+Therefore, you have enough space to provide detailed analysis for each question — do not skip any.
+
 
 ### 3. LANGUAGE & COMMUNICATION ASSESSMENT
 
@@ -327,8 +359,22 @@ Rate the following competencies with explanations:
 - **Adaptability & Learning Agility**: [Score/10] - [Detailed justification]
 - **Cultural Fit**: [Score/10] - [Detailed justification]
 """
+        elif interview_type == "Company-Specific" and company_name:
+            prompt += f"""
+## COMPANY-SPECIFIC INTERVIEW CONTEXT:
+This interview was tailored for: **{company_name}**
+
+EVALUATE: How well the candidate's answers align with {company_name}'s interview style, culture, and expectations.
+Consider their knowledge about the company and cultural fit.
+"""
         else:
             prompt += """
+            If the interview type is "Resume Based", for each competency section, include specific feedback on how the student can align their answers more closely with the Job Description. 
+For example:
+- Suggest what additional technical terms, tools, or project outcomes they could mention.
+- Recommend how to connect their resume achievements to the JD requirements.
+- Provide short examples of sentences they could add to strengthen their alignment.
+
 - **Relevance to Job Requirements**: [Score/10] - [Detailed justification]
 - **Depth of Experience**: [Score/10] - [Detailed justification]
 - **Technical Skills Alignment**: [Score/10] - [Detailed justification]
@@ -395,7 +441,7 @@ For each area, provide:
 9. Provide numerical scores for ALL competencies
 10. Make it actionable - candidate should know exactly how to improve
 11. Include suggested better answers for each question
-
+12. DON'T EXAGGERATE - keep praise realistic and improvement-focused
 Generate the complete report now:
 """
         
@@ -564,6 +610,12 @@ Further review recommended by human evaluator.
         # Parse and add report content
         full_report = report_data['full_report']
         lines = full_report.split('\n')
+        def escape_html(text):
+            """Escape HTML special characters"""
+            text = text.replace('&', '&amp;')
+            text = text.replace('<', '&lt;')
+            text = text.replace('>', '&gt;')
+            return text
         
         for line in lines:
             line = line.strip()
@@ -585,16 +637,19 @@ Further review recommended by human evaluator.
             elif line.startswith('### '):
                 text = line[4:].strip()
                 story.append(Paragraph(text, subheading_style))
-            # Bold sections (**text**)
+            
             elif '**' in line:
-                # Convert markdown bold to HTML
-                text = line.replace('**', '<b>', 1)
+   
+                text = escape_html(line)  # ADD THIS LINE
+    
+                text = text.replace('**', '<b>', 1)
                 text = text.replace('**', '</b>', 1)
-                # Handle remaining bold markers
+    
                 while '**' in text:
                     text = text.replace('**', '<b>', 1)
                     text = text.replace('**', '</b>', 1)
                 story.append(Paragraph(text, body_style))
+                
             # Bullet points (-)
             elif line.startswith('- '):
                 text = '• ' + line[2:].strip()
@@ -646,18 +701,361 @@ if __name__ == "__main__":
     print("Interview Report Generator - Test Mode")
     generator = InterviewReportGenerator()
     
-    sample_qa = [
-        {
-            "question": "Introduce yourself",
-            "answer": "I am a B.Tech CSE student with strong interest in AI...",
-            "is_follow_up": False
-        },
-        {
-            "question": "Explain the difference between process and thread",
-            "answer": "A process is an independent program in execution...",
-            "is_follow_up": False
-        }
-    ]
+    sample_qa = {
+  "items": [
+    {
+      "id": "item_6aea7440a65a",
+      "type": "message",
+      "role": "assistant",
+      "content": [
+        "Great! Let's begin.\n\n**Question 0: Introduce yourself - tell me about your background, education, and what you're passionate about.**"
+      ],
+      
+    },
+    {
+      "id": "item_c030ce58f518",
+      "type": "message",
+      "role": "user",
+      "content": [
+        "Hi. My name is Aksai Lemajodi. I am a computer science student in technology."
+      ],
+      
+      "transcript_confidence": 0.9980469
+    },
+    {
+      "id": "item_3e5bcedc4588",
+      "type": "message",
+      "role": "user",
+      "content": [
+        "I'm passionate about analysis, data working,"
+      ],
+       
+      "transcript_confidence": 0.9951172
+    },
+    {
+      "id": "item_f5d0c1bd7668",
+      "type": "message",
+      "role": "user",
+      "content": [
+        "working in market."
+      ],
+      
+      "transcript_confidence": 0.9394531
+    },
+    {
+      "id": "item_c9cbdb30cdc3",
+      "type": "message",
+      "role": "assistant",
+      "content": [
+        "Thank you, Aksai. It's good to meet you.\n\n**Question 1: Zomato's core business revolves around connecting restaurants with customers through our platform. Can you tell me about a time you used a food delivery app and what aspects of the user experience stood out to you, either positively or negatively?**"
+      ],
+    
+    },
+    {
+      "id": "item_43bd189a0cc0",
+      "type": "message",
+      "role": "user",
+      "content": [
+        "Zometo seems like a very user friendly app in which already the time centric display is there of how many minutes the"
+      ],
+    
+      "transcript_confidence": 0.9767252566666667
+    },
+    {
+      "id": "item_330a921dd359",
+      "type": "message",
+      "role": "user",
+      "content": [
+        "in which the food will be delivered. And it is very user friendly. We can"
+      ],
+     
+      "transcript_confidence": 0.99707032
+    },
+    {
+      "id": "item_776be82d73d0",
+      "type": "message",
+      "role": "user",
+      "content": [
+        "easily you know, like, find out from where to where it shows also how much distance each restaurant is available. These are some of"
+      ],
+     
+      "transcript_confidence": 0.9944661333333333
+    },
+    {
+      "id": "item_68f87cf63f70",
+      "type": "message",
+      "role": "user",
+      "content": [
+        "the cool features I have found in the app."
+      ],
+     
+      "transcript_confidence": 0.9951172
+    },
+    {
+      "id": "item_b7460b0d7f7e",
+      "type": "message",
+      "role": "assistant",
+      "content": [
+        "That's insightful, Aksai. You mentioned the time-centric display and distance information as positive features.\n\n**Follow-up Question 1: Beyond the current features you've highlighted, if you were to suggest one *new* feature to enhance the Zomato app experience for users like yourself, what would it be and why?**"
+      ],
+     
+    },
+    {
+      "id": "item_6e49945689c4",
+      "type": "message",
+      "role": "user",
+      "content": [
+        "I think one of the other feature could be"
+      ],
+     
+      "transcript_confidence": 0.9921875
+    },
+    {
+      "id": "item_23b161cbc433",
+      "type": "message",
+      "role": "user",
+      "content": [
+        "you know, if you suddenly ask me, it's confusing. But"
+      ],
+    
+      "transcript_confidence": 0.8691406
+    },
+    {
+      "id": "item_a1f3bf79d186",
+      "type": "message",
+      "role": "user",
+      "content": [
+        "maybe you can put the Uber driver"
+      ],
+     
+      "transcript_confidence": 0.9941406
+    },
+    {
+      "id": "item_10b77d9e7129",
+      "type": "message",
+      "role": "user",
+      "content": [
+        "sorry, the the network driver detail."
+      ],
+     
+      "transcript_confidence": 0.9472656
+    },
+    {
+      "id": "item_7b68a1753513",
+      "type": "message",
+      "role": "user",
+      "content": [
+        "Who's picking up"
+      ],
+     
+      "transcript_confidence": 0.99121094
+    },
+    {
+      "id": "item_acc1d32f2dce",
+      "type": "message",
+      "role": "assistant",
+      "content": [
+        "Thank you for that suggestion, Aksai. Transparency about the delivery partner is an interesting idea.\n\n**Question 2: At Zomato, we're constantly innovating. Imagine you're part of a small team tasked with developing a new service that leverages our existing restaurant and delivery network. What's a creative idea you have for a new Zomato service, and how might you approach its initial development?**"
+      ],
+     
+    },
+    {
+      "id": "item_cd0dd0d2b383",
+      "type": "message",
+      "role": "user",
+      "content": [
+        "A new Zomato server."
+      ],
+     
+      "transcript_confidence": 0.89469403
+    },
+    {
+      "id": "item_f093117feaeb",
+      "type": "message",
+      "role": "user",
+      "content": [
+        "My idea would preferably"
+      ],
+     
+      "transcript_confidence": 0.9194336
+    },
+    {
+      "id": "item_93bb36a96a00",
+      "type": "message",
+      "role": "user",
+      "content": [
+        "connecting more of the what is it? Called, home bakers because I have not seen many home bakers giving a or registering in Zometra. So if we could connect with them it would be a business boost for them as well as price pluck for us also."
+      ],
+     
+      "transcript_confidence": 0.99121094
+    },
+    {
+      "id": "item_ea2f9bcb71e3",
+      "type": "message",
+      "role": "assistant",
+      "content": [
+        "That's a great idea, Aksai, focusing on home bakers. It taps into a growing market.\n\n**Follow-up Question 2: You mentioned connecting with home bakers. What specific challenges do you anticipate Zomato might face in onboarding and managing a large number of home-based food businesses onto its platform, and how might you propose to address them?**"
+      ],
+    
+    },
+    {
+      "id": "item_f22058840c5a",
+      "type": "message",
+      "role": "user",
+      "content": [
+        "The main challenges would be home because they're unaware of the"
+      ],
+      
+      "transcript_confidence": 0.94628906
+    },
+    {
+      "id": "item_2eabfed93abf",
+      "type": "message",
+      "role": "user",
+      "content": [
+        "working style as well as how the app would be functioning well."
+      ],
+      
+      "transcript_confidence": 0.99902344
+    },
+    {
+      "id": "item_7dfeeddab2c0",
+      "type": "message",
+      "role": "user",
+      "content": [
+        "So providing them with the clear idea of how the app"
+      ],
+     
+      "transcript_confidence": 0.9960937466666667
+    },
+    {
+      "id": "item_7fdb91231f5d",
+      "type": "message",
+      "role": "user",
+      "content": [
+        "should function as well as what are we looking forward to the"
+      ],
+      
+      "transcript_confidence": 0.99609375
+    },
+    {
+      "id": "item_f137f5cb7660",
+      "type": "message",
+      "role": "user",
+      "content": [
+        "time of the delivery, and everything should be provided to them so that they would understand very well."
+      ],
+      "interrupted": False,
+      "transcript_confidence": 0.9975586
+    },
+    {
+      "id": "item_f5a0b5883ed9",
+      "type": "message",
+      "role": "assistant",
+      "content": [
+        "That's a practical approach, Aksai, focusing on clear communication and training.\n\n**Question 3: Zomato operates in a fast-paced environment with a strong emphasis on problem-solving and quick decision-making. Can you describe a situation in your academic projects or personal life where you encountered an unexpected technical challenge, and how you went about resolving it?**"
+      ],
+     
+    },
+    {
+      "id": "item_54d659640c59",
+      "type": "message",
+      "role": "user",
+      "content": [
+        "As a computer science student, every day is a technical challenge for us. If I have to highlight one of the main challenges that I face,"
+      ],
+    
+      "transcript_confidence": 0.99462892
+    },
+    {
+      "id": "item_57b552d09564",
+      "type": "message",
+      "role": "user",
+      "content": [
+        "was while making a news aggregator app, I was unable to find a proper way to the workflow actions in a continuous way. So in because deploying it in any other plan"
+      ],
+    
+      "transcript_confidence": 0.9691162099999999
+    },
+    {
+      "id": "item_9df1ae92ef83",
+      "type": "message",
+      "role": "user",
+      "content": [
+        "like Render or by sorry. The Python workflow was giving me HTTP polling"
+      ],
+     
+      "transcript_confidence": 0.91064455
+    },
+    {
+      "id": "item_90767359b375",
+      "type": "message",
+      "role": "user",
+      "content": [
+        "request analysis issue. So I had to come up with an idea of"
+      ],
+     
+      "transcript_confidence": 0.9980469
+    },
+    {
+      "id": "item_8962615176be",
+      "type": "message",
+      "role": "user",
+      "content": [
+        "integrating it into GitHub workflow. Which the GitHub actions will continuously"
+      ],
+     
+      "transcript_confidence": 0.95825195
+    },
+    {
+      "id": "item_38d7b809da7a",
+      "type": "message",
+      "role": "user",
+      "content": [
+        "run as a scheduled task base."
+      ],
+      
+      "transcript_confidence": 0.98535156
+    },
+    {
+      "id": "item_c35f351162de",
+      "type": "message",
+      "role": "assistant",
+      "content": [
+        "That's a very specific and well-explained technical challenge, Aksai. Migrating to GitHub Actions for continuous workflow is a smart solution.\n\n**Follow-up Question 3: You mentioned the HTTP polling request issues and then integrating with GitHub Actions. Could you elaborate a bit more on *why* the HTTP polling approach was problematic in that context, and what specific benefits did GitHub Actions offer that solved that problem for your news aggregator?**"
+      ],
+      
+    },
+    {
+      "id": "item_67bedb49ddea",
+      "type": "message",
+      "role": "user",
+      "content": [
+        "That's it."
+      ],
+      
+      "transcript_confidence": 0.9970703
+    },
+    {
+      "id": "item_370bf8ef2d90",
+      "type": "message",
+      "role": "assistant",
+      "content": [
+        "I understand you've explained the solution well. To ensure I fully grasp the technical nuances, could you perhaps elaborate on the *specific reasons* why the HTTP polling method was problematic for your news aggregator app, and what made GitHub Actions a more suitable alternative in that particular scenario? For example, were there issues with efficiency, reliability, or cost associated with the polling?"
+      ],
+      
+    },
+    {
+      "id": "item_97fe553bc305",
+      "type": "message",
+      "role": "user",
+      "content": [
+        "That's it."
+      ],
+      "transcript_confidence": 0.9970703
+    }
+  ]
+}
     
     try:
         report = generator.generate_report("Technical Interview", sample_qa)

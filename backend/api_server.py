@@ -17,7 +17,8 @@ load_dotenv()
 
 app = Flask(__name__)
 CORS(app)
-interview_data_store ={}
+interview_data_store = {}
+timeout_interviews = set()  # Track which interviews timed out
 # Database configuration
 db_config = {
     'host': os.getenv('DB_HOST', 'localhost'),
@@ -49,6 +50,22 @@ app.config['MAX_CONTENT_LENGTH'] = 16 * 1024 * 1024
 def allowed_file(filename):
     return '.' in filename and filename.rsplit('.', 1)[1].lower() in ALLOWED_EXTENSIONS
 
+
+def load_company_data():
+    """Load company data from JSON file"""
+    try:
+        company_file = os.path.join(os.getcwd(), 'company_data.json')
+        if not os.path.exists(company_file):
+            print(f"⚠️ company_data.json not found at {company_file}")
+            return []
+        
+        with open(company_file, 'r', encoding='utf-8') as f:
+            return json.load(f)
+    except Exception as e:
+        print(f"❌ Error loading company data: {e}")
+        return []
+
+
 # Initialize report generator
 report_gen = InterviewReportGenerator()
 
@@ -56,6 +73,68 @@ report_gen = InterviewReportGenerator()
 @app.route('/api/health', methods=['GET'])
 def health_check():
     return jsonify({'status': 'healthy', 'message': 'API is running'}), 200
+
+
+# ==================== COMPANY ENDPOINTS ====================
+@app.route('/api/companies', methods=['GET'])
+def get_companies():
+    """Get list of all available companies"""
+    try:
+        company_data = load_company_data()
+        
+        companies_list = []
+        for segment in company_data:
+            segment_name = segment.get('segment', 'Unknown')
+            for company in segment.get('companies', []):
+                companies_list.append({
+                    'name': company.get('name'),
+                    'segment': segment_name,
+                    'interview_style': company.get('interview_style'),
+                    'focus_areas': company.get('focus_areas')
+                })
+        
+        return jsonify({
+            'success': True,
+            'companies': companies_list,
+            'total': len(companies_list)
+        }), 200
+        
+    except Exception as e:
+        print(f"Get companies error: {str(e)}")
+        traceback.print_exc()
+        return jsonify({'success': False, 'error': 'Failed to load companies'}), 500
+
+
+@app.route('/api/company/<company_name>', methods=['GET'])
+def get_company_details(company_name):
+    """Get detailed information about a specific company"""
+    try:
+        company_data = load_company_data()
+        
+        for segment in company_data:
+            for company in segment.get('companies', []):
+                if company.get('name', '').lower() == company_name.lower():
+                    return jsonify({
+                        'success': True,
+                        'company': {
+                            'name': company.get('name'),
+                            'segment': segment.get('segment'),
+                            'interview_style': company.get('interview_style'),
+                            'focus_areas': company.get('focus_areas'),
+                            'question_tone': company.get('question_tone'),
+                            'keywords': company.get('keywords', [])
+                        }
+                    }), 200
+        
+        return jsonify({
+            'success': False,
+            'error': f'Company "{company_name}" not found'
+        }), 404
+        
+    except Exception as e:
+        print(f"Get company details error: {str(e)}")
+        traceback.print_exc()
+        return jsonify({'success': False, 'error': 'Failed to get company details'}), 500
 
 
 # ==================== USER AUTHENTICATION ====================
@@ -284,7 +363,7 @@ def get_user_interviews(user_id):
         return jsonify({'success': False, 'error': 'Failed to retrieve interviews'}), 500
 
 
-# ==================== LIVEKIT TOKEN ====================
+# ==================== LIVEKIT TOKEN (UPDATED FOR COMPANY-SPECIFIC) ====================
 @app.route('/api/livekit-token', methods=['POST'])
 def get_livekit_token():
     try:
@@ -292,6 +371,7 @@ def get_livekit_token():
         user_id = data.get('user_id')
         interview_id = data.get('interview_id')
         interview_type = data.get('interview_type')
+        company_name = data.get('company_name')  # NEW: Get company name
         
         if not all([user_id, interview_id, interview_type]):
             return jsonify({'success': False, 'error': 'Missing required fields'}), 400
@@ -300,19 +380,22 @@ def get_livekit_token():
         print(f"  User ID: {user_id}")
         print(f"  Interview ID: {interview_id}")
         print(f"  Interview Type: {interview_type}")
+        print(f"  Company: {company_name if company_name else 'N/A'}")
         
         # Get resume and JD data
         resume_data = None
         jd_data = None
         
-        if interview_type == "Resume Based":
+        # Load resume for Resume Based or Company-Specific
+        if interview_type in ["Resume Based", "Company-Specific"]:
             resume = db.get_latest_resume(user_id)
-            jd = db.get_latest_jd(user_id)
-            
             if resume:
                 resume_data = resume.get('parsed_data')
                 print(f"  Resume Data: ✓ Loaded")
-            
+        
+        # Load JD for Resume Based
+        if interview_type == "Resume Based":
+            jd = db.get_latest_jd(user_id)
             if jd:
                 jd_data = jd.get('parsed_data')
                 print(f"  JD Data: ✓ Loaded")
@@ -325,7 +408,8 @@ def get_livekit_token():
             "interview_type": interview_type,
             "interview_id": interview_id,
             "resume_data": resume_data,
-            "jd_data": jd_data
+            "jd_data": jd_data,
+            "company_name": company_name  # NEW: Pass company name
         }
         
         # Generate token
@@ -361,7 +445,20 @@ def get_livekit_token():
         return jsonify({'success': False, 'error': 'Failed to generate token'}), 500
 
 
-# ==================== SAVE INTERVIEW DATA (CRITICAL) ====================
+
+    
+
+
+@app.route("/api/interview-complete", methods=["POST"])
+def interview_complete():
+    data = request.json
+    interview_id = data.get("interview_id")
+    print(f"✅ Interview {interview_id} marked complete.")
+    # You can update DB or trigger report generation here
+    return jsonify({"status": "success", "redirect_to": f"/report/{interview_id}"})
+
+
+# ==================== SAVE INTERVIEW DATA ====================
 @app.route('/api/save-interview-qa', methods=['POST'])
 def save_interview_qa():
     """Store Q&A pairs in memory - NO DATABASE"""
@@ -373,12 +470,14 @@ def save_interview_qa():
         interview_id = data.get('interview_id')
         qa_pairs = data.get('qa_pairs', [])
         conversation_history = data.get('conversation_history')
+        company_name = data.get('company_name')  # NEW: Get company name
 
         if not interview_id:
             return jsonify({'success': False, 'error': 'Missing interview_id'}), 400
 
         print(f"\n💾 Storing Interview Data IN MEMORY:")
         print(f"  Interview ID: {interview_id}")
+        print(f"  Company: {company_name if company_name else 'N/A'}")
         print(f"  Q&A Pairs: {len(qa_pairs)}")
         print(f"  Conversation History: {len(conversation_history.get('items', [])) if conversation_history else 0} messages")
 
@@ -387,6 +486,7 @@ def save_interview_qa():
         interview_data_store[str(interview_id)] = {
             'qa_pairs': qa_pairs,
             'conversation_history': conversation_history,
+            'company_name': company_name,  # NEW: Store company name
             'timestamp': datetime.datetime.now().isoformat()
         }
 
@@ -411,7 +511,6 @@ def check_interview_data(interview_id):
     try:
         interview_id_str = str(interview_id)
         
-        # Check if data exists
         if interview_id_str in interview_data_store:
             stored_data = interview_data_store[interview_id_str]
             qa_pairs = stored_data.get('qa_pairs', [])
@@ -424,10 +523,10 @@ def check_interview_data(interview_id):
                 'qa_count': len(qa_pairs),
                 'transcript_items': len(conversation_history.get('items', [])) if isinstance(conversation_history, dict) else 0,
                 'saved_at': stored_data.get('timestamp'),
+                'company_name': stored_data.get('company_name'),  # NEW
                 'message': 'Interview data is ready'
             }), 200
         else:
-            # Data not yet available
             return jsonify({
                 'success': True,
                 'data_available': False,
@@ -444,7 +543,8 @@ def check_interview_data(interview_id):
             'error': f'Check failed: {str(e)}'
         }), 500
 
-# ==================== GENERATE REPORT ====================
+
+# ==================== GENERATE REPORT (UPDATED FOR COMPANY-SPECIFIC) ====================
 @app.route('/api/generate-report/<int:interview_id>', methods=['POST'])
 def generate_report(interview_id):
     """Generate report directly from memory - NO DATABASE RETRIEVAL"""
@@ -457,8 +557,7 @@ def generate_report(interview_id):
             print(f"  ❌ No data found in memory for interview {interview_id}")
             return jsonify({'success': False, 'error': 'Interview data not found. Please complete the interview first.'}), 404
         
-
-        # ⏳ Wait up to ~20s for in-memory data to appear
+        # Wait up to ~20s for in-memory data to appear
         import time
         start = time.time()
         timeout = 20
@@ -469,12 +568,13 @@ def generate_report(interview_id):
             print("  ⏳ Waiting for in-memory interview data...")
             time.sleep(1)
 
-
         stored_data = interview_data_store[interview_id_str]
         qa_pairs = stored_data.get('qa_pairs', [])
         full_transcript = stored_data.get('conversation_history', {})
+        company_name = stored_data.get('company_name')  # NEW
         
         print(f"  ✅ Data retrieved from memory")
+        print(f"  Company: {company_name if company_name else 'N/A'}")
         print(f"  Q&A Pairs: {len(qa_pairs)}")
         print(f"  Transcript Items: {len(full_transcript.get('items', []))}")
         
@@ -499,14 +599,10 @@ def generate_report(interview_id):
         print(f"  Resume Data: {'✓' if resume_data else '✗'}")
         print(f"  JD Data: {'✓' if jd_data else '✗'}")
         
-        # Get user info for email
+        # Get user info
         user_id = interview['user_id']
         user_info = db.get_user_info(user_id)
-        
-        if user_info:
-            user_name = user_info.get('full_name', 'Candidate')
-        else:
-            user_name = 'Candidate'
+        user_name = user_info.get('full_name', 'Candidate') if user_info else 'Candidate'
         
         # Generate report using LLM
         print("🤖 Calling LLM to generate comprehensive report...")
@@ -515,7 +611,8 @@ def generate_report(interview_id):
             qa_pairs=qa_pairs,
             resume_data=resume_data,
             jd_data=jd_data,
-            full_transcript=full_transcript
+            full_transcript=full_transcript,
+            company_name=company_name  # NEW: Pass company name to report generator
         )
         
         print("✓ Report data generated by LLM")
@@ -529,22 +626,18 @@ def generate_report(interview_id):
         
         print(f"✓ PDF created: {pdf_path}")
         
-        
-        
         # Clean up memory after successful report generation
-        interview_id_str = str(interview_id)
         if interview_id_str in interview_data_store:
             del interview_data_store[interview_id_str]
             print(f"🗑️ Cleaned up memory for interview {interview_id}")
-        else:
-            print("interview already cleaned from memory.")
-        # Return report directly to frontend (NO DATABASE STORAGE)
+        
         return jsonify({
             'success': True,
             'message': 'Report generated successfully',
             'report_data': report_data,
             'pdf_path': pdf_filename,
             'interview_id': interview_id,
+            'company_name': company_name,  # NEW
             'qa_count': len(qa_pairs),
             'transcript_items': len(full_transcript.get('items', []))
         }), 200
@@ -555,18 +648,13 @@ def generate_report(interview_id):
         return jsonify({'success': False, 'error': f'Failed to generate report: {str(e)}'}), 500
 
 
-
-
-
 # ==================== DOWNLOAD REPORT PDF ====================
 @app.route('/api/download-report/<int:interview_id>', methods=['GET'])
 def download_report(interview_id):
     try:
-        
         base_dir = os.path.dirname(os.path.abspath(__file__))
         reports_dir = os.path.join(base_dir, "reports")
         pdf_path = os.path.join(reports_dir, f"interview_report_{interview_id}.pdf")
-        
         
         if not os.path.exists(pdf_path):
             return jsonify({'success': False, 'error': 'PDF file not found on server'}), 404
@@ -590,6 +678,10 @@ if __name__ == '__main__':
     print(f"🎥 LiveKit URL: {LIVEKIT_URL}")
     print(f"📁 Upload folder: {UPLOAD_FOLDER}")
     print(f"📄 Reports folder: {REPORTS_FOLDER}")
+    
+    # Check company data
+    companies = load_company_data()
+    print(f"🏢 Companies loaded: {sum(len(seg.get('companies', [])) for seg in companies)}")
     
     # Check email configuration
     if os.getenv('SMTP_USERNAME') and os.getenv('SMTP_PASSWORD'):

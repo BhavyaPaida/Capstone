@@ -42,6 +42,46 @@ export const api = {
     }
   },
 
+  // ==================== Company Endpoints ====================
+  
+  getCompanies: async () => {
+    try {
+      const response = await fetch(`${API_BASE_URL}/companies`, {
+        method: 'GET',
+        headers: { 'Content-Type': 'application/json' }
+      });
+      
+      if (!response.ok) {
+        const error = await response.json();
+        return { success: false, error: error.error || 'Failed to fetch companies' };
+      }
+      
+      return await response.json();
+    } catch (error) {
+      console.error('Get companies API error:', error);
+      return { success: false, error: 'Network error' };
+    }
+  },
+
+  getCompanyDetails: async (companyName) => {
+    try {
+      const response = await fetch(`${API_BASE_URL}/company/${encodeURIComponent(companyName)}`, {
+        method: 'GET',
+        headers: { 'Content-Type': 'application/json' }
+      });
+      
+      if (!response.ok) {
+        const error = await response.json();
+        return { success: false, error: error.error || 'Company not found' };
+      }
+      
+      return await response.json();
+    } catch (error) {
+      console.error('Get company details API error:', error);
+      return { success: false, error: 'Network error' };
+    }
+  },
+
   // Resume endpoints
   uploadResume: async (userId, file) => {
     try {
@@ -121,18 +161,25 @@ export const api = {
     }
   },
 
-  // Create interview
-  createInterview: async (userId, resumeId, jdId, interviewType) => {
+  // Create interview (UPDATED to include company_name)
+  createInterview: async (userId, resumeId, jdId, interviewType, companyName = null) => {
     try {
+      const payload = { 
+        user_id: userId, 
+        resume_id: resumeId, 
+        jd_id: jdId, 
+        interview_type: interviewType 
+      };
+      
+      // Add company_name only if it's provided and interview is company-specific
+      if (companyName && interviewType === "Company-Specific") {
+        payload.company_name = companyName;
+      }
+      
       const response = await fetch(`${API_BASE_URL}/create-interview`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ 
-          user_id: userId, 
-          resume_id: resumeId, 
-          jd_id: jdId, 
-          interview_type: interviewType 
-        })
+        body: JSON.stringify(payload)
       });
       
       if (!response.ok) {
@@ -163,16 +210,24 @@ export const api = {
     }
   },
   
-  getLiveKitToken: async (userId, interviewId, interviewType) => {
+  // LiveKit Token (UPDATED to include company_name)
+  getLiveKitToken: async (userId, interviewId, interviewType, companyName = null) => {
     try {
+      const payload = {
+        user_id: userId,
+        interview_id: interviewId,
+        interview_type: interviewType,
+      };
+      
+      // Add company_name if provided
+      if (companyName) {
+        payload.company_name = companyName;
+      }
+      
       const response = await fetch(`${API_BASE_URL}/livekit-token`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({
-          user_id: userId,
-          interview_id: interviewId,
-          interview_type: interviewType,
-        }),
+        body: JSON.stringify(payload),
       });
 
       if (!response.ok) {
@@ -212,7 +267,7 @@ export const api = {
     }
   },
 
-  // ==================== NEW: Check Interview Data ====================
+  // ==================== Check Interview Data ====================
   
   checkInterviewData: async (interviewId) => {
     try {
@@ -279,43 +334,11 @@ export const api = {
       console.error('Health check error:', error);
       return { status: 'unhealthy', error: 'Cannot reach server' };
     }
-  }
+  },
 
+ 
+  
   
 
-  ,
-  changePassword: async (userId, currentPassword, newPassword) => {
-    try {
-      const response = await fetch(`${API_BASE_URL}/change-password`, {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ user_id: userId, current_password: currentPassword, new_password: newPassword })
-      });
-      if (!response.ok) {
-        const error = await response.json();
-        return { success: false, error: error.error || 'Password change failed' };
-      }
-      return await response.json();
-    } catch (error) {
-      console.error('Change password API error:', error);
-      return { success: false, error: 'Network error' };
-    }
-  },
-  chatAssistant: async (question) => {
-    try {
-      const response = await fetch(`${API_BASE_URL}/chat-assistant`, {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ question })
-      });
-      if (!response.ok) {
-        const error = await response.json();
-        return { success: false, error: error.error || 'Assistant unavailable' };
-      }
-      return await response.json();
-    } catch (error) {
-      console.error('Assistant API error:', error);
-      return { success: false, error: 'Network error' };
-    }
-  }
+  
 };

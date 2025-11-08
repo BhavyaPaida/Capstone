@@ -1,0 +1,13 @@
+{
+  "items": [
+    {
+      "id": "item_d666859bae43",
+      "type": "message",
+      "role": "assistant",
+      "content": [
+        "Hello! Welcome to your HR & Behavioral session. I'm your AI interviewer today. We'll start with a brief introduction, then go through 5 main questions with follow-ups. This will take about 15-20 minutes. Take your time"
+      ],
+      "interrupted": true
+    }
+  ]
+}

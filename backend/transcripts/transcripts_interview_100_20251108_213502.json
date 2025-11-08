@@ -1,0 +1,217 @@
+{
+  "items": [
+    {
+      "id": "item_57c04408ba09",
+      "type": "message",
+      "role": "assistant",
+      "content": [
+        "Hello! Welcome to your Resume Based session.\nI'm your AI interviewer today. We'll start with a brief introduction, then go through 5 main questions with follow-ups.\nThis will take about 15-20 minutes. Take your time with your responses and feel free to be detailed. Ready to begin?"
+      ],
+      "interrupted": false
+    },
+    {
+      "id": "item_bb8568f89a18",
+      "type": "message",
+      "role": "user",
+      "content": [
+        "Yes."
+      ],
+      "interrupted": false,
+      "transcript_confidence": 0.9458008
+    },
+    {
+      "id": "item_d5c76608662b",
+      "type": "message",
+      "role": "assistant",
+      "content": [
+        "Great! Let's start with **Question 0: Introduce yourself - tell me about your background, education, and what you're passionate about.**"
+      ],
+      "interrupted": false
+    },
+    {
+      "id": "item_30bc453fb886",
+      "type": "message",
+      "role": "user",
+      "content": [
+        "Hi. I am Bavia. I am a student from science in India, and I'm currently in my BTEC"
+      ],
+      "interrupted": false,
+      "transcript_confidence": 0.9278564499999999
+    },
+    {
+      "id": "item_0dba52a16dc8",
+      "type": "message",
+      "role": "user",
+      "content": [
+        "two. I'm passionate about coding."
+      ],
+      "interrupted": false,
+      "transcript_confidence": 0.9914551
+    },
+    {
+      "id": "item_48237addec55",
+      "type": "message",
+      "role": "assistant",
+      "content": [
+        "Thank you, Bavia. It's good to meet you.\n\nLet's dive into your resume. **Question 1: I see you've listed several projects. Could you pick one that you're particularly proud of and tell me about your specific role in it, the technologies you used, and what the project's objective was?**"
+      ],
+      "interrupted": false
+    },
+    {
+      "id": "item_488fe5066039",
+      "type": "message",
+      "role": "user",
+      "content": [
+        "My favorite project is interview bot where"
+      ],
+      "interrupted": false,
+      "transcript_confidence": 0.6557617
+    },
+    {
+      "id": "item_ef623eb968a6",
+      "type": "message",
+      "role": "user",
+      "content": [
+        "it will conduct mock interviews for students who are practicing or preparing for the in"
+      ],
+      "interrupted": false,
+      "transcript_confidence": 0.990722655
+    },
+    {
+      "id": "item_5333c01712a7",
+      "type": "message",
+      "role": "user",
+      "content": [
+        "placement. So"
+      ],
+      "interrupted": false,
+      "transcript_confidence": 0.9760742
+    },
+    {
+      "id": "item_564142d72750",
+      "type": "message",
+      "role": "user",
+      "content": [
+        "have you"
+      ],
+      "interrupted": false,
+      "transcript_confidence": 0.9951172
+    },
+    {
+      "id": "item_4a131fc611c8",
+      "type": "message",
+      "role": "user",
+      "content": [
+        "like, get agent as the voice agent and react for the front end."
+      ],
+      "interrupted": false,
+      "transcript_confidence": 0.94970703
+    },
+    {
+      "id": "item_4586fa8dacfa",
+      "type": "message",
+      "role": "user",
+      "content": [
+        "And have used blast for the back end. These are the text type."
+      ],
+      "interrupted": false,
+      "transcript_confidence": 0.89746094
+    },
+    {
+      "id": "item_6a750bff43c9",
+      "type": "message",
+      "role": "assistant",
+      "content": [
+        "That sounds like a very practical and useful project, Bavia.\n\n**Follow-up to Question 1: You mentioned using \"get agent\" as the voice agent and \"react\" for the front-end, and \"blast\" for the back-end. Could you elaborate a bit more on how these specific technologies interacted with each other? For example, how did the user's voice input get processed and how was the feedback generated?**"
+      ],
+      "interrupted": false
+    },
+    {
+      "id": "item_debbafa37574",
+      "type": "message",
+      "role": "user",
+      "content": [
+        "So the user speak, the whole conversation history is stored and recorded."
+      ],
+      "interrupted": false,
+      "transcript_confidence": 0.838378905
+    },
+    {
+      "id": "item_04398689731b",
+      "type": "message",
+      "role": "user",
+      "content": [
+        "Is later"
+      ],
+      "interrupted": false,
+      "transcript_confidence": 0.99609375
+    },
+    {
+      "id": "item_c4aa38e85222",
+      "type": "message",
+      "role": "user",
+      "content": [
+        "passed on to the LLM, which will generate the report on the answers and the confidence."
+      ],
+      "interrupted": false,
+      "transcript_confidence": 0.998046875
+    },
+    {
+      "id": "item_6bdedd81f29f",
+      "type": "message",
+      "role": "assistant",
+      "content": [
+        "Thank you for clarifying that.\n\n**Question 2: Beyond the technical implementation, what was the biggest challenge you faced during the development of the Interview Bot, and how did you overcome it?**"
+      ],
+      "interrupted": false
+    },
+    {
+      "id": "item_de3987020ad8",
+      "type": "message",
+      "role": "user",
+      "content": [
+        "That's it."
+      ],
+      "interrupted": false,
+      "transcript_confidence": 0.9970703
+    },
+    {
+      "id": "item_0b681e725e2c",
+      "type": "message",
+      "role": "assistant",
+      "content": [
+        "I understand. Let's move on to the next question then.\n\n**Question 3: Your resume mentions proficiency in Python. Can you describe a situation where you utilized Python to solve a complex problem or automate a tedious task?**"
+      ],
+      "interrupted": false
+    },
+    {
+      "id": "item_9ed930762ee1",
+      "type": "message",
+      "role": "user",
+      "content": [
+        "Hello?"
+      ],
+      "interrupted": false,
+      "transcript_confidence": 0.85131836
+    },
+    {
+      "id": "item_fe8c491a540b",
+      "type": "message",
+      "role": "assistant",
+      "content": [
+        "Yes, I'm here. Please go ahead with your answer to Question 3."
+      ],
+      "interrupted": false
+    },
+    {
+      "id": "item_9f4449ad8e2d",
+      "type": "message",
+      "role": "user",
+      "content": [
+        "That's it."
+      ],
+      "interrupted": false,
+      "transcript_confidence": 0.99560547
+    }
+  ]
+}

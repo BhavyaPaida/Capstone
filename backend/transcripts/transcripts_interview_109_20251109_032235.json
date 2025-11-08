@@ -1,0 +1,32 @@
+{
+  "items": [
+    {
+      "id": "item_2b95e3e7a452",
+      "type": "message",
+      "role": "assistant",
+      "content": [
+        "Hello! Welcome to your Technical interview session.\nI'm your AI interviewer today. We'll start with a brief introduction, then go through 5 main questions with follow-ups.\nThis will take about 15-20 minutes. Take your time with your responses and feel free to be detailed. Ready to begin?"
+      ],
+      "interrupted": false
+    },
+    {
+      "id": "item_de2f2e08ec9e",
+      "type": "message",
+      "role": "assistant",
+      "content": [
+        "\n\nLet's begin. Please introduce yourself - tell me about your educational background, what you're passionate about, and what interests you about this field."
+      ],
+      "interrupted": false
+    },
+    {
+      "id": "item_38d6f933afb6",
+      "type": "message",
+      "role": "user",
+      "content": [
+        "Didn't know why you"
+      ],
+      "interrupted": false,
+      "transcript_confidence": 0.0
+    }
+  ]
+}

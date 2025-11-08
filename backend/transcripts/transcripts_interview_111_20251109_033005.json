@@ -1,0 +1,42 @@
+{
+  "items": [
+    {
+      "id": "item_108491f535a7",
+      "type": "message",
+      "role": "assistant",
+      "content": [
+        "Excellent, let's begin.\n\n**Question 0:** Introduce yourself - tell me about your background, education, and what you're passionate about."
+      ],
+      "interrupted": false
+    },
+    {
+      "id": "item_55bd6ce568ac",
+      "type": "message",
+      "role": "user",
+      "content": [
+        "Processing is coming."
+      ],
+      "interrupted": false,
+      "transcript_confidence": 0.9172363
+    },
+    {
+      "id": "item_c8f5e01ba949",
+      "type": "message",
+      "role": "assistant",
+      "content": [
+        "That's great to hear!\n\n**Question 1:** Could you please explain the difference between a stack and a queue, and provide a real-world analogy for each?"
+      ],
+      "interrupted": false
+    },
+    {
+      "id": "item_3d9dfe92e058",
+      "type": "message",
+      "role": "user",
+      "content": [
+        "Fake"
+      ],
+      "interrupted": false,
+      "transcript_confidence": 0.0
+    }
+  ]
+}

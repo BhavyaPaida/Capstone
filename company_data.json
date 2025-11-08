@@ -1,0 +1,523 @@
+[
+  {
+    "segment": "Tech Giants",
+    "companies": [
+      {
+        "name": "Google",
+        "interview_style": "Open-ended problem solving and system design questions focusing on scalability, data structures, and algorithms.",
+        "focus_areas": "Coding (DSA), System Design, Behavioral (Googliness).",
+        "question_tone": "Analytical, creative, and scenario-driven.",
+        "keywords": [
+          "data structures",
+          "algorithms",
+          "design thinking",
+          "problem solving",
+          "innovation"
+        ]
+      },
+      {
+        "name": "Microsoft",
+        "interview_style": "Structured and scenario-based interviews emphasizing technical depth and leadership principles.",
+        "focus_areas": "Coding, Object-Oriented Design, Leadership, Communication.",
+        "question_tone": "Balanced between technical rigor and teamwork orientation.",
+        "keywords": [
+          "object-oriented design",
+          "collaboration",
+          "scalability",
+          "growth mindset"
+        ]
+      },
+      {
+        "name": "Amazon",
+        "interview_style": "Behavioral and technical interviews guided by Leadership Principles.",
+        "focus_areas": "DSA, Problem Solving, Leadership Principles, Ownership.",
+        "question_tone": "Direct, data-driven, with emphasis on examples from experience.",
+        "keywords": [
+          "ownership",
+          "customer obsession",
+          "bias for action",
+          "bar raiser"
+        ]
+      },
+      {
+        "name": "Apple",
+        "interview_style": "Focus on design, creativity, and precision in problem solving.",
+        "focus_areas": "Coding, System Efficiency, Product Design Thinking.",
+        "question_tone": "Thoughtful and product-oriented.",
+        "keywords": [
+          "product intuition",
+          "efficiency",
+          "attention to detail",
+          "innovation"
+        ]
+      },
+      {
+        "name": "Meta",
+        "interview_style": "Data-driven interviews combining coding and product reasoning.",
+        "focus_areas": "DSA, System Design, Product Sense, Culture Fit.",
+        "question_tone": "Fast-paced and analytical.",
+        "keywords": [
+          "impact",
+          "data driven",
+          "product sense",
+          "communication"
+        ]
+      },
+      {
+        "name": "Netflix",
+        "interview_style": "Focus on independent thinking, decision-making, and culture fit.",
+        "focus_areas": "System Design, Leadership, Behavioral Fit.",
+        "question_tone": "Candid and reflective.",
+        "keywords": [
+          "freedom and responsibility",
+          "judgment",
+          "context over control"
+        ]
+      },
+      {
+        "name": "Tesla",
+        "interview_style": "Hands-on technical problem-solving combined with innovation-oriented questioning.",
+        "focus_areas": "Mechanical/Electrical Systems, Automation, Creativity.",
+        "question_tone": "Practical, visionary, and technical.",
+        "keywords": [
+          "innovation",
+          "efficiency",
+          "engineering excellence"
+        ]
+      }
+    ]
+  },
+  {
+    "segment": "Indian IT & Service-Based Companies",
+    "companies": [
+      {
+        "name": "TCS",
+        "interview_style": "Structured rounds focusing on logical thinking, basics of programming, and HR questions.",
+        "focus_areas": "Core subjects, Aptitude, Communication.",
+        "question_tone": "Formal and methodical.",
+        "keywords": [
+          "logical reasoning",
+          "aptitude",
+          "project knowledge"
+        ]
+      },
+      {
+        "name": "Infosys",
+        "interview_style": "Conceptual technical tests followed by HR rounds emphasizing communication and adaptability.",
+        "focus_areas": "Java/C basics, DBMS, OS, HR discussion.",
+        "question_tone": "Polite and conceptual.",
+        "keywords": [
+          "conceptual clarity",
+          "adaptability",
+          "team player"
+        ]
+      },
+      {
+        "name": "Wipro",
+        "interview_style": "Focus on fundamentals, coding logic, and behavioral fit.",
+        "focus_areas": "Basic Programming, Soft Skills, Flexibility.",
+        "question_tone": "Friendly yet evaluative.",
+        "keywords": [
+          "communication",
+          "commitment",
+          "flexibility"
+        ]
+      },
+      {
+        "name": "Tech Mahindra",
+        "interview_style": "Technical + HR combo assessing logical and situational responses.",
+        "focus_areas": "Core Knowledge, Team Handling, Communication.",
+        "question_tone": "Scenario-based.",
+        "keywords": [
+          "situation handling",
+          "project experience",
+          "communication"
+        ]
+      },
+      {
+        "name": "HCL Technologies",
+        "interview_style": "Balanced between technical and HR, checking learning mindset.",
+        "focus_areas": "DSA basics, Project Experience, Work Culture.",
+        "question_tone": "Straightforward and practical.",
+        "keywords": [
+          "learning attitude",
+          "practical thinking"
+        ]
+      },
+      {
+        "name": "Cognizant",
+        "interview_style": "Focus on application-level understanding and communication skills.",
+        "focus_areas": "Testing, SQL, SDLC concepts, HR Fit.",
+        "question_tone": "Conversational and friendly.",
+        "keywords": [
+          "communication",
+          "SDLC",
+          "team adaptability"
+        ]
+      },
+      {
+        "name": "Accenture",
+        "interview_style": "Behavioral and situational interviews emphasizing client focus.",
+        "focus_areas": "Problem Solving, Client Orientation, Project Delivery.",
+        "question_tone": "Consultative.",
+        "keywords": [
+          "client focus",
+          "collaboration",
+          "delivery excellence"
+        ]
+      }
+    ]
+  },
+  {
+    "segment": "Startups & Product-Based Innovators",
+    "companies": [
+      {
+        "name": "Zomato",
+        "interview_style": "Product and data-centric questioning focusing on problem-solving speed.",
+        "focus_areas": "Data Structures, Optimization, Product Thinking.",
+        "question_tone": "Energetic and analytical.",
+        "keywords": [
+          "real-time systems",
+          "data optimization",
+          "agility"
+        ]
+      },
+      {
+        "name": "Swiggy",
+        "interview_style": "Scenario-driven interviews emphasizing operational challenges.",
+        "focus_areas": "Scalability, Product Logic, APIs.",
+        "question_tone": "Dynamic and logical.",
+        "keywords": [
+          "operations",
+          "delivery optimization",
+          "scale"
+        ]
+      },
+      {
+        "name": "Ola",
+        "interview_style": "Combination of coding + analytical + case-based product rounds.",
+        "focus_areas": "DSA, Data Handling, Product Scenarios.",
+        "question_tone": "Case-driven and conceptual.",
+        "keywords": [
+          "mobility",
+          "product innovation",
+          "scalability"
+        ]
+      },
+      {
+        "name": "Paytm",
+        "interview_style": "Rapid-fire technical and behavioral mix testing product depth.",
+        "focus_areas": "Finance Tech, APIs, Problem Solving.",
+        "question_tone": "Quick and challenging.",
+        "keywords": [
+          "fintech",
+          "security",
+          "scalability"
+        ]
+      },
+      {
+        "name": "Byju's",
+        "interview_style": "Sales and communication focused with technical touchpoints.",
+        "focus_areas": "Pitching, Psychology, Communication.",
+        "question_tone": "Persuasive and high-energy.",
+        "keywords": [
+          "sales mindset",
+          "education",
+          "communication"
+        ]
+      },
+      {
+        "name": "CRED",
+        "interview_style": "High-bar product and system-level technical interviews.",
+        "focus_areas": "Backend, Data Integrity, Product Design.",
+        "question_tone": "Technical and visionary.",
+        "keywords": [
+          "product quality",
+          "innovation",
+          "data accuracy"
+        ]
+      },
+      {
+        "name": "Flipkart",
+        "interview_style": "Tech rounds similar to Amazon, focusing on logistics and optimization.",
+        "focus_areas": "DSA, Product Logic, System Design.",
+        "question_tone": "Analytical and outcome-oriented.",
+        "keywords": [
+          "supply chain",
+          "optimization",
+          "scalability"
+        ]
+      }
+    ]
+  },
+  {
+    "segment": "Consulting & Management Firms",
+    "companies": [
+      {
+        "name": "Deloitte",
+        "interview_style": "Behavioral + Case Interviews.",
+        "focus_areas": "Problem Solving, Business Scenarios, Communication.",
+        "question_tone": "Case-driven and precise.",
+        "keywords": [
+          "consulting",
+          "structured thinking",
+          "client focus"
+        ]
+      },
+      {
+        "name": "KPMG",
+        "interview_style": "Situational and business-focused interviews.",
+        "focus_areas": "Finance, Case Study, Decision Making.",
+        "question_tone": "Analytical and professional.",
+        "keywords": [
+          "business sense",
+          "ethics",
+          "financial insight"
+        ]
+      },
+      {
+        "name": "EY",
+        "interview_style": "Behavioral and analytical interviews.",
+        "focus_areas": "Client Cases, Problem Framing, Leadership.",
+        "question_tone": "Structured and empathetic.",
+        "keywords": [
+          "client engagement",
+          "leadership",
+          "consulting"
+        ]
+      },
+      {
+        "name": "PwC",
+        "interview_style": "Structured competency-based interviews.",
+        "focus_areas": "Consulting Scenarios, Communication, Business Awareness.",
+        "question_tone": "Formal and insight-oriented.",
+        "keywords": [
+          "business strategy",
+          "leadership",
+          "communication"
+        ]
+      },
+      {
+        "name": "McKinsey & Company",
+        "interview_style": "Case studies with interviewer-led problem solving.",
+        "focus_areas": "Analytical Thinking, Structure, Communication.",
+        "question_tone": "Challenging yet structured.",
+        "keywords": [
+          "MECE",
+          "business cases",
+          "problem solving"
+        ]
+      },
+      {
+        "name": "Boston Consulting Group (BCG)",
+        "interview_style": "Case-based interviews with emphasis on creativity and structure.",
+        "focus_areas": "Strategy, Analytics, Communication.",
+        "question_tone": "Collaborative and analytical.",
+        "keywords": [
+          "strategy",
+          "creativity",
+          "structure"
+        ]
+      },
+      {
+        "name": "Bain & Company",
+        "interview_style": "Case study + behavioral discussion on teamwork and leadership.",
+        "focus_areas": "Client Interaction, Case Problem Solving.",
+        "question_tone": "Personable yet data-driven.",
+        "keywords": [
+          "teamwork",
+          "structured analysis",
+          "client success"
+        ]
+      }
+    ]
+  },
+  {
+    "segment": "FinTech & Banking",
+    "companies": [
+      {
+        "name": "Goldman Sachs",
+        "interview_style": "Rigorous technical + analytical problem-solving interviews.",
+        "focus_areas": "Finance Algorithms, Data, Puzzles.",
+        "question_tone": "Logical and intense.",
+        "keywords": [
+          "finance",
+          "optimization",
+          "analytics"
+        ]
+      },
+      {
+        "name": "J.P. Morgan",
+        "interview_style": "Technical rounds combined with financial domain questions.",
+        "focus_areas": "Coding, Risk Analysis, Market Understanding.",
+        "question_tone": "Domain-specific and analytical.",
+        "keywords": [
+          "risk",
+          "markets",
+          "data"
+        ]
+      },
+      {
+        "name": "Morgan Stanley",
+        "interview_style": "Analytical and coding-heavy interviews focusing on data precision.",
+        "focus_areas": "Data Structures, Finance Concepts, Puzzles.",
+        "question_tone": "Meticulous and logical.",
+        "keywords": [
+          "finance",
+          "precision",
+          "coding"
+        ]
+      },
+      {
+        "name": "Barclays",
+        "interview_style": "Situational + technical evaluation rounds.",
+        "focus_areas": "Core Java, Banking Logic, Behavioral Fit.",
+        "question_tone": "Technical yet conversational.",
+        "keywords": [
+          "banking systems",
+          "problem solving"
+        ]
+      },
+      {
+        "name": "HDFC Bank",
+        "interview_style": "Functional + role-based assessment.",
+        "focus_areas": "Business Logic, Client Service, Analytical Thinking.",
+        "question_tone": "Scenario-based.",
+        "keywords": [
+          "customer service",
+          "analytical ability"
+        ]
+      },
+      {
+        "name": "ICICI Bank",
+        "interview_style": "Mix of HR + analytical questions.",
+        "focus_areas": "Sales, Finance, Operations.",
+        "question_tone": "Conversational.",
+        "keywords": [
+          "finance",
+          "operations",
+          "sales mindset"
+        ]
+      }
+    ]
+  },
+  {
+    "segment": "Core Engineering & Manufacturing",
+    "companies": [
+      {
+        "name": "Siemens",
+        "interview_style": "Technical rounds on domain knowledge + project understanding.",
+        "focus_areas": "Core Engineering, Automation, Problem Solving.",
+        "question_tone": "Technical and practical.",
+        "keywords": [
+          "engineering",
+          "automation",
+          "innovation"
+        ]
+      },
+      {
+        "name": "Larsen & Toubro (L&T)",
+        "interview_style": "Core subject technical + HR-based situational questions.",
+        "focus_areas": "Project Execution, Core Discipline Knowledge.",
+        "question_tone": "Practical and serious.",
+        "keywords": [
+          "construction",
+          "project management"
+        ]
+      },
+      {
+        "name": "GE",
+        "interview_style": "Technical problem-solving + innovation-oriented discussions.",
+        "focus_areas": "Design, Systems, Innovation.",
+        "question_tone": "Analytical and structured.",
+        "keywords": [
+          "design",
+          "systems thinking",
+          "innovation"
+        ]
+      },
+      {
+        "name": "Mahindra & Mahindra",
+        "interview_style": "Focus on mechanical aptitude, teamwork, and initiative.",
+        "focus_areas": "Automotive Systems, Leadership, Efficiency.",
+        "question_tone": "Balanced and experiential.",
+        "keywords": [
+          "automotive",
+          "leadership",
+          "mechanics"
+        ]
+      },
+      {
+        "name": "Bosch",
+        "interview_style": "Domain expertise + applied electronics understanding.",
+        "focus_areas": "Electronics, Sensors, System Integration.",
+        "question_tone": "Technical and precise.",
+        "keywords": [
+          "electronics",
+          "embedded systems",
+          "efficiency"
+        ]
+      }
+    ]
+  },
+  {
+    "segment": "HealthTech & Biotech",
+    "companies": [
+      {
+        "name": "Philips Healthcare",
+        "interview_style": "Behavioral + product and innovation-centric discussions.",
+        "focus_areas": "Medical Devices, R&D, Team Collaboration.",
+        "question_tone": "Patient-oriented and innovative.",
+        "keywords": [
+          "medical devices",
+          "innovation",
+          "collaboration"
+        ]
+      },
+      {
+        "name": "Medtronic",
+        "interview_style": "Technical knowledge + problem-solving in healthcare contexts.",
+        "focus_areas": "Biomedical Engineering, Compliance, Ethics.",
+        "question_tone": "Empathetic and technical.",
+        "keywords": [
+          "healthcare",
+          "ethics",
+          "precision"
+        ]
+      },
+      {
+        "name": "Johnson & Johnson",
+        "interview_style": "Behavioral + leadership-based interviews.",
+        "focus_areas": "Operations, Product Safety, Leadership.",
+        "question_tone": "Professional and ethical.",
+        "keywords": [
+          "leadership",
+          "quality",
+          "innovation"
+        ]
+      },
+      {
+        "name": "Pfizer",
+        "interview_style": "Scientific + competency-based interviews.",
+        "focus_areas": "R&D, Innovation, Team Fit.",
+        "question_tone": "Data-driven and research-focused.",
+        "keywords": [
+          "biotech",
+          "research",
+          "innovation"
+        ]
+      },
+      {
+        "name": "Siemens Healthineers",
+        "interview_style": "Technical and analytical questioning related to healthcare tech.",
+        "focus_areas": "AI in Healthcare, Imaging, R&D.",
+        "question_tone": "Research-oriented.",
+        "keywords": [
+          "AI",
+          "imaging",
+          "R&D"
+        ]
+      }
+    ]
+  }
+]

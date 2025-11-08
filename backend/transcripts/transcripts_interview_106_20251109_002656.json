@@ -1,0 +1,937 @@
+{
+  "items": [
+    {
+      "id": "item_e0ff8b4169f4",
+      "type": "message",
+      "role": "assistant",
+      "content": [
+        "Hello! Welcome to your HR & Behavioral session. I'm your AI interviewer today. We'll start with a brief introduction, then go through 5 main questions with follow-ups. This will take about 15-20 minutes. Take your time with your responses and feel free to be detailed. Ready to begin?"
+      ],
+      "interrupted": false
+    },
+    {
+      "id": "item_0c83ba846012",
+      "type": "message",
+      "role": "assistant",
+      "content": [
+        "\n\nGreat."
+      ],
+      "interrupted": true
+    },
+    {
+      "id": "item_a242a38778fc",
+      "type": "message",
+      "role": "user",
+      "content": [
+        "Yes."
+      ],
+      "interrupted": false,
+      "transcript_confidence": 0.98535156
+    },
+    {
+      "id": "item_341f12222c64",
+      "type": "message",
+      "role": "assistant",
+      "content": [
+        "Excellent. Let's start with **Question 0: Introduce yourself - tell me about your background, education, and what you're passionate about.**"
+      ],
+      "interrupted": false
+    },
+    {
+      "id": "item_6ae4548103a1",
+      "type": "message",
+      "role": "user",
+      "content": [
+        "Swayam Shraddha, I'm"
+      ],
+      "interrupted": false,
+      "transcript_confidence": 0.8765869
+    },
+    {
+      "id": "item_a16b606347f0",
+      "type": "message",
+      "role": "user",
+      "content": [
+        "final year student at two year DAP."
+      ],
+      "interrupted": false,
+      "transcript_confidence": 0.96972656
+    },
+    {
+      "id": "item_2366f354d5c6",
+      "type": "message",
+      "role": "user",
+      "content": [
+        "I am"
+      ],
+      "interrupted": false,
+      "transcript_confidence": 0.9951172
+    },
+    {
+      "id": "item_62f0fb7e025a",
+      "type": "message",
+      "role": "user",
+      "content": [
+        "passionate about soft edge"
+      ],
+      "interrupted": false,
+      "transcript_confidence": 1.0
+    },
+    {
+      "id": "item_cdde4642450f",
+      "type": "message",
+      "role": "user",
+      "content": [
+        "engineering and coding."
+      ],
+      "interrupted": false,
+      "transcript_confidence": 0.99609375
+    },
+    {
+      "id": "item_f1d84dffa5d2",
+      "type": "message",
+      "role": "assistant",
+      "content": [
+        "Thank you,"
+      ],
+      "interrupted": true
+    },
+    {
+      "id": "item_34c24eaec632",
+      "type": "message",
+      "role": "user",
+      "content": [
+        "You."
+      ],
+      "interrupted": false,
+      "transcript_confidence": 0.9909668
+    },
+    {
+      "id": "item_18f5207afc17",
+      "type": "message",
+      "role": "assistant",
+      "content": [
+        "Thank you,"
+      ],
+      "interrupted": true
+    },
+    {
+      "id": "item_931b638b0875",
+      "type": "message",
+      "role": "user",
+      "content": [
+        "You."
+      ],
+      "interrupted": false,
+      "transcript_confidence": 0.9980469
+    },
+    {
+      "id": "item_099c1884d87d",
+      "type": "message",
+      "role": "assistant",
+      "content": [
+        "Thank you, Swayam. It's good to meet you.\n\nLet's move on to our first main question.\n\n**Question 1: Can you describe a time you had to manage multiple tasks or projects with competing deadlines? How did you prioritize and ensure everything was completed on time?**"
+      ],
+      "interrupted": false
+    },
+    {
+      "id": "item_e00301250211",
+      "type": "message",
+      "role": "user",
+      "content": [
+        "So I have a to do list"
+      ],
+      "interrupted": false,
+      "transcript_confidence": 0.99609375
+    },
+    {
+      "id": "item_927b0b0d8065",
+      "type": "message",
+      "role": "assistant",
+      "content": [
+        "Could"
+      ],
+      "interrupted": true
+    },
+    {
+      "id": "item_49c2f033cbc6",
+      "type": "message",
+      "role": "user",
+      "content": [
+        "that"
+      ],
+      "interrupted": false,
+      "transcript_confidence": 0.9951172
+    },
+    {
+      "id": "item_186e0203c80d",
+      "type": "message",
+      "role": "assistant",
+      "content": [
+        "I'm"
+      ],
+      "interrupted": true
+    },
+    {
+      "id": "item_17a4d21bdfaf",
+      "type": "message",
+      "role": "user",
+      "content": [
+        "I"
+      ],
+      "interrupted": false,
+      "transcript_confidence": 0.8100586
+    },
+    {
+      "id": "item_b14a0a8be6f1",
+      "type": "message",
+      "role": "assistant",
+      "content": [
+        "Okay,"
+      ],
+      "interrupted": true
+    },
+    {
+      "id": "item_57323ad57365",
+      "type": "message",
+      "role": "user",
+      "content": [
+        "have a to do list for tasks. I prioritize each of them by date and activity to be done."
+      ],
+      "interrupted": false,
+      "transcript_confidence": 0.9885254
+    },
+    {
+      "id": "item_4eb81123430d",
+      "type": "message",
+      "role": "user",
+      "content": [
+        "That's how I keep a track of all the act. Activities"
+      ],
+      "interrupted": false,
+      "transcript_confidence": 0.9914550799999999
+    },
+    {
+      "id": "item_d1fc01a2d6c6",
+      "type": "message",
+      "role": "user",
+      "content": [
+        "that I have to complete by a deadline."
+      ],
+      "interrupted": false,
+      "transcript_confidence": 1.0
+    },
+    {
+      "id": "item_1d19071ad7d2",
+      "type": "message",
+      "role": "assistant",
+      "content": [
+        "Thank you for sharing that.\n\n**Follow-up Question 1: When you're working on that to-do list, how do you handle unexpected issues or urgent requests that arise and might disrupt your planned priorities?**"
+      ],
+      "interrupted": false
+    },
+    {
+      "id": "item_8ce32a531234",
+      "type": "message",
+      "role": "user",
+      "content": [
+        "I keep some buffer time for them"
+      ],
+      "interrupted": false,
+      "transcript_confidence": 0.9980469
+    },
+    {
+      "id": "item_33b6c17379b2",
+      "type": "message",
+      "role": "user",
+      "content": [
+        "for all the unexpected tasks. I I"
+      ],
+      "interrupted": false,
+      "transcript_confidence": 0.95410156
+    },
+    {
+      "id": "item_beab3bbeb1bd",
+      "type": "message",
+      "role": "user",
+      "content": [
+        "know that this will be a problem. So I keep some time"
+      ],
+      "interrupted": false,
+      "transcript_confidence": 0.99951172
+    },
+    {
+      "id": "item_3836febeeaae",
+      "type": "message",
+      "role": "assistant",
+      "content": [
+        "Thank you,"
+      ],
+      "interrupted": true
+    },
+    {
+      "id": "item_1f446c77046c",
+      "type": "message",
+      "role": "user",
+      "content": [
+        "separately, and I use that time when something comes up."
+      ],
+      "interrupted": false,
+      "transcript_confidence": 0.99902344
+    },
+    {
+      "id": "item_3806ef682cec",
+      "type": "message",
+      "role": "assistant",
+      "content": [
+        "Thank you, Swayam. That's a practical approach.\n\nLet's move to **Question 2: Tell me about a situation where you had to work with someone who had a different working style or personality than yours. How did you adapt and collaborate effectively?**"
+      ],
+      "interrupted": false
+    },
+    {
+      "id": "item_d3d063e360b0",
+      "type": "message",
+      "role": "user",
+      "content": [
+        "I understand people that I work will have differences with me, but it is"
+      ],
+      "interrupted": false,
+      "transcript_confidence": 0.997558595
+    },
+    {
+      "id": "item_9237cc4c5059",
+      "type": "message",
+      "role": "user",
+      "content": [
+        "that we reach a common ground and we work towards the same goal. So I make sure we both given our input and then we work on the most optimal out"
+      ],
+      "interrupted": false,
+      "transcript_confidence": 0.9993489666666666
+    },
+    {
+      "id": "item_bf979e4c3236",
+      "type": "message",
+      "role": "user",
+      "content": [
+        "And that's how"
+      ],
+      "interrupted": false,
+      "transcript_confidence": 0.99902344
+    },
+    {
+      "id": "item_973c71c09ff1",
+      "type": "message",
+      "role": "assistant",
+      "content": [
+        "Thank"
+      ],
+      "interrupted": true
+    },
+    {
+      "id": "item_c99d672a0382",
+      "type": "message",
+      "role": "user",
+      "content": [
+        "I work on it. Thank you."
+      ],
+      "interrupted": false,
+      "transcript_confidence": 0.9990234499999999
+    },
+    {
+      "id": "item_5ac52fb21d13",
+      "type": "message",
+      "role": "assistant",
+      "content": [
+        "Thank you, Swayam. That shows a willingness to find common ground.\n\n**Follow-up Question 2: Can you give me a specific example of a time you successfully navigated a difference in working style, and what was the outcome of that collaboration?**"
+      ],
+      "interrupted": false
+    },
+    {
+      "id": "item_9aa274924ccd",
+      "type": "message",
+      "role": "user",
+      "content": [
+        "Once while working on this app,"
+      ],
+      "interrupted": false,
+      "transcript_confidence": 0.9902344
+    },
+    {
+      "id": "item_c09621849d4a",
+      "type": "message",
+      "role": "user",
+      "content": [
+        "feature, me and"
+      ],
+      "interrupted": false,
+      "transcript_confidence": 0.9941406
+    },
+    {
+      "id": "item_3f06b0c96d79",
+      "type": "message",
+      "role": "user",
+      "content": [
+        "my partner had different ideas. So we talked with that mentor, and then we decided on what"
+      ],
+      "interrupted": false,
+      "transcript_confidence": 0.99934896
+    },
+    {
+      "id": "item_65fb9d77170e",
+      "type": "message",
+      "role": "user",
+      "content": [
+        "feature to come up with and what would be in more use. And which can be also"
+      ],
+      "interrupted": false,
+      "transcript_confidence": 0.9831542950000001
+    },
+    {
+      "id": "item_8a97e2e5c3e0",
+      "type": "message",
+      "role": "user",
+      "content": [
+        "used throughout the whole process. So that's"
+      ],
+      "interrupted": false,
+      "transcript_confidence": 0.9735514333333334
+    },
+    {
+      "id": "item_6a824c29b23e",
+      "type": "message",
+      "role": "user",
+      "content": [
+        "it. Thank you."
+      ],
+      "interrupted": false,
+      "transcript_confidence": 0.97753906
+    },
+    {
+      "id": "item_d88ca3b16cb0",
+      "type": "message",
+      "role": "assistant",
+      "content": [
+        "Thank"
+      ],
+      "interrupted": true
+    },
+    {
+      "id": "item_674e020bdf75",
+      "type": "message",
+      "role": "user",
+      "content": [
+        "Bye."
+      ],
+      "interrupted": false,
+      "transcript_confidence": 0.8479004
+    },
+    {
+      "id": "item_77cd84e9e00c",
+      "type": "message",
+      "role": "assistant",
+      "content": [
+        "Thank you, Swayam. It's good to hear you sought guidance and discussed options.\n\nLet's move on to **Question 3: Describe a time you made a mistake or failed at something. What did you learn from that experience, and how did you apply that learning moving forward?**"
+      ],
+      "interrupted": false
+    },
+    {
+      "id": "item_c50f08600b0a",
+      "type": "message",
+      "role": "user",
+      "content": [
+        "So once I had to make a present"
+      ],
+      "interrupted": false,
+      "transcript_confidence": 0.9897461
+    },
+    {
+      "id": "item_f74519b8ddcb",
+      "type": "message",
+      "role": "user",
+      "content": [
+        "for a class, but I quite didn't understand the topic."
+      ],
+      "interrupted": false,
+      "transcript_confidence": 1.0
+    },
+    {
+      "id": "item_482aeaa36d9c",
+      "type": "message",
+      "role": "user",
+      "content": [
+        "So"
+      ],
+      "interrupted": false,
+      "transcript_confidence": 0.99902344
+    },
+    {
+      "id": "item_4b9d569c10c6",
+      "type": "message",
+      "role": "user",
+      "content": [
+        "when I gave a rough draft to my team,"
+      ],
+      "interrupted": false,
+      "transcript_confidence": 0.99316406
+    },
+    {
+      "id": "item_5f79660a9dc6",
+      "type": "message",
+      "role": "user",
+      "content": [
+        "of them kindly pointed it out, and I'm thankful they did it"
+      ],
+      "interrupted": false,
+      "transcript_confidence": 0.99902344
+    },
+    {
+      "id": "item_0eb4537afc3d",
+      "type": "message",
+      "role": "user",
+      "content": [
+        "properly. I made the necessary changes quickly, and I was able to bounce back."
+      ],
+      "interrupted": false,
+      "transcript_confidence": 0.99951172
+    },
+    {
+      "id": "item_8c7c71f88e37",
+      "type": "message",
+      "role": "user",
+      "content": [
+        "And I learned next time,"
+      ],
+      "interrupted": false,
+      "transcript_confidence": 0.9790039
+    },
+    {
+      "id": "item_1eddd875bb54",
+      "type": "message",
+      "role": "user",
+      "content": [
+        "I will be more patient and learn the more"
+      ],
+      "interrupted": false,
+      "transcript_confidence": 0.99902344
+    },
+    {
+      "id": "item_68f717c726e6",
+      "type": "message",
+      "role": "user",
+      "content": [
+        "prop the problem more"
+      ],
+      "interrupted": false,
+      "transcript_confidence": 0.99902344
+    },
+    {
+      "id": "item_80e1c2965d23",
+      "type": "message",
+      "role": "user",
+      "content": [
+        "closely and work with my team"
+      ],
+      "interrupted": false,
+      "transcript_confidence": 1.0
+    },
+    {
+      "id": "item_29f5d158f020",
+      "type": "message",
+      "role": "user",
+      "content": [
+        "more"
+      ],
+      "interrupted": false,
+      "transcript_confidence": 0.9980469
+    },
+    {
+      "id": "item_b16af1c201af",
+      "type": "message",
+      "role": "assistant",
+      "content": [
+        "Thank"
+      ],
+      "interrupted": true
+    },
+    {
+      "id": "item_a440ea162be3",
+      "type": "message",
+      "role": "user",
+      "content": [
+        "closely."
+      ],
+      "interrupted": false,
+      "transcript_confidence": 0.9345703
+    },
+    {
+      "id": "item_66f3d4648d14",
+      "type": "message",
+      "role": "assistant",
+      "content": [
+        "Thank you, Swayam. That's a valuable lesson in seeking feedback.\n\n**Follow-up Question 3: When you say you'll \"learn the problem more closely next time,\" what concrete steps might you take to ensure a deeper understanding before starting a task like that presentation?**"
+      ],
+      "interrupted": false
+    },
+    {
+      "id": "item_0956b1364a8e",
+      "type": "message",
+      "role": "user",
+      "content": [
+        "Working closely would be so that I understand all the technical"
+      ],
+      "interrupted": false,
+      "transcript_confidence": 1.0
+    },
+    {
+      "id": "item_24baac9aec46",
+      "type": "message",
+      "role": "user",
+      "content": [
+        "stuff properly and understand what goes on behind"
+      ],
+      "interrupted": false,
+      "transcript_confidence": 0.99902344
+    },
+    {
+      "id": "item_0db157c781c9",
+      "type": "message",
+      "role": "user",
+      "content": [
+        "the person who asked the question."
+      ],
+      "interrupted": false,
+      "transcript_confidence": 0.984375
+    },
+    {
+      "id": "item_8ce6502579dc",
+      "type": "message",
+      "role": "user",
+      "content": [
+        "So I need to have a clear understanding So I'll ask them, and I'll confirm with them"
+      ],
+      "interrupted": false,
+      "transcript_confidence": 1.0
+    },
+    {
+      "id": "item_90d3c3d186b9",
+      "type": "message",
+      "role": "user",
+      "content": [
+        "a few times."
+      ],
+      "interrupted": false,
+      "transcript_confidence": 0.9770508
+    },
+    {
+      "id": "item_9f1981fe2771",
+      "type": "message",
+      "role": "user",
+      "content": [
+        "And then I'll go ahead with my working."
+      ],
+      "interrupted": false,
+      "transcript_confidence": 1.0
+    },
+    {
+      "id": "item_d88e219ff5de",
+      "type": "message",
+      "role": "assistant",
+      "content": [
+        "Thank you, Swayam. That clarity on seeking confirmation is helpful.\n\nNow, let's move to **Question 4: How do you stay motivated and engaged, especially when working on tasks that might be challenging or less exciting?**"
+      ],
+      "interrupted": false
+    },
+    {
+      "id": "item_3e28e44872ab",
+      "type": "message",
+      "role": "user",
+      "content": [
+        "Okay. So when I work"
+      ],
+      "interrupted": false,
+      "transcript_confidence": 0.984375
+    },
+    {
+      "id": "item_ec5ec7a02a43",
+      "type": "message",
+      "role": "user",
+      "content": [
+        "on a"
+      ],
+      "interrupted": false,
+      "transcript_confidence": 0.9980469
+    },
+    {
+      "id": "item_da39eca0f40e",
+      "type": "message",
+      "role": "user",
+      "content": [
+        "goal that is that I share commonly with a lot of people, Honestly, the community work"
+      ],
+      "interrupted": false,
+      "transcript_confidence": 1.0
+    },
+    {
+      "id": "item_b6a11a499a0b",
+      "type": "message",
+      "role": "user",
+      "content": [
+        "the community helps a lot. They motivate me, and my friends motivate me. I have good guides and mentor."
+      ],
+      "interrupted": false,
+      "transcript_confidence": 1.0
+    },
+    {
+      "id": "item_a47c05561679",
+      "type": "message",
+      "role": "user",
+      "content": [
+        "Who have supported me throughout. So that motivates me to work more honestly."
+      ],
+      "interrupted": false,
+      "transcript_confidence": 1.0
+    },
+    {
+      "id": "item_32f34ad7f40c",
+      "type": "message",
+      "role": "assistant",
+      "content": [
+        "Thank you, Swayam. It's clear that collaboration and support systems are important to you.\n\n**Follow-up Question 4: Beyond the support of your community and mentors, what internal drivers or personal strategies do you employ to maintain your focus and enthusiasm when faced with a task that doesn't immediately spark your interest?**"
+      ],
+      "interrupted": false
+    },
+    {
+      "id": "item_37225b73f584",
+      "type": "message",
+      "role": "user",
+      "content": [
+        "I understand everything is not made for me, but I have the willing list willingness to learn about it honestly."
+      ],
+      "interrupted": false,
+      "transcript_confidence": 0.9985351499999999
+    },
+    {
+      "id": "item_fa774e8b42e5",
+      "type": "message",
+      "role": "user",
+      "content": [
+        "I will take time and listen to it properly. And do my things I my drive would be that I work on a task given to me properly"
+      ],
+      "interrupted": false,
+      "transcript_confidence": 0.99934896
+    },
+    {
+      "id": "item_f3ce5223a4b5",
+      "type": "message",
+      "role": "user",
+      "content": [
+        "And"
+      ],
+      "interrupted": false,
+      "transcript_confidence": 0.9970703
+    },
+    {
+      "id": "item_c9052ab9adc6",
+      "type": "message",
+      "role": "user",
+      "content": [
+        "in a very effective way."
+      ],
+      "interrupted": false,
+      "transcript_confidence": 0.99902344
+    },
+    {
+      "id": "item_91d95a4a04a7",
+      "type": "message",
+      "role": "user",
+      "content": [
+        "So"
+      ],
+      "interrupted": false,
+      "transcript_confidence": 0.9980469
+    },
+    {
+      "id": "item_ba436cbe840f",
+      "type": "message",
+      "role": "user",
+      "content": [
+        "proving that I can do good to my mentors is also important to me, and it's"
+      ],
+      "interrupted": false,
+      "transcript_confidence": 0.99902344
+    },
+    {
+      "id": "item_3933840b64de",
+      "type": "message",
+      "role": "user",
+      "content": [
+        "honestly my drive to work."
+      ],
+      "interrupted": false,
+      "transcript_confidence": 0.9970703
+    },
+    {
+      "id": "item_71297533bc60",
+      "type": "message",
+      "role": "assistant",
+      "content": [
+        "Thank you, Swayam. That's a good insight into your proactive approach.\n\nWe're on our final question.\n\n**Question 5: Imagine you've joined our company and are working on a project. You discover a potential improvement to the current process that could save time or resources, but it's outside your assigned responsibilities. What would you do?**"
+      ],
+      "interrupted": false
+    },
+    {
+      "id": "item_6756b1bd090d",
+      "type": "message",
+      "role": "assistant",
+      "content": [
+        "Thank you, Swayam. That's a good perspective on finding motivation through effectiveness and delivering on expectations.\n\nWe're on to our final question.\n\n**Question 5: Looking ahead, what are your career aspirations for the next five years, and how do you see yourself growing within a company like ours?**"
+      ],
+      "interrupted": false
+    },
+    {
+      "id": "item_7678fc31fdad",
+      "type": "message",
+      "role": "user",
+      "content": [
+        "I like the goal the company is working towards honestly, and I would like to be a part of it."
+      ],
+      "interrupted": false,
+      "transcript_confidence": 0.9914550799999999
+    },
+    {
+      "id": "item_3c3a7af7993a",
+      "type": "message",
+      "role": "user",
+      "content": [
+        "I would honestly look for more opportunities that are aligned to my work."
+      ],
+      "interrupted": false,
+      "transcript_confidence": 0.9184570320000001
+    },
+    {
+      "id": "item_17a62b30667f",
+      "type": "message",
+      "role": "user",
+      "content": [
+        "Ethics and space. And this company does provide so. So I hope I grow"
+      ],
+      "interrupted": false,
+      "transcript_confidence": 0.9760742133333333
+    },
+    {
+      "id": "item_200b525a5ba5",
+      "type": "message",
+      "role": "user",
+      "content": [
+        "bigger"
+      ],
+      "interrupted": false,
+      "transcript_confidence": 0.93359375
+    },
+    {
+      "id": "item_1113d5b4811d",
+      "type": "message",
+      "role": "user",
+      "content": [
+        "in positions in this company."
+      ],
+      "interrupted": false,
+      "transcript_confidence": 0.9970703
+    },
+    {
+      "id": "item_8732eb61dc75",
+      "type": "message",
+      "role": "assistant",
+      "content": [
+        "Thank you, Swayam. It's good to hear you're thinking about your long-term growth and alignment with the company.\n\n**Follow-up Question 5: You mentioned wanting to \"grow bigger in positions.\" Can you elaborate on what that growth might look like for you in terms of skills you'd want to develop, the kind of impact you'd hope to make, or specific areas of technology you'd be interested in specializing in within those next five years?**"
+      ],
+      "interrupted": false
+    },
+    {
+      "id": "item_bae5b67f579e",
+      "type": "message",
+      "role": "user",
+      "content": [
+        "Can you repeat the question again?"
+      ],
+      "interrupted": false,
+      "transcript_confidence": 1.0
+    },
+    {
+      "id": "item_6a8fb888a5e5",
+      "type": "message",
+      "role": "assistant",
+      "content": [
+        "Certainly, Swayam.\n\n**Follow-up Question 5: You mentioned wanting to \"grow bigger in positions.\" Can you elaborate on what that growth might look like for you in terms of skills you'd want to develop, the kind of impact you'd hope to make, or specific areas of technology you'd be interested in specializing in within those next five years?**"
+      ],
+      "interrupted": false
+    },
+    {
+      "id": "item_449373d23ec3",
+      "type": "message",
+      "role": "assistant",
+      "content": [
+        "Certainly.\n\n**Follow-up Question 5: You mentioned wanting to \"grow bigger in positions.\" Can you elaborate on what that growth might look like for you in terms of skills you'd want to develop, the kind of impact you'd hope to make, or specific areas of technology you'd be interested in specializing in within those next five years?**"
+      ],
+      "interrupted": false
+    },
+    {
+      "id": "item_dee5629ba5fd",
+      "type": "message",
+      "role": "user",
+      "content": [
+        "I would like to look up to my mentor. When I do so. And they can actively guide me where to what to learn and what to"
+      ],
+      "interrupted": false,
+      "transcript_confidence": 0.9942382780000001
+    },
+    {
+      "id": "item_26a48c6ff55a",
+      "type": "message",
+      "role": "user",
+      "content": [
+        "where to seek help from honestly. I am a little bit unclear of that aspect now."
+      ],
+      "interrupted": false,
+      "transcript_confidence": 0.99951172
+    },
+    {
+      "id": "item_139be78c9a62",
+      "type": "message",
+      "role": "user",
+      "content": [
+        "But I hope I my team and my mentors guide me so that I know stuff properly while working in the process."
+      ],
+      "interrupted": false,
+      "transcript_confidence": 0.9973958333333334
+    },
+    {
+      "id": "item_a90b7edc5624",
+      "type": "message",
+      "role": "assistant",
+      "content": [
+        "Thank you, Swayam. I appreciate your honesty about still figuring out the specifics and your trust in mentorship and guidance to shape that growth.\n\nThat concludes our questions for today. Thank you for your time and thoughtful responses."
+      ],
+      "interrupted": false
+    },
+    {
+      "id": "item_0b3ace382b12",
+      "type": "message",
+      "role": "user",
+      "content": [
+        "Thank you."
+      ],
+      "interrupted": false,
+      "transcript_confidence": 0.9975586
+    },
+    {
+      "id": "item_3d9dbba9f3d7",
+      "type": "message",
+      "role": "assistant",
+      "content": [
+        "It was a pleasure speaking with you, Swayam. We'll be in touch regarding the next steps. Have a great day!"
+      ],
+      "interrupted": false
+    }
+  ]
+}
